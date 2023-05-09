@@ -46,8 +46,9 @@ class LoginViewController: UIViewController {
         userEmail = emailTextField.text!
         userPassword = passwordTextField.text!
         
-        print("유저의 이메일은 \(userEmail) : 비밀번호는 \(userPassword)")
-        if userEmail == defaulfEmail && userPassword == defaultPassword {
+        let server = Server()
+        let result = server.postSignInServer(requestURL: "auth/signin", requestBody: ["userId":userEmail, "password":userPassword])
+        if result.contains("succed") {
             print("로그인 성공!!")
             // Home으로 이동하기!
             let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
@@ -55,8 +56,6 @@ class LoginViewController: UIViewController {
             vcName?.modalTransitionStyle = .crossDissolve
             self.present(vcName!, animated: true, completion: nil)
         } else {
-            print("로그인 실패!!")
-            print("다시 시도해 보세요!")
             self.showToast(message: "올바른 로그인이 아닙니다.")
         }
     }

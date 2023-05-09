@@ -67,27 +67,32 @@ class SignInViewController: UIViewController {
         
     }
     
+    @IBAction func editingUsername(_ sender: UITextField) { // 이름 입력 시에 해쉬맵에 넣기
+        userMap["name"] = sender.text
+    }
     
     
-    @IBAction func emailCheck(_ sender: UIButton) {
+    @IBAction func emailCheck(_ sender: UIButton) { // 이메일 인증
         if emailTextField.text == "" {
             showToast(message: "이메일을 다시 한번 확인해 주세요.")
         } else {
-            
+            let server = Server()
+            server.postEmailServer(requestURL: "auth/email-send", requestBody: ["userId":emailTextField.text!])
+            userMap["email"] = emailTextField.text
         }
     }
     
-    @IBAction func numCheck(_ sender: UIButton) {
+    @IBAction func numCheck(_ sender: UIButton) { // 인증번호 체크
         if numTextField.text == "" { // 입력된 것이 없기에 토스트 메시지 띄우기
             showToast(message: "인증번호를 다시 한번 확인해 주세요.")
         } else { // 서버에 보내야 할 프로토콜
-            
-            
-            userMap["email"] = emailTextField.text!
+            let server = Server()
+            server.postEmailServer(requestURL: "auth/email-verify", requestBody: ["userId":emailTextField.text!, "emailAuthCode":numTextField.text!])
+            userMap["email"] = emailTextField.text
         }
     }
     
-    @IBAction func pwdCheck(_ sender: UITextField) {
+    @IBAction func pwdCheck(_ sender: UITextField) { // 비밀번호 이중 체크
         if sender.text != pwdTextField.text {
             showToast(message: "비밀번호가 일치하지 않습니다.")
         } else {
@@ -95,7 +100,7 @@ class SignInViewController: UIViewController {
         }
     }
     
-    @IBAction func selectBirthDay(_ sender: UIDatePicker) {
+    @IBAction func selectBirthDay(_ sender: UIDatePicker) { // 생년월일 고르기
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         birthLabel.text = dateFormatter.string(from: sender.date)
@@ -107,8 +112,18 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func completeSignIn(_ sender: UIButton) { // 서버의 DB로 정보를 전송
-        
-        dismiss(animated: true) // 모달 닫기
+        if !userMap.values.contains("") { // userMap에 저장된 모든 값이 빈 문자열이 아닐 때만 User 객체 생성
+            let user = User(
+                name: userMap["name"]!,
+                email: userMap["email"]!,
+                password: userMap["password"]!,
+                birth: userMap["birth"]!
+            )
+            dump(user)
+        } else {
+            showToast(message: "모든 항목을 확인해주세요.")
+        }
+//        dismiss(animated: true) // 모달 닫기
     }
     
     

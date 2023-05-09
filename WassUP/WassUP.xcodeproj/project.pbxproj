@@ -10,6 +10,7 @@
 		DE11636F2A09C6C800C29FF1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE11636E2A09C6C800C29FF1 /* SnapKit */; };
 		DE1163722A09C6F000C29FF1 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DE1163712A09C6F000C29FF1 /* Then */; };
 		DE1163742A09DE4800C29FF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1163732A09DE4800C29FF1 /* User.swift */; };
+		DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1163752A0A1D2200C29FF1 /* Server.swift */; };
 		DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */; };
 		DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */; };
 		DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850D129D1E108000CDE9C /* WriteViewController.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		DE1163732A09DE4800C29FF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DE1163752A0A1D2200C29FF1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DE2850D129D1E108000CDE9C /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				DE45076929C9144D00365556 /* SignInViewController.swift */,
 				DE1163732A09DE4800C29FF1 /* User.swift */,
+				DE1163752A0A1D2200C29FF1 /* Server.swift */,
 				DE45076B29C9146700365556 /* SignIn.storyboard */,
 			);
 			path = SignIn;
@@ -344,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */,
 				DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */,
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
 				DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */,
