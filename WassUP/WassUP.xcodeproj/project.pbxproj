@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE11636F2A09C6C800C29FF1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE11636E2A09C6C800C29FF1 /* SnapKit */; };
+		DE1163722A09C6F000C29FF1 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DE1163712A09C6F000C29FF1 /* Then */; };
+		DE1163742A09DE4800C29FF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1163732A09DE4800C29FF1 /* User.swift */; };
 		DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */; };
 		DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */; };
 		DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850D129D1E108000CDE9C /* WriteViewController.swift */; };
 		DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE2850D429D1E696000CDE9C /* Write.storyboard */; };
-		DE28511529D2207A000CDE9C /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE28511429D2207A000CDE9C /* CalendarCollectionViewCell.swift */; };
 		DE45073229C904B600365556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE45073129C904B600365556 /* AppDelegate.swift */; };
 		DE45073429C904B600365556 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE45073329C904B600365556 /* SceneDelegate.swift */; };
 		DE45073B29C904B700365556 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE45073A29C904B700365556 /* Assets.xcassets */; };
@@ -23,6 +25,9 @@
 		DE45076729C9073600365556 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE45076629C9073600365556 /* LoginViewController.swift */; };
 		DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE45076929C9144D00365556 /* SignInViewController.swift */; };
 		DE45076C29C9146700365556 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE45076B29C9146700365556 /* SignIn.storyboard */; };
+		DECF8D3D2A03C3CB00A07C4E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = DECF8D3C2A03C3CB00A07C4E /* FSCalendar */; };
+		DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */; };
+		DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECF8D412A03CAC500A07C4E /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,11 +48,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE1163732A09DE4800C29FF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DE2850D129D1E108000CDE9C /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		DE2850D429D1E696000CDE9C /* Write.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Write.storyboard; sourceTree = "<group>"; };
-		DE28511429D2207A000CDE9C /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE45072E29C904B600365556 /* WassUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WassUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE45073129C904B600365556 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE45073329C904B600365556 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +68,8 @@
 		DE45076629C9073600365556 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DE45076929C9144D00365556 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DE45076B29C9146700365556 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
+		DECF8D412A03CAC500A07C4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +77,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DECF8D3D2A03C3CB00A07C4E /* FSCalendar in Frameworks */,
+				DE1163722A09C6F000C29FF1 /* Then in Frameworks */,
+				DE11636F2A09C6C800C29FF1 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +105,6 @@
 			children = (
 				DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */,
 				DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */,
-				DE28511429D2207A000CDE9C /* CalendarCollectionViewCell.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -132,12 +141,13 @@
 		DE45073029C904B600365556 /* WassUP */ = {
 			isa = PBXGroup;
 			children = (
+				DECF8D3E2A03CAAA00A07C4E /* Detail */,
+				DE45076529C9064800365556 /* Login */,
 				DE2850D329D1E687000CDE9C /* Write */,
 				DE2850CA29D1D874000CDE9C /* TabBar */,
 				DE45076829C9142E00365556 /* SignIn */,
 				DE45073129C904B600365556 /* AppDelegate.swift */,
 				DE45073329C904B600365556 /* SceneDelegate.swift */,
-				DE45076529C9064800365556 /* Login */,
 				DE45073A29C904B700365556 /* Assets.xcassets */,
 				DE45073C29C904B700365556 /* LaunchScreen.storyboard */,
 				DE45073F29C904B700365556 /* Info.plist */,
@@ -175,9 +185,19 @@
 			isa = PBXGroup;
 			children = (
 				DE45076929C9144D00365556 /* SignInViewController.swift */,
+				DE1163732A09DE4800C29FF1 /* User.swift */,
 				DE45076B29C9146700365556 /* SignIn.storyboard */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		DECF8D3E2A03CAAA00A07C4E /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */,
+				DECF8D412A03CAC500A07C4E /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +216,11 @@
 			dependencies = (
 			);
 			name = WassUP;
+			packageProductDependencies = (
+				DECF8D3C2A03C3CB00A07C4E /* FSCalendar */,
+				DE11636E2A09C6C800C29FF1 /* SnapKit */,
+				DE1163712A09C6F000C29FF1 /* Then */,
+			);
 			productName = WassUP;
 			productReference = DE45072E29C904B600365556 /* WassUP.app */;
 			productType = "com.apple.product-type.application";
@@ -268,6 +293,11 @@
 				Base,
 			);
 			mainGroup = DE45072529C904B600365556;
+			packageReferences = (
+				DECF8D3B2A03C3CB00A07C4E /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				DE11636D2A09C6C800C29FF1 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				DE1163702A09C6F000C29FF1 /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			productRefGroup = DE45072F29C904B600365556 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -287,6 +317,7 @@
 				DE45076C29C9146700365556 /* SignIn.storyboard in Resources */,
 				DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */,
 				DE45076429C9051900365556 /* Login.storyboard in Resources */,
+				DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */,
 				DE45073E29C904B700365556 /* LaunchScreen.storyboard in Resources */,
 				DE45073B29C904B700365556 /* Assets.xcassets in Resources */,
 			);
@@ -313,11 +344,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE28511529D2207A000CDE9C /* CalendarCollectionViewCell.swift in Sources */,
+				DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */,
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
 				DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */,
 				DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */,
 				DE45076729C9073600365556 /* LoginViewController.swift in Sources */,
+				DE1163742A09DE4800C29FF1 /* User.swift in Sources */,
 				DE45073229C904B600365556 /* AppDelegate.swift in Sources */,
 				DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */,
 				DE45073429C904B600365556 /* SceneDelegate.swift in Sources */,
@@ -654,6 +686,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DE11636D2A09C6C800C29FF1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		DE1163702A09C6F000C29FF1 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		DECF8D3B2A03C3CB00A07C4E /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DE11636E2A09C6C800C29FF1 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE11636D2A09C6C800C29FF1 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		DE1163712A09C6F000C29FF1 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE1163702A09C6F000C29FF1 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		DECF8D3C2A03C3CB00A07C4E /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DECF8D3B2A03C3CB00A07C4E /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DE45072629C904B600365556 /* Project object */;
 }

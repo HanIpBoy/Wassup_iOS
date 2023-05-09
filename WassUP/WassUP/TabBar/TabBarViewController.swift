@@ -31,7 +31,9 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate {
 
         // 해당 인덱스인 1번에서는 정상 작동하지 않도록 한다.
         return false
+        
     }
     
 
 }
+

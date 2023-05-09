@@ -6,145 +6,84 @@
 //
 
 import UIKit
+import FSCalendar
 
 class ScheduleViewController: UIViewController {
 
-    @IBOutlet weak var myView: UIView!
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var previousButton: UIButton!
-    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var calendarView: FSCalendar!
     
-    @IBOutlet weak var weekStackView: UIStackView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    private let calendar = Calendar.current
-    private let dateFormatter = DateFormatter()
-    private var calendarDate = Date()
-    private var days = [String]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        calendarConfigure()
+    }
+    
+    func calendarConfigure() {
+        calendarView.delegate = self
+        calendarView.dataSource = self
         
-        myViewStyle()
-        configureCalendar()
-    }
-    
-    func myViewStyle() {
-        myView.layer.cornerRadius = 20
+        // Style
+        calendarView.layer.cornerRadius = 20
+        calendarView.headerHeight = 50
+        calendarView.weekdayHeight = 20
+        calendarView.appearance.headerMinimumDissolvedAlpha = 0.0 // header의 이번 달만 표시
+        calendarView.appearance.headerDateFormat = "YYYY년 M월"
+        calendarView.appearance.headerTitleColor = .label
         
-        todayButton.tintColor = UIColor(red: 0, green: 64/255, blue: 255/255, alpha: 1)
-        todayButton.layer.cornerRadius = 15
-        todayButton.layer.masksToBounds = true
-    }
-    
-    private func configureCalendar() {
-        self.dateFormatter.dateFormat = "yyyy년 MM월"
-        self.today()
-    }
-    
-    private func today() {
-        let components = self.calendar.dateComponents([.year, .month], from: Date())
-        self.calendarDate = self.calendar.date(from: components) ?? Date()
-        self.updateCalendar()
-    }
-    
-    func startDayOfTheWeek() -> Int {
-        return self.calendar.component(.weekday, from: self.calendarDate) - 1
-    }
-    
-    func endDate() -> Int {
-        return self.calendar.range(of: .day, in: .month, for: self.calendarDate)?.count ?? Int()
-    }
-    
-    func updateTitle() {
-        let date = self.dateFormatter.string(from: self.calendarDate)
-        self.titleLabel.text = date
-    }
-    
-    func updateDays() {
-        self.days.removeAll()
-        let startDayOfTheWeek = self.startDayOfTheWeek()
-        let totalDays = startDayOfTheWeek + self.endDate()
+        // Style - event
+        calendarView.appearance.eventDefaultColor = .systemBlue
+        calendarView.appearance.eventSelectionColor = .systemMint
         
-        for day in Int()..<totalDays {
-            if day < startDayOfTheWeek {
-                self.days.append("")
-                continue
-            }
-            self.days.append("\(day - startDayOfTheWeek + 1)")
-        }
+        // Style - 오늘 및 선택 원형 색깔
+        calendarView.appearance.todayColor = .gray
+        calendarView.appearance.selectionColor = UIColor(hexString: "0040ff")
         
-        self.collectionView.reloadData()
-    }
-    
-    func updateCalendar() {
-        self.updateTitle()
-        self.updateDays()
-    }
-    
-    func minusMonth() {
-        self.calendarDate = self.calendar.date(byAdding: DateComponents(month:-1), to: self.calendarDate) ?? Date()
-        self.updateCalendar()
-    }
-    
-    func plusMonth(){
-        self.calendarDate = self.calendar.date(byAdding: DateComponents(month:1), to: self.calendarDate) ?? Date()
-        self.updateCalendar()
+        // Style - 글자 색
+        calendarView.appearance.titleDefaultColor = .label
+        calendarView.appearance.titleTodayColor = .label
+        calendarView.appearance.titleSelectionColor = .white
+        calendarView.appearance.weekdayTextColor = .label
+        
+        // functional
+        calendarView.locale = Locale(identifier: "ko_KR")
+        
+        
     }
     
     
-    @IBAction func nextMonth(_ sender: UIButton) {
-        self.plusMonth()
-    }
     
-    @IBAction func previousMonth(_ sender: UIButton) {
-        self.minusMonth()
-    }
     
-
-    @IBAction func moveToday(_ sender: UIButton) {
-        self.today()
-    }
     
 
 }
 
-
-extension ScheduleViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.days.count
+extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M월 d일 (E)"
+        vc.selectedDate = dateFormatter.string(from: date)
+        
+        
+        present(vc, animated: true, completion: nil)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarCollectionViewCell", for: indexPath) as? CalendarCollectionViewCell else { return CalendarCollectionViewCell() }
-        cell.update(day: self.days[indexPath.item])
-        
-        if indexPath.row % 7 == 0 {
-            cell.dayLabel.textColor = .red
-        } else if indexPath.row % 7 == 6 {
-            cell.dayLabel.textColor = .blue
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        return 0
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, weekdayTextColorFor weekday: Int) -> UIColor? {
+        if weekday == 1 {
+            return .systemRed
+        } else if weekday == 7 {
+            return .systemBlue
         } else {
-            cell.dayLabel.textColor = .black
+            return .label
         }
-        
-        return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.weekStackView.frame.width / 7
-        let height = self.collectionView.frame.height / 6.7
-
-        return CGSize(width: width, height: height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .zero
-    }
-
 }
+
 
