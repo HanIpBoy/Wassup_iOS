@@ -74,12 +74,13 @@ class SignInViewController: UIViewController {
     
     @IBAction func emailCheck(_ sender: UIButton) { // 이메일 인증
         if emailTextField.text == "" {
-            showToast(message: "이메일을 다시 한번 확인해 주세요.")
+            showToast(message: "이메일을 입력해 주세요.")
         } else {
             let server = Server()
             server.postEmailServer(requestURL: "auth/email-send", requestBody: ["userId":emailTextField.text!])
-            userMap["email"] = emailTextField.text
+            showToast(message: "이메일을 확인해 주세요.")
         }
+        userMap["email"] = emailTextField.text
     }
     
     @IBAction func numCheck(_ sender: UIButton) { // 인증번호 체크
@@ -87,8 +88,19 @@ class SignInViewController: UIViewController {
             showToast(message: "인증번호를 다시 한번 확인해 주세요.")
         } else { // 서버에 보내야 할 프로토콜
             let server = Server()
-            server.postEmailServer(requestURL: "auth/email-verify", requestBody: ["userId":emailTextField.text!, "emailAuthCode":numTextField.text!])
-            userMap["email"] = emailTextField.text
+            server.emailVerify(requestURL: "auth/email-verify", requestBody: ["userId":emailTextField.text!, "emailAuthCode":numTextField.text!]) { responseString in
+                print("responseString: \(responseString)")
+                if responseString.contains("success") {
+                    DispatchQueue.main.async {
+                        self.userMap["email"] = self.emailTextField.text
+                        self.showToast(message: "인증 완료")
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showToast(message: "인증번호를 다시 전송받고 입력해주세요.")
+                    }
+                }
+            }
         }
     }
     
@@ -96,7 +108,7 @@ class SignInViewController: UIViewController {
         if sender.text != pwdTextField.text {
             showToast(message: "비밀번호가 일치하지 않습니다.")
         } else {
-            userMap["password"] = pwdTextField.text
+            userMap["password"] = sender.text
         }
     }
     
@@ -120,6 +132,11 @@ class SignInViewController: UIViewController {
                 birth: userMap["birth"]!
             )
             dump(user)
+            let server = Server()
+            server.postEmailServer(requestURL: "auth/signup", requestBody: ["userId":user.email,"password":user.password,"userName":user.name,"birth":user.birth])
+            showToast(message: "로그인 해주세요.")
+            dismiss(animated: true,completion: nil)
+            
         } else {
             showToast(message: "모든 항목을 확인해주세요.")
         }

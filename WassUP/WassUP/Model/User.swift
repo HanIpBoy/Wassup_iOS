@@ -12,10 +12,13 @@ class User {
     var password: String
     var birth: String
     
+    
     init(name: String, email: String, password: String, birth: String) {
         self.name = name
         self.email = email
         self.password = password
         self.birth = birth
     }
+    
+    
 }

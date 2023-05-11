@@ -13,10 +13,14 @@ class ScheduleViewController: UIViewController {
     
     @IBOutlet weak var calendarView: FSCalendar!
     
+    var userId: String = UserDefaults.standard.string(forKey: "userId")!
+    var token: String = UserDefaults.standard.string(forKey: "token")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         calendarConfigure()
+        
     }
     
     func calendarConfigure() {

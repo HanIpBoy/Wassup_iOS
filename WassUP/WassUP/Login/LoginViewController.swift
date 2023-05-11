@@ -46,10 +46,26 @@ class LoginViewController: UIViewController {
         userEmail = emailTextField.text!
         userPassword = passwordTextField.text!
         
+        let dispatchGroup = DispatchGroup()
+        
         let server = Server()
-        let result = server.postSignInServer(requestURL: "auth/signin", requestBody: ["userId":userEmail, "password":userPassword])
-        if result.contains("succed") {
-            print("로그인 성공!!")
+        dispatchGroup.enter() // 동기 실행 진입!
+        server.signIn(requestURL: "auth/signin", requestBody: ["userId": userEmail, "password": userPassword]) { token in
+            if let token = token {
+                UserDefaults.standard.set(token, forKey: "token")
+                print("token 저장 완료")
+            } else {
+                print("Failed to save token.")
+            }
+            dispatchGroup.leave() // 탈출!
+        }
+        dispatchGroup.wait() // 탈출 신호를 기다렸다가 받으면 if문 실행
+        if UserDefaults.standard.object(forKey: "token") != nil {
+            
+            UserDefaults.standard.set(userEmail, forKey: "userId")
+            UserDefaults.standard.set(userPassword, forKey: "password")
+            showToast(message: "로그인 성공")
+            
             // Home으로 이동하기!
             let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
             vcName?.modalPresentationStyle = .fullScreen
@@ -125,5 +141,8 @@ extension LoginViewController {
             toastLabel.removeFromSuperview()
         })
     }
+    
+    
 }
+
 
