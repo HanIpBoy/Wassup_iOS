@@ -7,7 +7,7 @@
 
 import Foundation
 class Server {
-    var baseURL = "http://3.38.183.119:8080/"
+    var baseURL = "http://43.201.251.14:8080/"
     var result: String = ""
     
     func postEmailServer(requestURL: String, requestBody:[String:Any]){
@@ -50,7 +50,7 @@ class Server {
         }
         task.resume()
     }
-
+    
     
     func signIn(requestURL: String, requestBody: [String:Any], completion: @escaping (String?) -> Void) {
         guard let url = URL(string: Server().baseURL + requestURL) else { return }
@@ -79,24 +79,50 @@ class Server {
         task.resume()
     }
     
-    func createSchedule(requestURL: String, requestBody: [String:Any]) {
+    func createSchedule(requestURL: String, requestData: [String: Any], token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        guard let url = URL(string: Server().baseURL + requestURL) else {
+            completion(nil, nil, nil) // 잘못된 URL이면 completion에 nil 전달
+            return
+        }
         
-        guard let url = URL(string: Server().baseURL + requestURL) else {return}
         var request = URLRequest(url: url)
+        var header = "Bearer \(token)"
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(header, forHTTPHeaderField: "Authorization")
         
-        let data = try? JSONSerialization.data(withJSONObject: requestBody, options: [])
-        request.httpBody = data
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: requestData)
+            request.httpBody = jsonData
+        } catch {
+            completion(nil, nil, error) // JSON 데이터 변환 오류 발생 시 completion에 오류 전달
+            return
+        }
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return } // 응답 데이터가 nil이 아닌지 확인.
-            if let responseString = String(data: data, encoding: .utf8) {
-                print(responseString) // 응답 데이터를 콘솔에 출력
-            }
-            
+            completion(data, response, error) // 요청 결과를 completion에 전달
         }
         task.resume()
     }
+    
+    func getAllSchedule(requestURL: String, token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        guard let url = URL(string: Server().baseURL + requestURL) else {
+            completion(nil, nil, nil) // 잘못된 URL이면 completion에 nil 전달
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        let header = "Bearer \(token)"
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            completion(data, response, error) // 요청 결과를 completion에 전달
+        }
+        task.resume()
+    }
+
 }

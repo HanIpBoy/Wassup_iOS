@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFE72A121AD7009C6EF6 /* Schedule.swift */; };
+		DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */; };
 		DE11636F2A09C6C800C29FF1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE11636E2A09C6C800C29FF1 /* SnapKit */; };
 		DE1163722A09C6F000C29FF1 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DE1163712A09C6F000C29FF1 /* Then */; };
 		DE1163742A09DE4800C29FF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1163732A09DE4800C29FF1 /* User.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE02FFE72A121AD7009C6EF6 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE1163732A09DE4800C29FF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE1163752A0A1D2200C29FF1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 			children = (
 				DE1163732A09DE4800C29FF1 /* User.swift */,
 				DE1163752A0A1D2200C29FF1 /* Server.swift */,
+				DE02FFE72A121AD7009C6EF6 /* Schedule.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 			children = (
 				DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */,
 				DECF8D412A03CAC500A07C4E /* DetailViewController.swift */,
+				DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -364,6 +370,8 @@
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
 				DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */,
 				DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */,
+				DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */,
+				DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */,
 				DE45076729C9073600365556 /* LoginViewController.swift in Sources */,
 				DE1163742A09DE4800C29FF1 /* User.swift in Sources */,
 				DE45073229C904B600365556 /* AppDelegate.swift in Sources */,

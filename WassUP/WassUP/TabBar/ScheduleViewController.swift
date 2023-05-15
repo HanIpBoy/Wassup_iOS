@@ -21,6 +21,56 @@ class ScheduleViewController: UIViewController {
         
         calendarConfigure()
         
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        Schedule.shared.schedules = []
+        let server = Server()
+        server.getAllSchedule(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            
+            if let data = data {
+                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                   let json = jsonObject as? [String: Any],
+                   let dataArray = json["data"] as? [[String: Any]] {
+                    for dataEntry in dataArray {
+                        if let originKey = dataEntry["originKey"] as? String {
+                            let name = dataEntry["name"] as? String ?? ""
+                            let startAt = dataEntry["startAt"] as? String ?? ""
+                            let endAt = dataEntry["endAt"] as? String ?? ""
+                            let userId = dataEntry["userId"] as? String ?? ""
+                            let memo = dataEntry["memo"] as? String ?? ""
+                            let notification = dataEntry["notification"] as? String ?? ""
+                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
+                            let createdAt = dataEntry["createdAt"] as? String ?? ""
+                            let lastModifiedAt = dataEntry["lastModifiedAt"] as? String ?? ""
+
+                            let scheduleData = Schedule.Format(
+                                originKey: originKey,
+                                name: name,
+                                startAt: startAt,
+                                endAt: endAt,
+                                userId: userId,
+                                memo: memo,
+                                notification: notification,
+                                allDayToggle: allDayToggle,
+                                createdAt: createdAt,
+                                lastModifiedAt: lastModifiedAt
+                            )
+                            
+                            Schedule.shared.updateScheduleData(data: scheduleData)
+                        }
+                    }
+                }
+            }
+        }
+        print("2 : \(Schedule.shared.schedules)")
     }
     
     func calendarConfigure() {
@@ -55,10 +105,6 @@ class ScheduleViewController: UIViewController {
         
     }
     
-    
-    
-    
-    
 
 }
 
@@ -68,7 +114,8 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         let vc = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M월 d일 (E)"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        vc.selectDate = date
         vc.selectedDate = dateFormatter.string(from: date)
         
         

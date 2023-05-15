@@ -188,6 +188,7 @@
                         <outlet property="allDayToggle" destination="8E2-gR-DRy" id="jAn-Se-riw"/>
                         <outlet property="deleteButton" destination="agO-Rg-DnS" id="Ut7-KB-akN"/>
                         <outlet property="endDatePicker" destination="jlr-8L-b6e" id="cVO-hT-fJH"/>
+                        <outlet property="memoTextField" destination="Q3a-ka-4lp" id="Fkh-uk-ndo"/>
                         <outlet property="saveButton" destination="Je7-Eg-sIV" id="W0r-sH-2GT"/>
                         <outlet property="startDatePicker" destination="5tE-G7-GmA" id="omy-cE-hnT"/>
                         <outlet property="titleTextField" destination="DKb-3j-9oa" id="YAN-UT-SLU"/>

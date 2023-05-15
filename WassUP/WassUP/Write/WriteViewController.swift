@@ -23,6 +23,14 @@ class WriteViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     
+    @IBOutlet weak var memoTextField: UITextField!
+    
+    var originKey: String = ""
+    var name: String = ""
+    var startDateString: String = ""
+    var endDateString: String = ""
+    var memo: String = ""
+    
     
     var flag: Bool = false
     
@@ -33,11 +41,13 @@ class WriteViewController: UIViewController {
         "userId" : "",
         "memo": "",
         "notification": 1,
-        "allDayToggle": "true"
+        "allDayToggle": ""
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        print("flag \(flag)")
         initView()
     }
     
@@ -51,9 +61,19 @@ class WriteViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
-//        if titleTextField.text == "" {
-//            deleteButton.isHidden = true
-//        }
+        titleTextField.text = name
+        if flag {
+            allDayToggle.isOn = true
+            startDatePicker.datePickerMode = .date
+            endDatePicker.datePickerMode = .date
+        }
+        if titleTextField.text == "" {
+            deleteButton.isHidden = true
+        } else {
+            startDatePicker.date = makeStringDate(dateString: startDateString)
+            endDatePicker.date = makeStringDate(dateString: endDateString)
+        }
+        memoTextField.text = memo
         
     }
     
@@ -96,27 +116,59 @@ class WriteViewController: UIViewController {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     @IBAction func saveSchedule(_ sender: UIButton) { // 일정 저장
         scheduleMap["name"] = titleTextField.text
         scheduleMap["startAt"] = makeDateString(date: startDatePicker.date)
         scheduleMap["endAt"] = makeDateString(date: endDatePicker.date)
+        scheduleMap["memo"] = memoTextField.text
         scheduleMap["allDayToggle"] = String(flag)
-        
-        
-        
+        scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
+//        scheduleMap["memo"] =
+//        print(scheduleMap)
+        Schedule.shared.schedules = []
+        let server = Server()
+        server.createSchedule(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            if let data = data {
+                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                   let json = jsonObject as? [String: Any],
+                   let dataArray = json["data"] as? [[String: Any]] {
+                    for dataEntry in dataArray {
+                        if let originKey = dataEntry["originKey"] as? String {
+                            let name = dataEntry["name"] as? String ?? ""
+                            let startAt = dataEntry["startAt"] as? String ?? ""
+                            let endAt = dataEntry["endAt"] as? String ?? ""
+                            let userId = dataEntry["userId"] as? String ?? ""
+                            let memo = dataEntry["memo"] as? String ?? ""
+                            let notification = dataEntry["notification"] as? String ?? ""
+                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
+                            let createdAt = dataEntry["createdAt"] as? String ?? ""
+                            let lastModifiedAt = dataEntry["lastModifiedAt"] as? String ?? ""
+
+                            let scheduleData = Schedule.Format(
+                                originKey: originKey,
+                                name: name,
+                                startAt: startAt,
+                                endAt: endAt,
+                                userId: userId,
+                                memo: memo,
+                                notification: notification,
+                                allDayToggle: allDayToggle,
+                                createdAt: createdAt,
+                                lastModifiedAt: lastModifiedAt
+                            )
+
+                            Schedule.shared.updateScheduleData(data: scheduleData)
+                        }
+                    }
+                }
+            }
+            print(Schedule.shared.schedules)
+        }
+        dismiss(animated: true, completion: nil)
         
     }
     
@@ -129,6 +181,49 @@ class WriteViewController: UIViewController {
     
     
     @IBAction func closeWrite(_ sender: UIButton) {
+        Schedule.shared.schedules = []
+        let server = Server()
+        server.getAllSchedule(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                   let json = jsonObject as? [String: Any],
+                   let dataArray = json["data"] as? [[String: Any]] {
+                    for dataEntry in dataArray {
+                        if let originKey = dataEntry["originKey"] as? String {
+                            let name = dataEntry["name"] as? String ?? ""
+                            let startAt = dataEntry["startAt"] as? String ?? ""
+                            let endAt = dataEntry["endAt"] as? String ?? ""
+                            let userId = dataEntry["userId"] as? String ?? ""
+                            let memo = dataEntry["memo"] as? String ?? ""
+                            let notification = dataEntry["notification"] as? String ?? ""
+                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
+                            let createdAt = dataEntry["createdAt"] as? String ?? ""
+                            let lastModifiedAt = dataEntry["lastModifiedAt"] as? String ?? ""
+
+                            let scheduleData = Schedule.Format(
+                                originKey: originKey,
+                                name: name,
+                                startAt: startAt,
+                                endAt: endAt,
+                                userId: userId,
+                                memo: memo,
+                                notification: notification,
+                                allDayToggle: allDayToggle,
+                                createdAt: createdAt,
+                                lastModifiedAt: lastModifiedAt
+                            )
+
+                            Schedule.shared.updateScheduleData(data: scheduleData)
+                        }
+                    }
+                }
+            }
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -141,6 +236,14 @@ extension WriteViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
         let dateString = dateFormatter.string(from: date)
         return dateString
+    }
+    
+    func makeStringDate(dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
+        let date = dateFormatter.date(from: dateString)
+        return date!
+        
     }
     
     func showToast(message: String) {
