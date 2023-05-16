@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFE72A121AD7009C6EF6 /* Schedule.swift */; };
 		DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */; };
-		DE11636F2A09C6C800C29FF1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE11636E2A09C6C800C29FF1 /* SnapKit */; };
-		DE1163722A09C6F000C29FF1 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DE1163712A09C6F000C29FF1 /* Then */; };
+		DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFED2A129652009C6EF6 /* GroupViewController.swift */; };
+		DE02FFF12A1297FC009C6EF6 /* GroupListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */; };
+		DE02FFF32A129E74009C6EF6 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFF22A129E74009C6EF6 /* Group.swift */; };
+		DE02FFF62A12B4A0009C6EF6 /* GroupTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFF52A12B4A0009C6EF6 /* GroupTimeTableViewController.swift */; };
+		DE02FFF82A12B843009C6EF6 /* GroupTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE02FFF72A12B843009C6EF6 /* GroupTimeTable.storyboard */; };
 		DE1163742A09DE4800C29FF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1163732A09DE4800C29FF1 /* User.swift */; };
 		DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1163752A0A1D2200C29FF1 /* Server.swift */; };
 		DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */; };
@@ -54,6 +57,11 @@
 /* Begin PBXFileReference section */
 		DE02FFE72A121AD7009C6EF6 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE02FFED2A129652009C6EF6 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE02FFF22A129E74009C6EF6 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		DE02FFF52A12B4A0009C6EF6 /* GroupTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTimeTableViewController.swift; sourceTree = "<group>"; };
+		DE02FFF72A12B843009C6EF6 /* GroupTimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupTimeTable.storyboard; sourceTree = "<group>"; };
 		DE1163732A09DE4800C29FF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE1163752A0A1D2200C29FF1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -86,8 +94,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECF8D3D2A03C3CB00A07C4E /* FSCalendar in Frameworks */,
-				DE1163722A09C6F000C29FF1 /* Then in Frameworks */,
-				DE11636F2A09C6C800C29FF1 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,12 +114,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE02FFEF2A1297E8009C6EF6 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */,
+				DE02FFF72A12B843009C6EF6 /* GroupTimeTable.storyboard */,
+				DE02FFF52A12B4A0009C6EF6 /* GroupTimeTableViewController.swift */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
 		DE1163792A0A5CEC00C29FF1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				DE1163732A09DE4800C29FF1 /* User.swift */,
 				DE1163752A0A1D2200C29FF1 /* Server.swift */,
 				DE02FFE72A121AD7009C6EF6 /* Schedule.swift */,
+				DE02FFF22A129E74009C6EF6 /* Group.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -121,8 +138,10 @@
 		DE2850CA29D1D874000CDE9C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */,
+				DE68F8142A0D0130007F0C00 /* SettingViewController.swift */,
 				DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */,
+				DE02FFED2A129652009C6EF6 /* GroupViewController.swift */,
+				DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -160,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				DE1163792A0A5CEC00C29FF1 /* Model */,
+				DE02FFEF2A1297E8009C6EF6 /* Group */,
 				DECF8D3E2A03CAAA00A07C4E /* Detail */,
 				DE45076529C9064800365556 /* Login */,
 				DE2850D329D1E687000CDE9C /* Write */,
@@ -196,7 +216,6 @@
 			children = (
 				DE45076629C9073600365556 /* LoginViewController.swift */,
 				DE45076329C9051900365556 /* Login.storyboard */,
-				DE68F8142A0D0130007F0C00 /* SettingViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -238,8 +257,6 @@
 			name = WassUP;
 			packageProductDependencies = (
 				DECF8D3C2A03C3CB00A07C4E /* FSCalendar */,
-				DE11636E2A09C6C800C29FF1 /* SnapKit */,
-				DE1163712A09C6F000C29FF1 /* Then */,
 			);
 			productName = WassUP;
 			productReference = DE45072E29C904B600365556 /* WassUP.app */;
@@ -315,8 +332,6 @@
 			mainGroup = DE45072529C904B600365556;
 			packageReferences = (
 				DECF8D3B2A03C3CB00A07C4E /* XCRemoteSwiftPackageReference "FSCalendar" */,
-				DE11636D2A09C6C800C29FF1 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				DE1163702A09C6F000C29FF1 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = DE45072F29C904B600365556 /* Products */;
 			projectDirPath = "";
@@ -338,6 +353,7 @@
 				DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */,
 				DE45076429C9051900365556 /* Login.storyboard in Resources */,
 				DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */,
+				DE02FFF82A12B843009C6EF6 /* GroupTimeTable.storyboard in Resources */,
 				DE45073E29C904B700365556 /* LaunchScreen.storyboard in Resources */,
 				DE45073B29C904B700365556 /* Assets.xcassets in Resources */,
 			);
@@ -365,14 +381,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */,
+				DE02FFF12A1297FC009C6EF6 /* GroupListCollectionViewCell.swift in Sources */,
 				DE68F8152A0D0130007F0C00 /* SettingViewController.swift in Sources */,
+				DE02FFF32A129E74009C6EF6 /* Group.swift in Sources */,
 				DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */,
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
 				DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */,
 				DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */,
+				DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */,
 				DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */,
 				DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */,
 				DE45076729C9073600365556 /* LoginViewController.swift in Sources */,
+				DE02FFF62A12B4A0009C6EF6 /* GroupTimeTableViewController.swift in Sources */,
 				DE1163742A09DE4800C29FF1 /* User.swift in Sources */,
 				DE45073229C904B600365556 /* AppDelegate.swift in Sources */,
 				DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */,
@@ -712,22 +732,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DE11636D2A09C6C800C29FF1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		DE1163702A09C6F000C29FF1 /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		DECF8D3B2A03C3CB00A07C4E /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/WenchaoD/FSCalendar.git";
@@ -739,16 +743,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DE11636E2A09C6C800C29FF1 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE11636D2A09C6C800C29FF1 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		DE1163712A09C6F000C29FF1 /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE1163702A09C6F000C29FF1 /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
-		};
 		DECF8D3C2A03C3CB00A07C4E /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DECF8D3B2A03C3CB00A07C4E /* XCRemoteSwiftPackageReference "FSCalendar" */;

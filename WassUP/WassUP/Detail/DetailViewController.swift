@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     var selectedDate: String = "" // FSCal에서 선택된 날짜를 저장할 변수
     var selectDate: Date?
     var filteredSchedules: [Schedule.Format] = []
+    
 
     
     override func viewDidLoad() {

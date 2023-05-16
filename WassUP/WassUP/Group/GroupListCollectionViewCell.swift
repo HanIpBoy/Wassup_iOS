@@ -1,22 +1,20 @@
 //
-//  ListCollectionViewCell.swift
+//  GroupListCollectionViewCell.swift
 //  WassUP
 //
-//  Created by 김진웅 on 2023/05/15.
+//  Created by 김진웅 on 2023/05/16.
 //
 
 import UIKit
 
-class ListCollectionViewCell: UICollectionViewCell {
+class GroupListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var startLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
+
+    @IBOutlet weak var descriptionLabel: UILabel!
     
-    @IBOutlet weak var endLabel: UILabel!
-    
-    @IBOutlet weak var minusLabel: UILabel!
-    var cellOriginKey: String = ""
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        
@@ -24,5 +22,4 @@ class ListCollectionViewCell: UICollectionViewCell {
 //        layer.borderWidth = 1
 //        layer.borderColor = UIColor.black.cgColor
 //    }
-    
 }

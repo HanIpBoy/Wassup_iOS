@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  ScheduleViewController.swift
 //  WassUP
 //
 //  Created by 김진웅 on 2023/03/27.
@@ -15,21 +15,20 @@ class ScheduleViewController: UIViewController {
     
     var userId: String = UserDefaults.standard.string(forKey: "userId")!
     var token: String = UserDefaults.standard.string(forKey: "token")!
+    var filtered : [Schedule.Format] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         calendarConfigure()
-        
-        
-        
+        print(UserDefaults.standard.string(forKey: "token"))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         Schedule.shared.schedules = []
+        filtered = []
         let server = Server()
-        server.getAllSchedule(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.getAllData(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
@@ -65,12 +64,15 @@ class ScheduleViewController: UIViewController {
                             )
                             
                             Schedule.shared.updateScheduleData(data: scheduleData)
+                            self.filtered.append(scheduleData)
                         }
+                    }
+                    DispatchQueue.main.async {
+                        self.calendarReloadData()
                     }
                 }
             }
         }
-        print("2 : \(Schedule.shared.schedules)")
     }
     
     func calendarConfigure() {
@@ -105,6 +107,10 @@ class ScheduleViewController: UIViewController {
         
     }
     
+    func calendarReloadData() {
+        calendarView.reloadData()
+    }
+    
 
 }
 
@@ -123,7 +129,14 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return 0
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        let filtered2 = filtered.filter { schedule in
+            return schedule.startAt.contains(dateString)
+        }
+        return filtered2.count
+        
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, weekdayTextColorFor weekday: Int) -> UIColor? {
@@ -136,5 +149,12 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         }
     }
 }
+
+extension ScheduleViewController: UITabBarControllerDelegate {
+    func didFinishWriting() {
+        calendarReloadData()
+    }
+}
+
 
 

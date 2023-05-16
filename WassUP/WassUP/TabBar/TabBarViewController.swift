@@ -27,6 +27,7 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate {
         // write 스토리보드를 연관되는 뷰컨트롤러로 매칭시켜 모달 형태로 띄운다.
         let storyboard = UIStoryboard(name: "Write", bundle: nil)
         guard let writeVC = storyboard.instantiateViewController(withIdentifier: "Write") as? WriteViewController else { return true }
+        
         self.present(writeVC, animated: true, completion: nil)
 
         // 해당 인덱스인 1번에서는 정상 작동하지 않도록 한다.
@@ -36,4 +37,5 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate {
     
 
 }
+
 

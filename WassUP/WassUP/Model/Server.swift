@@ -7,7 +7,7 @@
 
 import Foundation
 class Server {
-    var baseURL = "http://43.201.251.14:8080/"
+    var baseURL = "http://43.202.6.236:8080/"
     var result: String = ""
     
     func postEmailServer(requestURL: String, requestBody:[String:Any]){
@@ -106,7 +106,7 @@ class Server {
         task.resume()
     }
     
-    func getAllSchedule(requestURL: String, token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func getAllData(requestURL: String, token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         guard let url = URL(string: Server().baseURL + requestURL) else {
             completion(nil, nil, nil) // 잘못된 URL이면 completion에 nil 전달
             return

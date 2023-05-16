@@ -25,6 +25,10 @@ class WriteViewController: UIViewController {
     
     @IBOutlet weak var memoTextField: UITextField!
     
+    
+    
+    
+    
     var originKey: String = ""
     var name: String = ""
     var startDateString: String = ""
@@ -123,8 +127,6 @@ class WriteViewController: UIViewController {
         scheduleMap["memo"] = memoTextField.text
         scheduleMap["allDayToggle"] = String(flag)
         scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
-//        scheduleMap["memo"] =
-//        print(scheduleMap)
         Schedule.shared.schedules = []
         let server = Server()
         server.createSchedule(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
@@ -164,9 +166,9 @@ class WriteViewController: UIViewController {
                             Schedule.shared.updateScheduleData(data: scheduleData)
                         }
                     }
+                    
                 }
             }
-            print(Schedule.shared.schedules)
         }
         dismiss(animated: true, completion: nil)
         
@@ -183,7 +185,7 @@ class WriteViewController: UIViewController {
     @IBAction func closeWrite(_ sender: UIButton) {
         Schedule.shared.schedules = []
         let server = Server()
-        server.getAllSchedule(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.getAllData(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
@@ -221,6 +223,7 @@ class WriteViewController: UIViewController {
                             Schedule.shared.updateScheduleData(data: scheduleData)
                         }
                     }
+                    
                 }
             }
         }
@@ -268,5 +271,7 @@ extension WriteViewController {
         })
     }
 }
+
+
 
 
