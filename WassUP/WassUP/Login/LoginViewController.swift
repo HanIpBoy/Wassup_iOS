@@ -46,33 +46,41 @@ class LoginViewController: UIViewController {
         userEmail = emailTextField.text!
         userPassword = passwordTextField.text!
         
-        let dispatchGroup = DispatchGroup()
-        
         let server = Server()
-        dispatchGroup.enter() // 동기 실행 진입!
-        server.signIn(requestURL: "auth/signin", requestBody: ["userId": userEmail, "password": userPassword]) { token in
-            if let token = token {
-                UserDefaults.standard.set(token, forKey: "token")
-                print("token 저장 완료")
-            } else {
-                print("Failed to save token.")
+        server.signIn(requestURL: "auth/signin", requestBody: ["userId": userEmail, "password": userPassword]){ (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
             }
-            dispatchGroup.leave() // 탈출!
+            
+            if let data = data {
+                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                   let json = jsonObject as? [String: Any],
+                   let dataArray = json["data"] as? [[String: Any]] {
+                    for dataEntry in dataArray {
+                        let token = dataEntry["token"] as? String ?? ""
+                        UserDefaults.standard.set(token, forKey: "token")
+                    }
+                }
+            }
         }
-        dispatchGroup.wait() // 탈출 신호를 기다렸다가 받으면 if문 실행
-        if UserDefaults.standard.object(forKey: "token") != nil {
+        DispatchQueue.main.async{
             
-            UserDefaults.standard.set(userEmail, forKey: "userId")
-            UserDefaults.standard.set(userPassword, forKey: "password")
-            showToast(message: "로그인 성공")
+            if UserDefaults.standard.object(forKey: "token") != nil {
+                
+                UserDefaults.standard.set(self.userEmail, forKey: "userId")
+                UserDefaults.standard.set(self.userPassword, forKey: "password")
+                self.showToast(message: "로그인 성공")
+                
+                // Home으로 이동하기!
+                let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+                vcName?.modalPresentationStyle = .fullScreen
+                vcName?.modalTransitionStyle = .crossDissolve
+                self.present(vcName!, animated: true, completion: nil)
+            } else {
+                self.showToast(message: "올바른 로그인이 아닙니다.")
+            }
             
-            // Home으로 이동하기!
-            let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
-            vcName?.modalPresentationStyle = .fullScreen
-            vcName?.modalTransitionStyle = .crossDissolve
-            self.present(vcName!, animated: true, completion: nil)
-        } else {
-            self.showToast(message: "올바른 로그인이 아닙니다.")
         }
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 class Server {
-    var baseURL = "http://43.202.6.236:8080/"
+    var baseURL = "http://3.38.104.222:8080/"
     var result: String = ""
     
     func postEmailServer(requestURL: String, requestBody:[String:Any]){
@@ -52,7 +52,7 @@ class Server {
     }
     
     
-    func signIn(requestURL: String, requestBody: [String:Any], completion: @escaping (String?) -> Void) {
+    func signIn(requestURL: String, requestBody: [String:Any], completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         guard let url = URL(string: Server().baseURL + requestURL) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -64,16 +64,16 @@ class Server {
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
-                completion(nil) // 응답 데이터가 없는 경우 nil 반환
+                completion(nil, nil, nil) // 응답 데이터가 없는 경우 nil 반환
                 return
             }
             
             do {
                 let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 let token = jsonResponse?["token"] as? String
-                completion(token) // 응답 데이터 중 "token" 값을 반환
+                completion(data, response, error) // 응답 데이터 중 "token" 값을 반환
             } catch {
-                completion(nil) // 파싱 오류 발생 시 nil 반환
+                completion(nil, nil, nil) // 파싱 오류 발생 시 nil 반환
             }
         }
         task.resume()

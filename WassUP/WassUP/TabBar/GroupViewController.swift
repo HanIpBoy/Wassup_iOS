@@ -20,12 +20,12 @@ class GroupViewController: UIViewController {
         groupListView.dataSource = self
         
         initView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         Group.shared2.groups = []
-        print("3 : \(Group.shared2.groups)")
         let server = Server()
         server.getAllData(requestURL: "group", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
@@ -66,13 +66,35 @@ class GroupViewController: UIViewController {
                 }
             }
         }
-        print(">>>>: \(Group.shared2.groups)")
     }
 
     
     func initView() {
         myView.layer.cornerRadius = 20
         groupListView.layer.cornerRadius = 20
+    }
+    
+    func getStartAndEndOfWeek() -> (String, String) {
+        let calendar = Calendar.current
+        let today = Date()
+
+        // 현재 날짜가 속한 주의 시작 날짜를 계산합니다.
+        var startOfWeek: Date? = nil
+        var interval: TimeInterval = 0
+        calendar.dateInterval(of: .weekOfYear, start: &startOfWeek!, interval: &interval, for: today) // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+
+        // 현재 날짜가 속한 주의 마지막 날짜를 계산합니다.
+        let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek!)
+
+        // 날짜 형식을 원하는 형태로 변환합니다.
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM.dd"
+
+        // 주의 시작 날짜와 마지막 날짜를 문자열로 변환합니다.
+        let startOfWeekString = dateFormatter.string(from: startOfWeek!)
+        let endOfWeekString = dateFormatter.string(from: endOfWeek!)
+
+        return (startOfWeekString, endOfWeekString)
     }
 
 }
@@ -84,9 +106,9 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupListCollectionViewCell", for: indexPath) as! GroupListCollectionViewCell
-        print("enter cell")
+//        print("enter cell")
         let group = Group.shared2.groups[indexPath.item]
-        print("group : \(group)")
+//        print("group : \(group)")
         cell.nameLabel.text = group.groupName
         cell.descriptionLabel.text = group.description
         cell.numberLabel.text = "👥 " + String(group.numOfUsers)
@@ -96,10 +118,28 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // layout
         return CGSize(width: groupListView.bounds.width, height: 50)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let vc = GroupTimeTableViewController()
+        let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "First") as? FirstViewController else { return }
+        let group = Group.shared2.groups[indexPath.item]
+        vc.groupName = group.groupName
+        vc.groupOriginKey = group.originKey
         
-//        present(vc, animated: true)
+//        let (startString, endString) = getStartAndEndOfWeek()
+//        let periodString = startString + " - " + endString
+//        print("period : \(periodString)")
+        self.present(vc, animated: true, completion: nil)
+        
+        
+//        // 그룹 이름 넘겨서 그룹 이름 업데이트 하는 내용
+////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupListCollectionViewCell", for: indexPath) as! GroupListCollectionViewCell
+//        let group = Group.shared2.groups[indexPath.item]
+//        let storyboard = UIStoryboard(name: "GroupSchedule", bundle: nil)
+//        guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupScheduleViewController") as? GroupScheduleViewController else { return }
+//        vc.groupName = group.groupName
+//        vc.groupOriginKey = group.originKey
+//        self.present(vc, animated: true, completion: nil)
     }
     
     

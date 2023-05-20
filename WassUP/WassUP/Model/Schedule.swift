@@ -12,6 +12,7 @@ class Schedule {
 //    var keys: [String] = []
 //    var schedules: [String: Format] = [:]
     var schedules: [Format] = []
+    var groupSchedules: [Format] = []
 
     private init() {}
 
@@ -22,14 +23,15 @@ class Schedule {
         var endAt: String
         var userId: String
         var memo: String
-        var notification: String
         var allDayToggle: String
-        var createdAt: String
-        var lastModifiedAt: String
     }
 
     func updateScheduleData(data: Format) {
         schedules.append(data)
+    }
+    
+    func updateGroupScheduleData(data: Format) {
+        groupSchedules.append(data)
     }
 
     

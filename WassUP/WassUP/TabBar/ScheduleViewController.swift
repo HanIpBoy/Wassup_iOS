@@ -28,7 +28,7 @@ class ScheduleViewController: UIViewController {
         Schedule.shared.schedules = []
         filtered = []
         let server = Server()
-        server.getAllData(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.getAllData(requestURL: "schedule/user-schedules", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
@@ -45,11 +45,8 @@ class ScheduleViewController: UIViewController {
                             let endAt = dataEntry["endAt"] as? String ?? ""
                             let userId = dataEntry["userId"] as? String ?? ""
                             let memo = dataEntry["memo"] as? String ?? ""
-                            let notification = dataEntry["notification"] as? String ?? ""
                             let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            let createdAt = dataEntry["createdAt"] as? String ?? ""
-                            let lastModifiedAt = dataEntry["lastModifiedAt"] as? String ?? ""
-
+                            
                             let scheduleData = Schedule.Format(
                                 originKey: originKey,
                                 name: name,
@@ -57,10 +54,7 @@ class ScheduleViewController: UIViewController {
                                 endAt: endAt,
                                 userId: userId,
                                 memo: memo,
-                                notification: notification,
-                                allDayToggle: allDayToggle,
-                                createdAt: createdAt,
-                                lastModifiedAt: lastModifiedAt
+                                allDayToggle: allDayToggle
                             )
                             
                             Schedule.shared.updateScheduleData(data: scheduleData)
@@ -69,6 +63,7 @@ class ScheduleViewController: UIViewController {
                     }
                     DispatchQueue.main.async {
                         self.calendarReloadData()
+            
                     }
                 }
             }

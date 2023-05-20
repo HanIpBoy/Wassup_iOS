@@ -114,7 +114,7 @@ class WriteViewController: UIViewController {
                 showToast(message: "종료 날짜는 시작 날짜보다 앞설 수 없습니다.")
                 endDatePicker.date = startDatePicker.date + 600
             } else {
-                print(">>> success")
+//                print(">>> success")
             }
         }
     }
@@ -127,7 +127,6 @@ class WriteViewController: UIViewController {
         scheduleMap["memo"] = memoTextField.text
         scheduleMap["allDayToggle"] = String(flag)
         scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
-        Schedule.shared.schedules = []
         let server = Server()
         server.createSchedule(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
@@ -145,11 +144,8 @@ class WriteViewController: UIViewController {
                             let endAt = dataEntry["endAt"] as? String ?? ""
                             let userId = dataEntry["userId"] as? String ?? ""
                             let memo = dataEntry["memo"] as? String ?? ""
-                            let notification = dataEntry["notification"] as? String ?? ""
                             let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            let createdAt = dataEntry["createdAt"] as? String ?? ""
-                            let lastModifiedAt = dataEntry["lastModifiedAt"] as? String ?? ""
-
+                            
                             let scheduleData = Schedule.Format(
                                 originKey: originKey,
                                 name: name,
@@ -157,10 +153,7 @@ class WriteViewController: UIViewController {
                                 endAt: endAt,
                                 userId: userId,
                                 memo: memo,
-                                notification: notification,
-                                allDayToggle: allDayToggle,
-                                createdAt: createdAt,
-                                lastModifiedAt: lastModifiedAt
+                                allDayToggle: allDayToggle
                             )
 
                             Schedule.shared.updateScheduleData(data: scheduleData)
@@ -175,6 +168,7 @@ class WriteViewController: UIViewController {
     }
     
     @IBAction func deleteSchedule(_ sender: UIButton) { // 일정 삭제
+        
     }
     
     
@@ -183,50 +177,6 @@ class WriteViewController: UIViewController {
     
     
     @IBAction func closeWrite(_ sender: UIButton) {
-        Schedule.shared.schedules = []
-        let server = Server()
-        server.getAllData(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let data = data {
-                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-                   let json = jsonObject as? [String: Any],
-                   let dataArray = json["data"] as? [[String: Any]] {
-                    for dataEntry in dataArray {
-                        if let originKey = dataEntry["originKey"] as? String {
-                            let name = dataEntry["name"] as? String ?? ""
-                            let startAt = dataEntry["startAt"] as? String ?? ""
-                            let endAt = dataEntry["endAt"] as? String ?? ""
-                            let userId = dataEntry["userId"] as? String ?? ""
-                            let memo = dataEntry["memo"] as? String ?? ""
-                            let notification = dataEntry["notification"] as? String ?? ""
-                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            let createdAt = dataEntry["createdAt"] as? String ?? ""
-                            let lastModifiedAt = dataEntry["lastModifiedAt"] as? String ?? ""
-
-                            let scheduleData = Schedule.Format(
-                                originKey: originKey,
-                                name: name,
-                                startAt: startAt,
-                                endAt: endAt,
-                                userId: userId,
-                                memo: memo,
-                                notification: notification,
-                                allDayToggle: allDayToggle,
-                                createdAt: createdAt,
-                                lastModifiedAt: lastModifiedAt
-                            )
-
-                            Schedule.shared.updateScheduleData(data: scheduleData)
-                        }
-                    }
-                    
-                }
-            }
-        }
         dismiss(animated: true, completion: nil)
     }
     

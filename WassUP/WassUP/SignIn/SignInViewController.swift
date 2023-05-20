@@ -90,7 +90,7 @@ class SignInViewController: UIViewController {
             let server = Server()
             server.emailVerify(requestURL: "auth/email-verify", requestBody: ["userId":emailTextField.text!, "emailAuthCode":numTextField.text!]) { responseString in
                 print("responseString: \(responseString)")
-                if responseString.contains("success") {
+                if responseString.contains("succeed") {
                     DispatchQueue.main.async {
                         self.userMap["email"] = self.emailTextField.text
                         self.showToast(message: "인증 완료")
