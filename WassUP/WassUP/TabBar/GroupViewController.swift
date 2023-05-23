@@ -112,6 +112,7 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
         cell.nameLabel.text = group.groupName
         cell.descriptionLabel.text = group.description
         cell.numberLabel.text = "👥 " + String(group.numOfUsers)
+        
         return cell
     }
     
@@ -123,8 +124,10 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
         let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "First") as? FirstViewController else { return }
         let group = Group.shared2.groups[indexPath.item]
+        var dict: [String : Any] = ["groupUsers" : group.groupUsers]
         vc.groupName = group.groupName
         vc.groupOriginKey = group.originKey
+        vc.groupUsers = dict
         
 //        let (startString, endString) = getStartAndEndOfWeek()
 //        let periodString = startString + " - " + endString

@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import SnapKit
-import Then
 
 class WriteViewController: UIViewController {
     
@@ -125,8 +123,8 @@ class WriteViewController: UIViewController {
     @IBAction func saveSchedule(_ sender: UIButton) { // 일정 저장
         scheduleMap["name"] = titleTextField.text
         if flag {
-            scheduleMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00:00"
-            scheduleMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59:59"
+            scheduleMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
+            scheduleMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59"
         } else {
             scheduleMap["startAt"] = makeDateString(date: startDatePicker.date)
             scheduleMap["endAt"] = makeDateString(date: endDatePicker.date)
@@ -135,7 +133,7 @@ class WriteViewController: UIViewController {
         scheduleMap["allDayToggle"] = String(flag)
         scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
         let server = Server()
-        server.createSchedule(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.postDataToServer(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
@@ -194,14 +192,14 @@ class WriteViewController: UIViewController {
 extension WriteViewController {
     func makeDateString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
     
     func makeStringDate(dateString: String) -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
         let date = dateFormatter.date(from: dateString)
         return date!
     }

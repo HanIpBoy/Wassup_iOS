@@ -9,7 +9,7 @@ import UIKit
 
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate { // Thread 1: "[<WassUP.FirstViewController 0x15500ec00> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key groupUserBtn1."
 
 
 
