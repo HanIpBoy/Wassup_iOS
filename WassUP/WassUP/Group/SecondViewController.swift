@@ -28,6 +28,9 @@ class SecondViewController: UIViewController {
 //        Format(originKey: "", name: "", startAt: "2023-05-18-06:14", endAt: "2023-05-18-10:14", userId: "ing@naver.com", memo: "", notification: "", allDayToggle: "false", createdAt: "", lastModifiedAt: "")]
     
     var bars: [Bar] = []
+    var baseDate: Date = Date()
+    var startDateOfWeek: Date = Date()
+    var endDateOfWeek: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +66,7 @@ class SecondViewController: UIViewController {
                 print("Error: \(error)")
                 return
             }
-            
+            print("3번")
             if let data = data {
                 if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                    let json = jsonObject as? [String: Any],
@@ -90,17 +93,27 @@ class SecondViewController: UIViewController {
                             
                             Schedule.shared.updateGroupScheduleData(data: scheduleData)
                             self.groupSches.append(scheduleData)
+                            print("groupSches : \(self.groupSches)")
                         }
                     }
                     DispatchQueue.main.async {
+                        // 날짜를 기준으로 범위 설정
+                        (self.startDateOfWeek, self.endDateOfWeek) = self.getPreviousSundayAndCurrentSaturday(today: self.baseDate)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                         for element in self.groupSches {
-                            self.makeBar(startAt: element.startAt, endAt: element.endAt, userId: element.userId)
-                            self.firstCollectionView.reloadData()
-                            self.secondCollectionView.reloadData()
-                            self.thirdCollectionView.reloadData()
-                            
-                            print("3번 실행")
+                            let elementDate = dateFormatter.date(from:element.startAt) // bar로 만들 데이터의 시작 날짜
+                            if self.isDate(elementDate!, between: self.startDateOfWeek, and: self.endDateOfWeek) { // 바로 만들 데이터의 시작날짜가 기준에 포함하는지
+                                self.makeBar(startAt: element.startAt, endAt: element.endAt, userId: element.userId) // 기준 통과시 바 생성
+                            }
                         }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.updateMinutes()
+                        self.firstCollectionView.reloadData()
+                        self.secondCollectionView.reloadData()
+                        self.thirdCollectionView.reloadData()
                     }
                 }
             }
@@ -110,7 +123,7 @@ class SecondViewController: UIViewController {
     
     func makeBar(startAt: String, endAt: String, userId: String) {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             let startDate = dateFormatter.date(from: startAt)
             let endDate = dateFormatter.date(from: endAt)
             
@@ -130,7 +143,7 @@ class SecondViewController: UIViewController {
             
             bars.append(bar)
             makeUserIndex(content: bars)
-            updateMinutes()
+//            updateMinutes()
         }
         
     func makeUserIndex(content: [Bar]) {
@@ -162,22 +175,50 @@ class SecondViewController: UIViewController {
         for index in 0..<bars.count {
             if let start = Int(bars[index].startMinute), let end = Int(bars[index].endMinute) {
                 if start < 30 {
-                    bars[index].startMinute = "00"
-                } else {
                     bars[index].startMinute = "30"
                     bars[index].startHour = bars[index].startHour + ".5"
+                } else {
+                    bars[index].startMinute = "00"
+                    var stringToInt = Int(bars[index].startHour)!
+                    stringToInt += 1
+                    bars[index].startHour = String(stringToInt)
                 }
                 
                 if end < 30 {
-                    bars[index].endMinute = "00"
-                } else {
                     bars[index].endMinute = "30"
                     bars[index].endHour = bars[index].endHour + ".5"
+                } else {
+                    bars[index].endMinute = "00"
+                    var stringToInt = Int(bars[index].endHour)!
+                    stringToInt += 1
+                    bars[index].endHour = String(stringToInt)
                 }
             }
-            print("updated : \(bars)")
         }
     }
+    
+    func getPreviousSundayAndCurrentSaturday(today : Date) -> (previousSunday: Date, currentSaturday: Date) {
+        let calendar = Calendar.current
+        
+        // 전주 일요일 찾기
+        let sundayComponents = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
+        guard let previousSunday = calendar.date(from: sundayComponents) else {
+            fatalError("Failed to calculate previous Sunday.")
+        }
+        
+        // 이번주 토요일 찾기
+        let currentSaturdayComponents = DateComponents(weekday: 7)
+        guard let currentSaturday = calendar.nextDate(after: today, matching: currentSaturdayComponents, matchingPolicy: .nextTime) else {
+            fatalError("Failed to calculate current Saturday.")
+        }
+        
+        return (previousSunday, currentSaturday)
+    }
+    
+    func isDate(_ date: Date, between startDate: Date, and endDate: Date) -> Bool {
+        return date >= startDate && date <= endDate
+    }
+
     
     
     
@@ -186,8 +227,24 @@ class SecondViewController: UIViewController {
         let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "First") as! FirstViewController
         vc.modalTransitionStyle = .crossDissolve
-        present(vc, animated: true,completion: nil)
         
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func colorVendingMachine(index : String) -> UIColor {
+        switch index {
+        case "0" : return .red
+        case "1" : return .orange
+        case "2" : return .yellow
+        case "3" : return .green
+        case "4" : return .cyan
+        case "5" : return .blue
+        case "6" : return .purple
+        case "7" : return .systemPink
+        case "8" : return .black
+        case "9" : return .brown
+        default: return .darkGray
+        }
     }
     
 
@@ -201,16 +258,16 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 480
+        return 240
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
         
         for element in bars {
             if element.weekday == "5" {
                 if collectionView == firstCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//                    cell.nameLabel1.text = "\(indexPath.item)"
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -218,25 +275,24 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
             
             else if element.weekday == "6" {
                 if collectionView == secondCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -244,25 +300,24 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
             else if element.weekday == "7" {
                 if collectionView == thirdCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//                    cell.nameLabel1.text = "\(indexPath.item)"
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -270,52 +325,30 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
         }
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.bounds.width / 10.5
-        let cellHeight = collectionView.bounds.height / 48.3
+        let cellHeight = collectionView.bounds.height / 24.5
 
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     
 }
-//struct Format {
-//    var originKey: String
-//    var name: String
-//    var startAt: String
-//    var endAt: String
-//    var userId: String
-//    var memo: String
-//    var notification: String
-//    var allDayToggle: String
-//    var createdAt: String
-//    var lastModifiedAt: String
-//}
-//
-//struct Bar {
-//    var userId: String
-//    var userIndex: String
-//    var startHour: String
-//    var startMinute: String
-//    var endHour: String
-//    var endMinute: String
-//    var weekday: String
-//}

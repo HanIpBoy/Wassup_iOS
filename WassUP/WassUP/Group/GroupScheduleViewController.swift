@@ -31,7 +31,7 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
         print("groupOriginKey : \(groupOriginKey)")
         GroupSche.shared3.groupSche = []
         let server = Server()
-        server.getAllData(requestURL: "group/schedule/schedules/\(groupOriginKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.getAllData(requestURL: "group/schedule/\(groupOriginKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
@@ -82,7 +82,6 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
         addTapGesture()
         
         groupScheduleListView.layer.cornerRadius = 20
-        
         groupNameLabel.text = groupName
     }
 
@@ -90,18 +89,21 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
 
 extension GroupScheduleViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        let groupSches = GroupSche.shared3.groupSche
+        return groupSches.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupScheduleCollectionViewCell", for: indexPath) as! GroupScheduleCollectionViewCell
-//        let groupSches = GroupSche.shared3.groupSche[indexPath.item]
-        cell.nameLabel.text = "groupSches.name"
+        let groupSches = GroupSche.shared3.groupSche[indexPath.item]
+        cell.nameLabel.text = groupSches.name
+        cell.startDateLabel.text = formatDateTime(groupSches.startAt)
+        cell.endDateLabel.text = formatDateTime(groupSches.endAt)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // layout
-        return CGSize(width: groupScheduleListView.bounds.width, height: 50)
+        return CGSize(width: groupScheduleListView.bounds.width, height: 70)
     }
     
     
@@ -118,5 +120,14 @@ extension GroupScheduleViewController {
         if !myView.frame.contains(touchLocation) {
             dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func formatDateTime(_ dateTime: String) -> String {
+        let components = dateTime.split(separator: "T")
+        let dateComponents = components[0].split(separator: "-")
+        let timeComponents = components[1].split(separator: ":")
+        
+        let formattedDateTime = "\(dateComponents[1]).\(dateComponents[2]) \(timeComponents[0]):\(timeComponents[1])"
+        return formattedDateTime
     }
 }

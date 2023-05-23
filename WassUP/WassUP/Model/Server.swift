@@ -7,7 +7,7 @@
 
 import Foundation
 class Server {
-    var baseURL = "http://3.38.104.222:8080/"
+    var baseURL = "http://13.125.226.121:8080/"
     var result: String = ""
     
     func postEmailServer(requestURL: String, requestBody:[String:Any]){

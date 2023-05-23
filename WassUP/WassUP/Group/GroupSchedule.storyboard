@@ -44,21 +44,47 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="293" height="128"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oh-i7-nJK">
-                                                            <rect key="frame" x="125.66666666666669" y="53.666666666666657" width="42" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbH-fq-i2z">
+                                                            <rect key="frame" x="26" y="28" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.23 00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wiV-62-Kyr">
+                                                            <rect key="frame" x="26" y="74" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwa-2M-7yz">
+                                                            <rect key="frame" x="85" y="74" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RtQ-a7-aJq">
+                                                            <rect key="frame" x="125" y="74" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="2oh-i7-nJK" firstAttribute="centerY" secondItem="XtM-b0-d2m" secondAttribute="centerY" id="Taj-KB-n6X"/>
-                                                        <constraint firstItem="2oh-i7-nJK" firstAttribute="centerX" secondItem="XtM-b0-d2m" secondAttribute="centerX" id="nBs-hL-hv2"/>
+                                                        <constraint firstItem="xbH-fq-i2z" firstAttribute="leading" secondItem="XtM-b0-d2m" secondAttribute="leading" constant="20" id="HCd-3k-FyU"/>
+                                                        <constraint firstItem="RtQ-a7-aJq" firstAttribute="centerY" secondItem="Xwa-2M-7yz" secondAttribute="centerY" id="T33-yx-pyO"/>
+                                                        <constraint firstItem="wiV-62-Kyr" firstAttribute="leading" secondItem="xbH-fq-i2z" secondAttribute="leading" id="W47-fL-onU"/>
+                                                        <constraint firstItem="Xwa-2M-7yz" firstAttribute="leading" secondItem="wiV-62-Kyr" secondAttribute="trailing" constant="10" id="dUQ-mY-jY8"/>
+                                                        <constraint firstItem="xbH-fq-i2z" firstAttribute="top" secondItem="XtM-b0-d2m" secondAttribute="top" constant="10" id="gFg-qv-4Pg"/>
+                                                        <constraint firstItem="RtQ-a7-aJq" firstAttribute="leading" secondItem="Xwa-2M-7yz" secondAttribute="trailing" constant="10" id="npE-tV-eoh"/>
+                                                        <constraint firstItem="Xwa-2M-7yz" firstAttribute="centerY" secondItem="wiV-62-Kyr" secondAttribute="centerY" id="wRe-7R-5cA"/>
+                                                        <constraint firstItem="wiV-62-Kyr" firstAttribute="top" secondItem="xbH-fq-i2z" secondAttribute="bottom" constant="10" id="xzx-aw-Xwh"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="293" height="128"/>
                                                 <connections>
-                                                    <outlet property="nameLabel" destination="2oh-i7-nJK" id="Zaa-zg-iEG"/>
+                                                    <outlet property="endDateLabel" destination="RtQ-a7-aJq" id="ZlR-Bb-MdI"/>
+                                                    <outlet property="nameLabel" destination="xbH-fq-i2z" id="YMT-XK-ocF"/>
+                                                    <outlet property="startDateLabel" destination="wiV-62-Kyr" id="Jig-g7-OCG"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

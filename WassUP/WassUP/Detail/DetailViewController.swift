@@ -69,8 +69,8 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout, UICollectio
             cell.endLabel.text = ""
             cell.minusLabel.text = ""
         } else {
-            cell.startLabel.text = String(schedule.startAt.split(separator: "-")[3])
-            cell.endLabel.text = String(schedule.endAt.split(separator: "-")[3])
+            cell.startLabel.text = String(schedule.startAt.split(separator: "T")[1])
+            cell.endLabel.text = String(schedule.endAt.split(separator: "T")[1])
         }
         cell.cellOriginKey = schedule.originKey
         return cell

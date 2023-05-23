@@ -11,6 +11,9 @@ class GroupScheduleCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var startDateLabel: UILabel!
+    
+    @IBOutlet weak var endDateLabel: UILabel!
     var groupName: String = ""
     var groupOriginKey: String = ""
 }

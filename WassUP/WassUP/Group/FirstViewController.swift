@@ -21,9 +21,10 @@ class FirstViewController: UIViewController {
     var groupName: String = ""
     var groupSches : [Schedule.Format] = []
     
-    
-   
     var bars: [Bar] = []
+    var baseDate: Date = Date()
+    var startDateOfWeek: Date = Date()
+    var endDateOfWeek: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,11 @@ class FirstViewController: UIViewController {
         fourthCollectionView.delegate = self
         fourthCollectionView.dataSource = self
         
+        firstCollectionView.layer.borderColor = UIColor.lightGray.cgColor
+        secondCollectionView.layer.borderColor = UIColor.lightGray.cgColor
+        thirdCollectionView.layer.borderColor = UIColor.lightGray.cgColor
+        fourthCollectionView.layer.borderColor = UIColor.lightGray.cgColor
+        
         firstCollectionView.layer.borderWidth = 0.5
         secondCollectionView.layer.borderWidth = 0.5
         thirdCollectionView.layer.borderWidth = 0.5
@@ -50,6 +56,8 @@ class FirstViewController: UIViewController {
         layout.minimumLineSpacing = 0
         
         groupNameLabel.text = groupName
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +70,6 @@ class FirstViewController: UIViewController {
                 print("Error: \(error)")
                 return
             }
-            
             if let data = data {
                 if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                    let json = jsonObject as? [String: Any],
@@ -89,58 +96,58 @@ class FirstViewController: UIViewController {
                             
                             Schedule.shared.updateGroupScheduleData(data: scheduleData)
                             self.groupSches.append(scheduleData)
+//                            print("groupSches : \(self.groupSches)")
                         }
                     }
                     DispatchQueue.main.async {
+                        // 날짜를 기준으로 범위 설정
+                        (self.startDateOfWeek, self.endDateOfWeek) = self.getPreviousSundayAndCurrentSaturday(today: self.baseDate)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                         for element in self.groupSches {
-                            self.makeBar(startAt: element.startAt, endAt: element.endAt, userId: element.userId)
-                            self.firstCollectionView.reloadData()
-                            self.secondCollectionView.reloadData()
-                            self.thirdCollectionView.reloadData()
-                            self.fourthCollectionView.reloadData()
-                            
-                            print("3번 실행")
+                            let elementDate = dateFormatter.date(from:element.startAt) // bar로 만들 데이터의 시작 날짜
+                            if self.isDate(elementDate!, between: self.startDateOfWeek, and: self.endDateOfWeek) { // 바로 만들 데이터의 시작날짜가 기준에 포함하는지
+                                self.makeBar(startAt: element.startAt, endAt: element.endAt, userId: element.userId) // 기준 통과시 바 생성
+                            }
                         }
                     }
+                    
+                    DispatchQueue.main.async {
+                        self.updateMinutes()
+                        self.firstCollectionView.reloadData()
+                        self.secondCollectionView.reloadData()
+                        self.thirdCollectionView.reloadData()
+                        self.fourthCollectionView.reloadData()
+                    }
+                    
                 }
             }
         }
-            
-//        for element in self.data {
-//            self.makeBar(startAt: element.startAt, endAt: element.endAt, userId: element.userId)
-//            firstCollectionView.reloadData()
-//            secondCollectionView.reloadData()
-//            thirdCollectionView.reloadData()
-//            fourthCollectionView.reloadData()
-//
-//            print("3번 실행")
-//        }
     }
     
     func makeBar(startAt: String, endAt: String, userId: String) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
-            let startDate = dateFormatter.date(from: startAt)
-            let endDate = dateFormatter.date(from: endAt)
-            
-            let calendar = Calendar.current
-            
-            // 요일 정보 얻기, 1부터 시작, 일요일부터 시작
-            let weekday = calendar.component(.weekday, from: (startDate)!)
-            
-            // 시작 시간 얻기
-            let startHour = calendar.component(.hour, from: (startDate)!)
-            let startMinute = calendar.component(.minute, from: (startDate)!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let startDate = dateFormatter.date(from: startAt)
+        let endDate = dateFormatter.date(from: endAt)
+        
+        let calendar = Calendar.current
+        
+        // 요일 정보 얻기, 1부터 시작, 일요일부터 시작
+        let weekday = calendar.component(.weekday, from: (startDate)!)
+        
+        // 시작 시간 얻기
+        let startHour = calendar.component(.hour, from: (startDate)!)
+        let startMinute = calendar.component(.minute, from: (startDate)!)
 
-            let endHour = calendar.component(.hour, from: (endDate)!)
-            let endMinute = calendar.component(.minute, from: (endDate)!)
-            
-            let bar: Bar = Bar(userId: userId, userIndex: "", startHour: String(startHour), startMinute: String(startMinute), endHour: String(endHour), endMinute: String(endMinute), weekday: String(weekday))
-            
-            bars.append(bar)
-            makeUserIndex(content: bars)
-            updateMinutes()
-        }
+        let endHour = calendar.component(.hour, from: (endDate)!)
+        let endMinute = calendar.component(.minute, from: (endDate)!)
+        
+        let bar: Bar = Bar(userId: userId, userIndex: "", startHour: String(startHour), startMinute: String(startMinute), endHour: String(endHour), endMinute: String(endMinute), weekday: String(weekday))
+        
+        bars.append(bar)
+        makeUserIndex(content: bars)
+    }
         
     func makeUserIndex(content: [Bar]) {
         var selected: [String] = []
@@ -157,7 +164,7 @@ class FirstViewController: UIViewController {
             }
         }
         // 최종적인 바 데이터
-        print("Updated bars: \(bars)")
+//        print("Updated bars: \(bars)")
     }
     
     func calculate(float : Float, index: String) -> Int {
@@ -171,42 +178,89 @@ class FirstViewController: UIViewController {
         for index in 0..<bars.count {
             if let start = Int(bars[index].startMinute), let end = Int(bars[index].endMinute) {
                 if start < 30 {
-                    bars[index].startMinute = "00"
-                } else {
                     bars[index].startMinute = "30"
                     bars[index].startHour = bars[index].startHour + ".5"
+                } else {
+                    bars[index].startMinute = "00"
+                    var stringToInt = Int(bars[index].startHour)!
+                    stringToInt += 1
+                    bars[index].startHour = String(stringToInt)
                 }
                 
                 if end < 30 {
-                    bars[index].endMinute = "00"
-                } else {
                     bars[index].endMinute = "30"
                     bars[index].endHour = bars[index].endHour + ".5"
+                } else {
+                    bars[index].endMinute = "00"
+                    var stringToInt = Int(bars[index].endHour)!
+                    stringToInt += 1
+                    bars[index].endHour = String(stringToInt)
                 }
             }
-            print("updated : \(bars)")
         }
+        print("bars : \(bars)")
     }
     
+    func getPreviousSundayAndCurrentSaturday(today : Date) -> (previousSunday: Date, currentSaturday: Date) {
+        let calendar = Calendar.current
+        
+        // 전주 일요일 찾기
+        let sundayComponents = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
+        guard let previousSunday = calendar.date(from: sundayComponents) else {
+            fatalError("Failed to calculate previous Sunday.")
+        }
+        
+        // 이번주 토요일 찾기
+        let currentSaturdayComponents = DateComponents(weekday: 7)
+        guard let currentSaturday = calendar.nextDate(after: today, matching: currentSaturdayComponents, matchingPolicy: .nextTime) else {
+            fatalError("Failed to calculate current Saturday.")
+        }
+        
+        return (previousSunday, currentSaturday)
+    }
+    
+    func isDate(_ date: Date, between startDate: Date, and endDate: Date) -> Bool {
+        return date >= startDate && date <= endDate
+    }
+
+    
+    @IBAction func showGroupSches(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "GroupSchedule", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupScheduleViewController") as? GroupScheduleViewController else { return }
+        vc.groupName = groupName
+        vc.groupOriginKey = groupOriginKey
+        self.present(vc, animated: true, completion: nil)
+    }
     
     
     @IBAction func nextButtonTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "Second") as! SecondViewController
-//        vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
-        self.present(vc, animated: true, completion: nil)
+        vc.groupName = self.groupName
+        vc.groupOriginKey = self.groupOriginKey
+        
+        self.present(vc, animated: true)
+        
+    }
+    
+    func colorVendingMachine(index : String) -> UIColor {
+        switch index {
+        case "0" : return .red
+        case "1" : return .orange
+        case "2" : return .yellow
+        case "3" : return .green
+        case "4" : return .cyan
+        case "5" : return .blue
+        case "6" : return .purple
+        case "7" : return .systemPink
+        case "8" : return .black
+        case "9" : return .brown
+        default: return .darkGray
+        }
     }
     
     
-    
-    
-    
-    
-    
-    
-
-
 }
 
 extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -217,16 +271,17 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 480
+        return 240
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+
         for element in bars {
             if element.weekday == "1" {
                 if collectionView == firstCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//                    cell.nameLabel1.text = "\(indexPath.item)"
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -234,26 +289,25 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
+                                
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
             
             else if element.weekday == "2" {
                 if collectionView == secondCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//                    cell.nameLabel1.text = "\(indexPath.item)"
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -261,25 +315,23 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
             else if element.weekday == "3" {
                 if collectionView == thirdCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//                    cell.nameLabel1.text = "\(indexPath.item)"
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -287,25 +339,23 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
             else if element.weekday == "4" {
                 if collectionView == fourthCollectionView {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//                    cell.nameLabel1.text = "\(indexPath.item)"
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
                     
                     // 사람찾기
                     if(Int(element.userIndex) == (indexPath.item % 10)) {
@@ -313,57 +363,27 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
                         var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                         var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
                         if(startIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         if(endIndex == indexPath.item) {
-                            cell.backgroundColor = .black
+                            cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                         }
                         for i in startIndex..<endIndex {
                             if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
-                                cell.backgroundColor = .black
-                                print("userIndex: \(element.userIndex), indexPath.item: \(indexPath.item)")
+                                cell.backgroundColor = colorVendingMachine(index: element.userIndex)
                             }
                         }
                     }
-                    return cell
+//                    return cell
                 }
             }
         }
-//        if collectionView == firstCollectionView {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//            cell.nameLabel1.text = "\(indexPath.item)"
-//            if indexPath.item == 11 {
-//                cell.nameLabel1.text = ""
-//                cell.backgroundColor = .black
-//            }
-//            return cell
-//        }
-//        else if collectionView == secondCollectionView {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//            cell.nameLabel2.text = "\(indexPath.item)"
-//            if indexPath.item == 11 {
-//                cell.nameLabel2.text = ""
-//                cell.backgroundColor = .black
-//            }
-//            return cell
-//        }
-//        else if collectionView == thirdCollectionView {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//            cell.nameLabel3.text = "\(indexPath.item)"
-//
-//            return cell
-//        }
-//        else if collectionView == fourthCollectionView {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-//            cell.nameLabel4.text = "\(indexPath.item)"
-//
-//            return cell
-//        }
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.bounds.width / 10.5
-        let cellHeight = collectionView.bounds.height / 48.3
+        let cellHeight = collectionView.bounds.height / 24.1
 
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -392,4 +412,6 @@ struct Bar {
     var endMinute: String
     var weekday: String
 }
+
+
 

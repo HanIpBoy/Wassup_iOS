@@ -25,6 +25,8 @@ class WriteViewController: UIViewController {
     
     @IBOutlet weak var memoTextField: UITextField!
     
+    var scheduleVC = ScheduleViewController()
+    
     
     
     
@@ -122,8 +124,13 @@ class WriteViewController: UIViewController {
     
     @IBAction func saveSchedule(_ sender: UIButton) { // 일정 저장
         scheduleMap["name"] = titleTextField.text
-        scheduleMap["startAt"] = makeDateString(date: startDatePicker.date)
-        scheduleMap["endAt"] = makeDateString(date: endDatePicker.date)
+        if flag {
+            scheduleMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00:00"
+            scheduleMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59:59"
+        } else {
+            scheduleMap["startAt"] = makeDateString(date: startDatePicker.date)
+            scheduleMap["endAt"] = makeDateString(date: endDatePicker.date)
+        }
         scheduleMap["memo"] = memoTextField.text
         scheduleMap["allDayToggle"] = String(flag)
         scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
@@ -160,6 +167,7 @@ class WriteViewController: UIViewController {
                         }
                     }
                     
+                    
                 }
             }
         }
@@ -186,17 +194,22 @@ class WriteViewController: UIViewController {
 extension WriteViewController {
     func makeDateString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
     
     func makeStringDate(dateString: String) -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         let date = dateFormatter.date(from: dateString)
         return date!
-        
+    }
+    func makeAllDay(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
     
     func showToast(message: String) {

@@ -129,17 +129,15 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
 //        let (startString, endString) = getStartAndEndOfWeek()
 //        let periodString = startString + " - " + endString
 //        print("period : \(periodString)")
+        vc.modalTransitionStyle = .crossDissolve
+//        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
         
         
 //        // 그룹 이름 넘겨서 그룹 이름 업데이트 하는 내용
 ////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupListCollectionViewCell", for: indexPath) as! GroupListCollectionViewCell
 //        let group = Group.shared2.groups[indexPath.item]
-//        let storyboard = UIStoryboard(name: "GroupSchedule", bundle: nil)
-//        guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupScheduleViewController") as? GroupScheduleViewController else { return }
-//        vc.groupName = group.groupName
-//        vc.groupOriginKey = group.originKey
-//        self.present(vc, animated: true, completion: nil)
+        
     }
     
     
