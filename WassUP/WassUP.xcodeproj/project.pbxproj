@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE02078D2A1E24270057A000 /* GroupGarage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02078C2A1E24270057A000 /* GroupGarage.swift */; };
+		DE0207952A1E69C00057A000 /* GroupTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */; };
 		DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFE72A121AD7009C6EF6 /* Schedule.swift */; };
 		DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */; };
 		DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFED2A129652009C6EF6 /* GroupViewController.swift */; };
@@ -35,9 +37,7 @@
 		DEAA65472A16116B007993E0 /* GroupScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */; };
 		DEAA65492A1618E0007993E0 /* GroupSche.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65482A1618E0007993E0 /* GroupSche.swift */; };
 		DEB7D5882A18EA1A004B10CA /* GroupTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEB7D5872A18EA1A004B10CA /* GroupTimeTable.storyboard */; };
-		DEB7D58A2A18EA88004B10CA /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB7D5892A18EA88004B10CA /* FirstViewController.swift */; };
 		DEB7D58E2A18EAA5004B10CA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */; };
-		DEBB06852A1CDCE900AA76C3 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBB06842A1CDCE900AA76C3 /* NextViewController.swift */; };
 		DECF8D3D2A03C3CB00A07C4E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = DECF8D3C2A03C3CB00A07C4E /* FSCalendar */; };
 		DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */; };
 		DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECF8D412A03CAC500A07C4E /* DetailViewController.swift */; };
@@ -61,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE02078C2A1E24270057A000 /* GroupGarage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupGarage.swift; sourceTree = "<group>"; };
+		DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTimeTableViewController.swift; sourceTree = "<group>"; };
 		DE02FFE72A121AD7009C6EF6 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE02FFED2A129652009C6EF6 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
@@ -93,9 +95,7 @@
 		DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
 		DEAA65482A1618E0007993E0 /* GroupSche.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSche.swift; sourceTree = "<group>"; };
 		DEB7D5872A18EA1A004B10CA /* GroupTimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupTimeTable.storyboard; sourceTree = "<group>"; };
-		DEB7D5892A18EA88004B10CA /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		DEBB06842A1CDCE900AA76C3 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 		DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		DECF8D412A03CAC500A07C4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,10 +129,10 @@
 		DE02FFEF2A1297E8009C6EF6 /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				DE02078C2A1E24270057A000 /* GroupGarage.swift */,
 				DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */,
 				DEB7D5872A18EA1A004B10CA /* GroupTimeTable.storyboard */,
-				DEB7D5892A18EA88004B10CA /* FirstViewController.swift */,
-				DEBB06842A1CDCE900AA76C3 /* NextViewController.swift */,
+				DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */,
 				DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */,
 				DEAA65422A160E0C007993E0 /* GroupSchedule.storyboard */,
 				DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */,
@@ -407,6 +407,7 @@
 				DE02FFF32A129E74009C6EF6 /* Group.swift in Sources */,
 				DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */,
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
+				DE0207952A1E69C00057A000 /* GroupTimeTableViewController.swift in Sources */,
 				DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */,
 				DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */,
 				DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */,
@@ -415,9 +416,8 @@
 				DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */,
 				DE45076729C9073600365556 /* LoginViewController.swift in Sources */,
 				DE1163742A09DE4800C29FF1 /* User.swift in Sources */,
-				DEB7D58A2A18EA88004B10CA /* FirstViewController.swift in Sources */,
+				DE02078D2A1E24270057A000 /* GroupGarage.swift in Sources */,
 				DE45073229C904B600365556 /* AppDelegate.swift in Sources */,
-				DEBB06852A1CDCE900AA76C3 /* NextViewController.swift in Sources */,
 				DEAA65452A160E1F007993E0 /* GroupScheduleViewController.swift in Sources */,
 				DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */,
 				DE45073429C904B600365556 /* SceneDelegate.swift in Sources */,

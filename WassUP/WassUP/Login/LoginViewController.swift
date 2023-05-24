@@ -27,6 +27,7 @@ class LoginViewController: UIViewController {
         
         myViewStyle() // innerView의 스타일 지정
         hideKeyboard() // dismissKeyboard 사용
+        UserDefaults.standard.removeObject(forKey: "token")
     }
     
     func myViewStyle() {
@@ -60,28 +61,58 @@ class LoginViewController: UIViewController {
                     for dataEntry in dataArray {
                         let token = dataEntry["token"] as? String ?? ""
                         UserDefaults.standard.set(token, forKey: "token")
+                        print("1번")
                     }
                 }
             }
-        }
-        DispatchQueue.main.async{
-            
             if UserDefaults.standard.object(forKey: "token") != nil {
-                
+                print("2번")
                 UserDefaults.standard.set(self.userEmail, forKey: "userId")
                 UserDefaults.standard.set(self.userPassword, forKey: "password")
-                self.showToast(message: "로그인 성공")
+//                self.showToast(message: "로그인 성공")
                 
-                // Home으로 이동하기!
-                let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
-                vcName?.modalPresentationStyle = .fullScreen
-                vcName?.modalTransitionStyle = .crossDissolve
-                self.present(vcName!, animated: true, completion: nil)
             } else {
-                self.showToast(message: "올바른 로그인이 아닙니다.")
+                print("3번")
+//                self.showToast(message: "올바른 로그인이 아닙니다.")
             }
             
+            DispatchQueue.main.async {
+                print("4")
+                if UserDefaults.standard.object(forKey: "token") != nil {// Home으로 이동하기!
+                    print("5")
+                    let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+                    vcName?.modalPresentationStyle = .fullScreen
+                    vcName?.modalTransitionStyle = .crossDissolve
+                    self.present(vcName!, animated: true, completion: nil)
+                }
+            }
+            
+            
+            
         }
+//        DispatchQueue.main.async{
+//
+//            if UserDefaults.standard.object(forKey: "token") != nil {
+//
+//                UserDefaults.standard.set(self.userEmail, forKey: "userId")
+//                UserDefaults.standard.set(self.userPassword, forKey: "password")
+//                self.showToast(message: "로그인 성공")
+//
+//            } else {
+//                self.showToast(message: "올바른 로그인이 아닙니다.")
+//            }
+//        }
+        
+//        DispatchQueue.main.async {
+//            print("4")
+//            if UserDefaults.standard.object(forKey: "token") != nil {// Home으로 이동하기!
+//                print("5")
+//                let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+//                vcName?.modalPresentationStyle = .fullScreen
+//                vcName?.modalTransitionStyle = .crossDissolve
+//                self.present(vcName!, animated: true, completion: nil)
+//            }
+//        }
     }
     
     @IBAction func goSignIn(_ sender: UIButton) {

@@ -122,7 +122,7 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "First") as? FirstViewController else { return }
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupTimeTableViewController") as? GroupTimeTableViewController else { return }
         let group = Group.shared2.groups[indexPath.item]
         var dict: [String : Any] = ["groupUsers" : group.groupUsers]
         vc.groupName = group.groupName
@@ -133,13 +133,15 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
 //        let periodString = startString + " - " + endString
 //        print("period : \(periodString)")
         vc.modalTransitionStyle = .crossDissolve
-//        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
         
         
 //        // 그룹 이름 넘겨서 그룹 이름 업데이트 하는 내용
 ////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupListCollectionViewCell", for: indexPath) as! GroupListCollectionViewCell
 //        let group = Group.shared2.groups[indexPath.item]
+        
+        
         
     }
     
