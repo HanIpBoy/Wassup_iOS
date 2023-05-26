@@ -16,11 +16,11 @@ class NotificationViewController: UIViewController {
     var originKey: String!
     var groupOriginKey: String!
     
-    private var notificationMap: [String: String] = [ // 인증 후에 이 뷰컨에 저장할 hashMap
-        "originKey": "",
+    //    private var notificationArr: [Notification]!
+    private var responseNotiData :[String: String] = [
+        "originKey" : "",
         "groupOriginKey" : ""
     ]
-    private var notificationMapArr: [[String: String]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +28,13 @@ class NotificationViewController: UIViewController {
         
         notificationCollectionView.dataSource = self
         notificationCollectionView.delegate = self
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        Notification.sharedNoti.notification = []
-        notificationMap.removeAll()
-//        notificationMapArr.removeAll()
+        Notification.sharedNoti.notifications = []
+        //        notificationArr.removeAll()
+        
         let server = Server()
         server.getAllData(requestURL: "user/notification/unread", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
@@ -62,16 +62,16 @@ class NotificationViewController: UIViewController {
                             )
                             
                             Notification.sharedNoti.updateNotificationData(data: notificationData)
-                            self.notificationMap["originKey"] = notificationData.originKey
-                            self.notificationMap["groupOriginKey"] = notificationData.groupOriginKey
-//                            self.notificationMapArr.append(self.notificationMap)
+                            print("notification data : \(notificationData)")
+                            print("notification shard : \(Notification.sharedNoti.notifications)")
+                            
                         }
                     }
                     DispatchQueue.main.async {
                         
                         self.notificationCollectionView.reloadData()
                         self.notificationCollectionView.layoutIfNeeded()
-
+                        
                     }
                 }
             }
@@ -81,22 +81,17 @@ class NotificationViewController: UIViewController {
         outerView.layer.cornerRadius = 20
     }
     
+  
     @IBAction func yesButtonTapped(_ sender: UIButton) {
-        if let cell = sender.superview?.superview as? NotificationCell {
-            for i in 0..<Notification.sharedNoti.notification.count {
-                if cell.messageLabel.text == Notification.sharedNoti.notification[i].message{
-                    self.originKey = Notification.sharedNoti.notification[i].originKey
-                    print("originKey is ~ \(self.originKey)")
-                    self.groupOriginKey = Notification.sharedNoti.notification[i].groupOriginKey
-                }
-            }
-        }
-        let server = Server()
-        let server2 = Server()
+        let index = sender.tag
         
-        server.postDataToServer(requestURL: "group/invitation/accept", requestData: notificationMap, token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
-            print("originKey : \(self.originKey)")
-            server2.DeleteData(requestURL: "user/notification/\(self.originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
+        responseNotiData["originKey"] = Notification.sharedNoti.notifications[index].originKey
+        responseNotiData["groupOriginKey"] = Notification.sharedNoti.notifications[index].groupOriginKey
+        let originKey = responseNotiData["originKey"] ?? ""
+        let server = Server()
+
+        server.postDataToServer(requestURL: "group/invitation/accept", requestData: responseNotiData, token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
+            server.deleteData(requestURL: "user/notification/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
                 print("enter")
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
@@ -104,36 +99,33 @@ class NotificationViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func noButtonTapped(_ sender: UIButton) {
-//        if let cell = sender.superview?.superview as? NotificationCell {
-//            for i in 0..<notificationMapArr.count {
-//                print("\(Notification.sharedNoti.notification)")
-//                if cell.messageLabel.text == Notification.sharedNoti.notification[i].message{
-//                    if Notification.sharedNoti.notification[i]
-//                        .originKey == notificationMapArr["originKey"].val
-//                    self.originKey = Notification.sharedNoti.notification[i]
-//                        .originKey
-//                    print("originKey 2개 \(self.originKey) \(Notification.sharedNoti.notification[i].originKey)")
-//                }
-//            }
-//        }
-//        let server = Server()
-//        server.DeleteData(requestURL: "user/notification/\(self.originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
-//            return
-//        }
-//
+        let index = sender.tag
+        
+        responseNotiData["originKey"] = Notification.sharedNoti.notifications[index].originKey
+        let originKey = responseNotiData["originKey"] ?? ""
+
+        let server = Server()
+        server.deleteData(requestURL: "user/notification/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
+            print("enter")
+            DispatchQueue.main.async {
+//                self.(animated: true)
+            }
+        }
     }
+    
 }
 
 extension NotificationViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let notifications = Notification.sharedNoti.notification
+        let notifications = Notification.sharedNoti.notifications
         return notifications.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
-        let notifications = Notification.sharedNoti.notification[indexPath.item]
+        let notifications = Notification.sharedNoti.notifications[indexPath.item]
         if notifications.title == "그룹 초대" {
             cell.yesButton.isHidden = false
             cell.noButton.isHidden = false
@@ -145,14 +137,24 @@ extension NotificationViewController: UICollectionViewDataSource, UICollectionVi
         cell.messageLabel.preferredMaxLayoutWidth = collectionView.bounds.width
         cell.messageLabel.text = notifications.message
         cell.messageLabel.numberOfLines = 0
+        
+        cell.notificationVC = self
+        
+        cell.yesButton.tag = indexPath.item // 버튼에 해당 셀의 인덱스를 태그로 설정
+        cell.yesButton.addTarget(self, action: #selector(yesButtonTapped(_:)), for: .touchUpInside)
+        
+        cell.noButton.tag = indexPath.item // 버튼에 해당 셀의 인덱스를 태그로 설정
+        cell.noButton.addTarget(self, action: #selector(noButtonTapped(_:)), for: .touchUpInside)
+        
         cell.layoutIfNeeded()
-
+        
         return cell
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // layout
         return CGSize(width: notificationCollectionView.bounds.width, height: 150)
     }
     
-    
 }
+    

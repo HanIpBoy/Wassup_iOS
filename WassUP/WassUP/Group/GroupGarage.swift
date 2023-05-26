@@ -68,7 +68,7 @@ public func colorVendingMachine(index : String) -> UIColor {
     case "7" : return .systemPink
     case "8" : return .black
     case "9" : return .brown
-    default: return .darkGray
+    default: return .white
     }
 }
 

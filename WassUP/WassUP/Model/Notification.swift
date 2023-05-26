@@ -10,7 +10,7 @@ import Foundation
 class Notification {
     static let sharedNoti = Notification()
 
-    var notification: [Format] = []
+    var notifications: [Format] = []
     
     private init() {}
     
@@ -20,11 +20,10 @@ class Notification {
         var title: String
         var message: String
         var groupOriginKey: String
-
     }
     
     func updateNotificationData(data: Format) {
-        notification.append(data)
+        notifications.append(data)
     }
 }
 

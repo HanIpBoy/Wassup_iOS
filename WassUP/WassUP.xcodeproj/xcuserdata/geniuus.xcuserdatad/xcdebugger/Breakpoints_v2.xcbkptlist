@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CF23ACAC-7DC7-4A85-900E-3B89E793AA44"
+            uuid = "F5201C7D-23FF-40AA-B33A-E529E73959E9"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WassUP/Notification/NotificationViewController.swift"
+            filePath = "WassUP/Login/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "noButtonTapped(_:)"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "goLogin(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "249529C5-DB4E-49B3-A2D9-30A1D75C2633"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WassUP/Model/Server.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "deleteData(requestURL:token:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

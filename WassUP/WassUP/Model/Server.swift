@@ -7,7 +7,7 @@
 
 import Foundation
 class Server {
-    var baseURL = "http://13.125.226.121:8080/"
+    var baseURL = "http://13.124.187.119:8080/"
     var result: String = ""
     
     func postEmailServer(requestURL: String, requestBody:[String:Any]){
@@ -125,7 +125,8 @@ class Server {
         task.resume()
     }
 
-    func DeleteData(requestURL: String, token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func deleteData(requestURL: String, token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+         print("delete data")
         guard let url = URL(string: Server().baseURL + requestURL) else {
             completion(nil, nil, nil) // 잘못된 URL이면 completion에 nil 전달
             return

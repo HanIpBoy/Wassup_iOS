@@ -62,7 +62,7 @@
                                                                         <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
-                                                                        <action selector="yesButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="O8O-YP-ONf"/>
+                                                                        <action selector="yesButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="46K-Uu-ASQ"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIK-gn-7yP">
@@ -73,7 +73,7 @@
                                                                         <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
-                                                                        <action selector="noButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ZLI-kr-d2t"/>
+                                                                        <action selector="noButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MQV-p4-wUt"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
