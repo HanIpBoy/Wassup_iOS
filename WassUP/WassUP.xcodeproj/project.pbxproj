@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B1BDA712A20959F004BD2A5 /* GroupTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDA702A20959F004BD2A5 /* GroupTimeTable.storyboard */; };
 		5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA22A1EB90C00A0B054 /* Notification.swift */; };
 		5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */; };
 		5BC5ECA92A1EBE0100A0B054 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */; };
@@ -40,7 +41,6 @@
 		DEAA65452A160E1F007993E0 /* GroupScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65442A160E1F007993E0 /* GroupScheduleViewController.swift */; };
 		DEAA65472A16116B007993E0 /* GroupScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */; };
 		DEAA65492A1618E0007993E0 /* GroupSche.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65482A1618E0007993E0 /* GroupSche.swift */; };
-		DEB7D5882A18EA1A004B10CA /* GroupTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEB7D5872A18EA1A004B10CA /* GroupTimeTable.storyboard */; };
 		DEB7D58E2A18EAA5004B10CA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */; };
 		DECF8D3D2A03C3CB00A07C4E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = DECF8D3C2A03C3CB00A07C4E /* FSCalendar */; };
 		DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */; };
@@ -65,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B1BDA702A20959F004BD2A5 /* GroupTimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupTimeTable.storyboard; sourceTree = "<group>"; };
 		5BC5ECA22A1EB90C00A0B054 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		DEAA65442A160E1F007993E0 /* GroupScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupScheduleViewController.swift; sourceTree = "<group>"; };
 		DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
 		DEAA65482A1618E0007993E0 /* GroupSche.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSche.swift; sourceTree = "<group>"; };
-		DEB7D5872A18EA1A004B10CA /* GroupTimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupTimeTable.storyboard; sourceTree = "<group>"; };
 		DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		DECF8D412A03CAC500A07C4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 			children = (
 				DE02078C2A1E24270057A000 /* GroupGarage.swift */,
 				DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */,
-				DEB7D5872A18EA1A004B10CA /* GroupTimeTable.storyboard */,
 				DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */,
+				5B1BDA702A20959F004BD2A5 /* GroupTimeTable.storyboard */,
 				DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */,
 				DEAA65422A160E0C007993E0 /* GroupSchedule.storyboard */,
 				DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */,
@@ -388,11 +388,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE45076C29C9146700365556 /* SignIn.storyboard in Resources */,
+				5B1BDA712A20959F004BD2A5 /* GroupTimeTable.storyboard in Resources */,
 				DEAA65432A160E0C007993E0 /* GroupSchedule.storyboard in Resources */,
 				5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */,
 				DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */,
 				DE45076429C9051900365556 /* Login.storyboard in Resources */,
-				DEB7D5882A18EA1A004B10CA /* GroupTimeTable.storyboard in Resources */,
 				DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */,
 				DE45073E29C904B700365556 /* LaunchScreen.storyboard in Resources */,
 				DE45073B29C904B700365556 /* Assets.xcassets in Resources */,

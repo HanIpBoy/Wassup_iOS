@@ -11,8 +11,6 @@ class GroupTimeTableViewController: UIViewController {
     
     @IBOutlet weak var myView: UIView!
     
-    
-    
     @IBOutlet weak var seventhCollectionView: UICollectionView!
     @IBOutlet weak var sixthCollectionView: UICollectionView!
     @IBOutlet weak var fifthCollectionView: UICollectionView!
