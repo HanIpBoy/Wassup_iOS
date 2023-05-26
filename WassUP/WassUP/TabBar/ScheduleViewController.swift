@@ -47,7 +47,7 @@ class ScheduleViewController: UIViewController {
                             let userId = dataEntry["userId"] as? String ?? ""
                             let memo = dataEntry["memo"] as? String ?? ""
                             let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            
+                            let color = dataEntry["color"] as? String ?? ""
                             let scheduleData = Schedule.Format(
                                 originKey: originKey,
                                 name: name,
@@ -55,7 +55,8 @@ class ScheduleViewController: UIViewController {
                                 endAt: endAt,
                                 userId: userId,
                                 memo: memo,
-                                allDayToggle: allDayToggle
+                                allDayToggle: allDayToggle,
+                                color: color
                             )
                             
                             Schedule.shared.updateScheduleData(data: scheduleData)

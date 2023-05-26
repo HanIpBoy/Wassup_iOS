@@ -73,6 +73,7 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout, UICollectio
             cell.endLabel.text = String(schedule.endAt.split(separator: "T")[1])
         }
         cell.cellOriginKey = schedule.originKey
+        cell.colorMarker.backgroundColor = UIColor(hexString: String(schedule.color.dropFirst()))
         return cell
     }
     
@@ -92,6 +93,7 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout, UICollectio
         vc.startDateString = schedule.startAt
         vc.endDateString = schedule.endAt
         vc.memo = schedule.memo
+        vc.color = String(schedule.color.dropFirst())
         
         present(vc, animated: true)
     }

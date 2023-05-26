@@ -16,13 +16,12 @@ class ListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var endLabel: UILabel!
     
     @IBOutlet weak var minusLabel: UILabel!
+    @IBOutlet weak var colorMarker: UIView!
     var cellOriginKey: String = ""
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        
-//        // 셀의 테두리 스타일과 색상을 지정합니다.
-//        layer.borderWidth = 1
-//        layer.borderColor = UIColor.black.cgColor
-//    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        colorMarker.layer.cornerRadius = 5
+    }
     
 }

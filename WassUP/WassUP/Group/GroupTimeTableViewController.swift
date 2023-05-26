@@ -125,7 +125,7 @@ class GroupTimeTableViewController: UIViewController {
                             let endAt = dataEntry["endAt"] as? String ?? ""
                             let userId = dataEntry["userId"] as? String ?? ""
                             let memo = dataEntry["memo"] as? String ?? ""
-
+                            let color = dataEntry["color"] as? String ?? ""
                             let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
 
                             let scheduleData = Schedule.Format(
@@ -135,7 +135,8 @@ class GroupTimeTableViewController: UIViewController {
                                 endAt: endAt,
                                 userId: userId,
                                 memo: memo,
-                                allDayToggle: allDayToggle
+                                allDayToggle: allDayToggle,
+                                color: color
                             )
                             Schedule.shared.updateGroupScheduleData(data: scheduleData)
                             self.groupSches.append(scheduleData)

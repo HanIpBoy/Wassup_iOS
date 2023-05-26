@@ -24,6 +24,7 @@ class Schedule {
         var userId: String
         var memo: String
         var allDayToggle: String
+        var color: String
     }
 
     func updateScheduleData(data: Format) {

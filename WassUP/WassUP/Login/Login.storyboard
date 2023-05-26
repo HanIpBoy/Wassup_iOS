@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yse-Jo-ZWH">
-                                <rect key="frame" x="25" y="308" width="364" height="475"/>
+                                <rect key="frame" x="25" y="308" width="364" height="454"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="이메일" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M6q-yW-cMI">
                                         <rect key="frame" x="32" y="50" width="300" height="50"/>
@@ -77,10 +77,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVg-CM-r02">
-                                        <rect key="frame" x="90" y="390" width="184" height="35"/>
+                                        <rect key="frame" x="170" y="390" width="24" height="14"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="비밀번호를 까먹으셨나?"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="비밀번호를 까먹으셨나?"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLO-EG-XaC">
                                         <rect key="frame" x="32" y="310" width="300" height="50"/>
