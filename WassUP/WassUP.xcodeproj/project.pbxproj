@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA22A1EB90C00A0B054 /* Notification.swift */; };
+		5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */; };
+		5BC5ECA92A1EBE0100A0B054 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */; };
+		5BC5ECAC2A1EBF7C00A0B054 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECAB2A1EBF7C00A0B054 /* NotificationCell.swift */; };
 		DE02078D2A1E24270057A000 /* GroupGarage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02078C2A1E24270057A000 /* GroupGarage.swift */; };
 		DE0207952A1E69C00057A000 /* GroupTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */; };
 		DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFE72A121AD7009C6EF6 /* Schedule.swift */; };
@@ -61,6 +65,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5BC5ECA22A1EB90C00A0B054 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
+		5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		5BC5ECAB2A1EBF7C00A0B054 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		DE02078C2A1E24270057A000 /* GroupGarage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupGarage.swift; sourceTree = "<group>"; };
 		DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTimeTableViewController.swift; sourceTree = "<group>"; };
 		DE02FFE72A121AD7009C6EF6 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -126,6 +134,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5BC5ECAA2A1EBE2F00A0B054 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */,
+				5BC5ECAB2A1EBF7C00A0B054 /* NotificationCell.swift */,
+				5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		DE02FFEF2A1297E8009C6EF6 /* Group */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +167,7 @@
 				DE02FFE72A121AD7009C6EF6 /* Schedule.swift */,
 				DE02FFF22A129E74009C6EF6 /* Group.swift */,
 				DEAA65482A1618E0007993E0 /* GroupSche.swift */,
+				5BC5ECA22A1EB90C00A0B054 /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,8 +222,9 @@
 				DE2850D329D1E687000CDE9C /* Write */,
 				DE2850CA29D1D874000CDE9C /* TabBar */,
 				DE45076829C9142E00365556 /* SignIn */,
-				DE45073129C904B600365556 /* AppDelegate.swift */,
+				5BC5ECAA2A1EBE2F00A0B054 /* Notification */,
 				DE45073329C904B600365556 /* SceneDelegate.swift */,
+				DE45073129C904B600365556 /* AppDelegate.swift */,
 				DE45073A29C904B700365556 /* Assets.xcassets */,
 				DE45073C29C904B700365556 /* LaunchScreen.storyboard */,
 				DE45073F29C904B700365556 /* Info.plist */,
@@ -369,6 +389,7 @@
 			files = (
 				DE45076C29C9146700365556 /* SignIn.storyboard in Resources */,
 				DEAA65432A160E0C007993E0 /* GroupSchedule.storyboard in Resources */,
+				5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */,
 				DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */,
 				DE45076429C9051900365556 /* Login.storyboard in Resources */,
 				DEB7D5882A18EA1A004B10CA /* GroupTimeTable.storyboard in Resources */,
@@ -402,12 +423,14 @@
 				DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */,
 				DEAA65472A16116B007993E0 /* GroupScheduleCollectionViewCell.swift in Sources */,
 				DEB7D58E2A18EAA5004B10CA /* CustomCell.swift in Sources */,
+				5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */,
 				DE02FFF12A1297FC009C6EF6 /* GroupListCollectionViewCell.swift in Sources */,
 				DE68F8152A0D0130007F0C00 /* SettingViewController.swift in Sources */,
 				DE02FFF32A129E74009C6EF6 /* Group.swift in Sources */,
 				DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */,
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
 				DE0207952A1E69C00057A000 /* GroupTimeTableViewController.swift in Sources */,
+				5BC5ECA92A1EBE0100A0B054 /* NotificationViewController.swift in Sources */,
 				DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */,
 				DE2850D229D1E108000CDE9C /* WriteViewController.swift in Sources */,
 				DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */,
@@ -420,6 +443,7 @@
 				DE45073229C904B600365556 /* AppDelegate.swift in Sources */,
 				DEAA65452A160E1F007993E0 /* GroupScheduleViewController.swift in Sources */,
 				DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */,
+				5BC5ECAC2A1EBF7C00A0B054 /* NotificationCell.swift in Sources */,
 				DE45073429C904B600365556 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

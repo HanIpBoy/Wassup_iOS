@@ -13,6 +13,7 @@ class ScheduleViewController: UIViewController {
     
     @IBOutlet weak var calendarView: FSCalendar!
     
+    @IBOutlet weak var notiButton: UIButton!
     var userId: String = UserDefaults.standard.string(forKey: "userId") ?? ""
     var token: String = UserDefaults.standard.string(forKey: "token")!
     var filtered : [Schedule.Format] = []
@@ -106,7 +107,13 @@ class ScheduleViewController: UIViewController {
         calendarView.reloadData()
     }
     
-
+    @IBAction func notiButtonTapped(_ sender: UIButton)  {
+        let storyboard = UIStoryboard(name: "Notification", bundle: nil)
+        let notificationVC = (storyboard.instantiateViewController(withIdentifier: "Notification") as? NotificationViewController)!
+        present(notificationVC, animated: true)
+                
+    }
+    
 }
 
 extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {

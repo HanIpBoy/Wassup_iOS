@@ -125,4 +125,21 @@ class Server {
         task.resume()
     }
 
+    func DeleteData(requestURL: String, token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        guard let url = URL(string: Server().baseURL + requestURL) else {
+            completion(nil, nil, nil) // 잘못된 URL이면 completion에 nil 전달
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        let header = "Bearer \(token)"
+        request.httpMethod = "DELETE"
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            completion(data, response, error) // 요청 결과를 completion에 전달
+        }
+        task.resume()
+    }
 }
