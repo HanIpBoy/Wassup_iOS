@@ -88,32 +88,38 @@ class NotificationViewController: UIViewController {
         responseNotiData["originKey"] = Notification.sharedNoti.notifications[index].originKey
         responseNotiData["groupOriginKey"] = Notification.sharedNoti.notifications[index].groupOriginKey
         let originKey = responseNotiData["originKey"] ?? ""
-        let server = Server()
+        let cellCount = Notification.sharedNoti.notifications.count
 
-        server.postDataToServer(requestURL: "group/invitation/accept", requestData: responseNotiData, token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
-            server.deleteData(requestURL: "user/notification/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
-                print("enter")
+        let server = Server()
+        let token = UserDefaults.standard.string(forKey: "token")!
+        server.postDataToServer(requestURL: "group/invitation/accept", requestData: responseNotiData, token: token) { _, _, _ in
+            server.deleteData(requestURL: "user/notification/\(originKey)", token: token) { _, _, _ in
+                print("token : \(token)")
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
                 }
             }
         }
     }
+
     
     @IBAction func noButtonTapped(_ sender: UIButton) {
         let index = sender.tag
         
         responseNotiData["originKey"] = Notification.sharedNoti.notifications[index].originKey
         let originKey = responseNotiData["originKey"] ?? ""
-
+        let cellCount = Notification.sharedNoti.notifications.count
+        
         let server = Server()
         server.deleteData(requestURL: "user/notification/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
             print("enter")
             DispatchQueue.main.async {
-//                self.(animated: true)
+                self.dismiss(animated: true)
             }
         }
+        
     }
+    
     
 }
 

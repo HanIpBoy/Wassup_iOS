@@ -26,7 +26,7 @@ class WriteViewController: UIViewController {
     @IBOutlet weak var memoTextField: UITextField!
     
     var scheduleVC = ScheduleViewController()
-    
+    var detailVC = DetailViewController()
     var colorPickerView: UIPickerView!
 
     var originKey: String = ""
@@ -73,7 +73,7 @@ class WriteViewController: UIViewController {
         print("flag \(flag)")
         initView()
     }
-    
+
     private func initView() {
         verticalStackView.layer.cornerRadius = 10
         
@@ -222,8 +222,9 @@ class WriteViewController: UIViewController {
                             Schedule.shared.updateScheduleData(data: scheduleData)
                         }
                     }
-                    
-                    
+                    DispatchQueue.main.async {
+                        self.scheduleVC.viewWillAppear(true)
+                    }
                 }
             }
         }
@@ -232,20 +233,22 @@ class WriteViewController: UIViewController {
     }
     
     @IBAction func deleteSchedule(_ sender: UIButton) { // 일정 삭제
-        
+        let server = Server()
+        let originKey = self.originKey
+        server.deleteData(requestURL: "schedule/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
+            print("enter")
+            DispatchQueue.main.async {
+                self.scheduleVC.viewWillAppear(true)
+                self.detailVC.viewWillAppear(true)
+                self.dismiss(animated: true)
+
+            }
+        }
     }
-    
-    
-    
-    
-    
-    
+
     @IBAction func closeWrite(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-                                      
-    
-
 }
 
 extension WriteViewController {

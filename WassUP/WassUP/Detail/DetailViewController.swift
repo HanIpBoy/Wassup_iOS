@@ -17,26 +17,31 @@ class DetailViewController: UIViewController {
     var selectDate: Date?
     var filteredSchedules: [Schedule.Format] = []
     
+    var scheduleVC = ScheduleViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         dateLabel.text = changeDateFormat(selectedDate: selectedDate) // FSCal에서 선택된 날짜를 변수에 저장하고 텍스트로 지정
         print("Detail_selectedDate : \(selectedDate)")
         
-        filteredSchedules = Schedule.shared.schedules.filter { schedule in
-            return schedule.startAt.contains(selectedDate)
-        }
+       
         
         print("1 : \(filteredSchedules)")
         print(filteredSchedules.count)
         
         listView.dataSource = self
         listView.delegate = self
-
+        
         
     }
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        filteredSchedules = Schedule.shared.schedules.filter { schedule in
+            return schedule.startAt.contains(selectedDate)
+        }
         listView.reloadData()
     }
     
@@ -48,13 +53,11 @@ class DetailViewController: UIViewController {
         
         return changeDate
     }
-    
-
 }
 
 extension DetailViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { // datasource
-        print(filteredSchedules.count)
+        print(">>>>>>>\(filteredSchedules.count)")
         return filteredSchedules.count
     }
     
@@ -94,6 +97,9 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout, UICollectio
         vc.endDateString = schedule.endAt
         vc.memo = schedule.memo
         vc.color = String(schedule.color.dropFirst())
+        vc.originKey = schedule.originKey
+        vc.detailVC = self
+        vc.scheduleVC = scheduleVC
         
         present(vc, animated: true)
     }

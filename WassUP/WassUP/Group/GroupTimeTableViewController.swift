@@ -105,7 +105,6 @@ class GroupTimeTableViewController: UIViewController {
         let labelTouch = UITapGestureRecognizer(target: self, action: #selector(groupNameTapped))
         groupNameLabel.addGestureRecognizer(labelTouch)
         
-        
         Schedule.shared.groupSchedules = []
         groupSches = []
         let server = Server()

@@ -87,6 +87,9 @@
                                                             <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="noButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ziv-4G-400"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="asdfasz,fszkdfnqlakfnqlkaefnkls,ezkdfnks,ednfls,dmnfls,kednflskdnflksdnf" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y38-zp-f9M">
                                                             <rect key="frame" x="42" y="25.000000000000004" width="261" height="61.333333333333343"/>

@@ -90,29 +90,6 @@ class LoginViewController: UIViewController {
             
             
         }
-//        DispatchQueue.main.async{
-//
-//            if UserDefaults.standard.object(forKey: "token") != nil {
-//
-//                UserDefaults.standard.set(self.userEmail, forKey: "userId")
-//                UserDefaults.standard.set(self.userPassword, forKey: "password")
-//                self.showToast(message: "로그인 성공")
-//
-//            } else {
-//                self.showToast(message: "올바른 로그인이 아닙니다.")
-//            }
-//        }
-        
-//        DispatchQueue.main.async {
-//            print("4")
-//            if UserDefaults.standard.object(forKey: "token") != nil {// Home으로 이동하기!
-//                print("5")
-//                let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
-//                vcName?.modalPresentationStyle = .fullScreen
-//                vcName?.modalTransitionStyle = .crossDissolve
-//                self.present(vcName!, animated: true, completion: nil)
-//            }
-//        }
     }
     
     @IBAction func goSignIn(_ sender: UIButton) {

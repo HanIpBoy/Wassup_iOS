@@ -24,10 +24,12 @@ class ScheduleViewController: UIViewController {
         print(UserDefaults.standard.string(forKey: "token"))
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         Schedule.shared.schedules = []
         filtered = []
+        print(">>>>>> \(filtered)")
         let server = Server()
         server.getAllData(requestURL: "schedule/user-schedules", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
@@ -65,7 +67,6 @@ class ScheduleViewController: UIViewController {
                     }
                     DispatchQueue.main.async {
                         self.calendarReloadData()
-            
                     }
                 }
             }
@@ -126,7 +127,7 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         vc.selectDate = date
         vc.selectedDate = dateFormatter.string(from: date)
-        
+        vc.scheduleVC = self
         
         present(vc, animated: true, completion: nil)
     }
@@ -153,11 +154,6 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
     }
 }
 
-extension ScheduleViewController: UITabBarControllerDelegate {
-    func didFinishWriting() {
-        calendarReloadData()
-    }
-}
 
 
 
