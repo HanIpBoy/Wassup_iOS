@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Group Create View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="GroupCreateViewController" id="Y6W-OH-hqX" customClass="GroupCreateViewController" customModule="WassUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWq-Zr-9QQ">
+                                <rect key="frame" x="20" y="89" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="sYO-OY-ntK"/>
+                                    <constraint firstAttribute="width" constant="50" id="vFz-K3-8FR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="Close"/>
+                                <connections>
+                                    <action selector="closeButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="1gc-Gt-ccb"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="그룹 생성" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xHq-65-YKd">
+                                <rect key="frame" x="159.66666666666666" y="102" width="73.666666666666657" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Yi-rW-0P6">
+                                <rect key="frame" x="25" y="159" width="343" height="693"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="그룹 이름 *" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ia-MI-V2L">
+                                        <rect key="frame" x="25" y="20" width="75.333333333333329" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="그룹 이름" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tlU-pa-Bqh">
+                                        <rect key="frame" x="20" y="50.333333333333343" width="303" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Vkb-Fi-CZ6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메모" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Tv-27-K4l">
+                                        <rect key="frame" x="25" y="130.33333333333331" width="29.666666666666671" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="메모" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-gJ-Ucf">
+                                        <rect key="frame" x="20" y="160.66666666666669" width="303" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="c5C-ez-67O"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구성원 찾기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ra1-C9-x7w">
+                                        <rect key="frame" x="25" y="240.66666666666669" width="78" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email을 입력해주세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LEA-YR-eeS">
+                                        <rect key="frame" x="20" y="271" width="233" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="mKQ-Rw-9H8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" textContentType="email"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKX-d6-6SW">
+                                        <rect key="frame" x="263" y="271" width="60" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Kuc-XR-hFd"/>
+                                            <constraint firstAttribute="width" constant="60" id="xp8-nO-Pz3"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="검색"/>
+                                        <connections>
+                                            <action selector="searchUser:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="v8i-hQ-VMQ"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="udq-Fg-UAk">
+                                        <rect key="frame" x="20" y="331" width="303" height="195"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xv2-hi-i96">
+                                                <rect key="frame" x="0.0" y="0.0" width="303" height="100"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fj9-2V-iwB">
+                                                        <rect key="frame" x="20.000000000000004" y="24.666666666666625" width="44.333333333333343" height="50.666666666666657"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="div-0Q-Ncg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="44.333333333333336" height="20.333333333333332"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFc-dH-ESk">
+                                                                <rect key="frame" x="0.0" y="30.333333333333371" width="41.333333333333336" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hfh-x6-50r">
+                                                        <rect key="frame" x="243" y="37.666666666666629" width="45" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="45" id="gfj-5i-KXE"/>
+                                                            <constraint firstAttribute="height" constant="25" id="r9u-4s-gkn"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="filled" title="추가">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                            <directionalEdgeInsets key="contentInsets" top="-10" leading="-10" bottom="-10" trailing="-10"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="addUserTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="1qP-aX-UpS"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemMintColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Hfh-x6-50r" secondAttribute="trailing" constant="15" id="LDX-7f-xj2"/>
+                                                    <constraint firstItem="fj9-2V-iwB" firstAttribute="leading" secondItem="xv2-hi-i96" secondAttribute="leading" constant="20" id="Ssm-Pl-tr3"/>
+                                                    <constraint firstItem="fj9-2V-iwB" firstAttribute="centerY" secondItem="xv2-hi-i96" secondAttribute="centerY" id="lP1-mP-tn5"/>
+                                                    <constraint firstAttribute="height" constant="100" id="lxB-3r-R56"/>
+                                                    <constraint firstItem="Hfh-x6-50r" firstAttribute="centerY" secondItem="xv2-hi-i96" secondAttribute="centerY" id="zsS-jH-2Ev"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1M3-Dz-hnc">
+                                                <rect key="frame" x="0.0" y="115" width="303" height="80"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="LlD-Bi-3cL" userLabel="group1row">
+                                                        <rect key="frame" x="0.0" y="0.0" width="305" height="33"/>
+                                                        <subviews>
+                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jq-q8-I5s">
+                                                                <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="33" id="XZR-PL-Tes"/>
+                                                                    <constraint firstAttribute="width" constant="33" id="kxf-Zx-7yr"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemRedColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circleButton" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GI7-a2-MyI">
+                                                                <rect key="frame" x="68" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="33" id="P7N-3k-cE1"/>
+                                                                    <constraint firstAttribute="width" constant="33" id="grn-aw-efa"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circleButton" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="a2V-6Y-rOm"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4t-mh-lK5">
+                                                                <rect key="frame" x="136" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="33" id="IFn-GH-aW6"/>
+                                                                    <constraint firstAttribute="height" constant="33" id="L57-Dp-ILS"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circleButton" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6Pg-yS-7o2"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SrE-j1-SZu">
+                                                                <rect key="frame" x="204" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="33" id="InA-6k-aO7"/>
+                                                                    <constraint firstAttribute="height" constant="33" id="hkG-ze-eFU"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circleButton" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="feT-aI-jXH"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9x-mh-wXb">
+                                                                <rect key="frame" x="272" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="33" id="GF8-BM-1wi"/>
+                                                                    <constraint firstAttribute="width" constant="33" id="nTx-Vf-NYF"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circleButton" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="AzD-FK-NC4"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="9zo-bD-c8p" userLabel="group2row">
+                                                        <rect key="frame" x="0.0" y="43" width="305" height="33"/>
+                                                        <subviews>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnE-e5-fjy">
+                                                                <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="33" id="6k5-7d-r2f"/>
+                                                                    <constraint firstAttribute="height" constant="33" id="dJj-hM-pVu"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemIndigoColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Mpj-vV-2Ku"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUV-zk-ZNu">
+                                                                <rect key="frame" x="68" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="33" id="0Ya-i2-aqk"/>
+                                                                    <constraint firstAttribute="height" constant="33" id="8X4-0o-Eer"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemPurpleColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="NyX-XK-r4v"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cJ-6x-r0i">
+                                                                <rect key="frame" x="136" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="33" id="Rld-Ff-qyj"/>
+                                                                    <constraint firstAttribute="width" constant="33" id="joQ-bP-HbZ"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemPinkColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Tdl-uL-SbF"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XrU-V1-C9q">
+                                                                <rect key="frame" x="204" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="33" id="BcP-ID-Jq5"/>
+                                                                    <constraint firstAttribute="width" constant="33" id="Wy2-ds-wO8"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="zsk-hH-WAX"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbb-U4-b3s">
+                                                                <rect key="frame" x="272" y="0.0" width="33" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="33" id="NzQ-2s-XT4"/>
+                                                                    <constraint firstAttribute="height" constant="33" id="f6f-gf-TYK"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                                                <color key="tintColor" systemColor="systemBrownColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="진웅">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="deleteGroupUsers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="m4o-0U-UzW"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="LlD-Bi-3cL" firstAttribute="leading" secondItem="1M3-Dz-hnc" secondAttribute="leading" id="8wn-bp-DSg"/>
+                                                    <constraint firstItem="LlD-Bi-3cL" firstAttribute="top" secondItem="1M3-Dz-hnc" secondAttribute="top" id="E7k-Bp-Ayr"/>
+                                                    <constraint firstItem="9zo-bD-c8p" firstAttribute="top" secondItem="LlD-Bi-3cL" secondAttribute="bottom" constant="10" id="Gw1-rZ-kqB"/>
+                                                    <constraint firstItem="9zo-bD-c8p" firstAttribute="leading" secondItem="LlD-Bi-3cL" secondAttribute="leading" id="Nca-o3-ibY"/>
+                                                    <constraint firstAttribute="height" constant="80" id="RRc-s7-NuP"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHD-Su-GxV">
+                                        <rect key="frame" x="25" y="589" width="293" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="jpO-9b-CZT"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="저장"/>
+                                        <connections>
+                                            <action selector="saveNewGroup:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="AhS-Ki-wHE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="OHD-Su-GxV" secondAttribute="trailing" constant="25" id="1DE-CA-TJw"/>
+                                    <constraint firstItem="S7i-gJ-Ucf" firstAttribute="trailing" secondItem="tlU-pa-Bqh" secondAttribute="trailing" id="1lP-ZO-phr"/>
+                                    <constraint firstItem="zKX-d6-6SW" firstAttribute="leading" secondItem="LEA-YR-eeS" secondAttribute="trailing" constant="10" id="2WW-2d-Bq5"/>
+                                    <constraint firstItem="LEA-YR-eeS" firstAttribute="leading" secondItem="S7i-gJ-Ucf" secondAttribute="leading" id="5OQ-m7-7xC"/>
+                                    <constraint firstItem="zKX-d6-6SW" firstAttribute="trailing" secondItem="S7i-gJ-Ucf" secondAttribute="trailing" id="7Q1-HN-xpa"/>
+                                    <constraint firstItem="1Tv-27-K4l" firstAttribute="leading" secondItem="5ia-MI-V2L" secondAttribute="leading" id="7s4-MP-gBQ"/>
+                                    <constraint firstItem="S7i-gJ-Ucf" firstAttribute="leading" secondItem="tlU-pa-Bqh" secondAttribute="leading" id="8CP-Ta-74X"/>
+                                    <constraint firstItem="Ra1-C9-x7w" firstAttribute="top" secondItem="S7i-gJ-Ucf" secondAttribute="bottom" constant="30" id="Aaq-AB-nXX"/>
+                                    <constraint firstItem="tlU-pa-Bqh" firstAttribute="top" secondItem="5ia-MI-V2L" secondAttribute="bottom" constant="10" id="CYk-Zl-b3L"/>
+                                    <constraint firstItem="udq-Fg-UAk" firstAttribute="top" secondItem="LEA-YR-eeS" secondAttribute="bottom" constant="10" id="DdC-bT-DLz"/>
+                                    <constraint firstItem="OHD-Su-GxV" firstAttribute="leading" secondItem="2Yi-rW-0P6" secondAttribute="leading" constant="25" id="Gj1-VY-Vpq"/>
+                                    <constraint firstItem="zKX-d6-6SW" firstAttribute="top" secondItem="LEA-YR-eeS" secondAttribute="top" id="JGs-Bd-ax3"/>
+                                    <constraint firstItem="1Tv-27-K4l" firstAttribute="top" secondItem="tlU-pa-Bqh" secondAttribute="bottom" constant="30" id="Kv5-Yz-SoT"/>
+                                    <constraint firstItem="Ra1-C9-x7w" firstAttribute="leading" secondItem="1Tv-27-K4l" secondAttribute="leading" id="OUE-Wq-gqX"/>
+                                    <constraint firstItem="tlU-pa-Bqh" firstAttribute="leading" secondItem="2Yi-rW-0P6" secondAttribute="leading" constant="20" id="OWT-FW-ap3"/>
+                                    <constraint firstItem="udq-Fg-UAk" firstAttribute="leading" secondItem="S7i-gJ-Ucf" secondAttribute="leading" id="S8M-MZ-CQV"/>
+                                    <constraint firstItem="LEA-YR-eeS" firstAttribute="top" secondItem="Ra1-C9-x7w" secondAttribute="bottom" constant="10" id="UxJ-90-Yas"/>
+                                    <constraint firstAttribute="trailing" secondItem="tlU-pa-Bqh" secondAttribute="trailing" constant="20" id="Y4r-Xu-gEg"/>
+                                    <constraint firstItem="udq-Fg-UAk" firstAttribute="trailing" secondItem="S7i-gJ-Ucf" secondAttribute="trailing" id="hu5-7K-ZCn"/>
+                                    <constraint firstItem="S7i-gJ-Ucf" firstAttribute="top" secondItem="1Tv-27-K4l" secondAttribute="bottom" constant="10" id="iRX-41-92f"/>
+                                    <constraint firstItem="5ia-MI-V2L" firstAttribute="top" secondItem="2Yi-rW-0P6" secondAttribute="top" constant="20" id="uVT-iz-Np4"/>
+                                    <constraint firstItem="5ia-MI-V2L" firstAttribute="leading" secondItem="2Yi-rW-0P6" secondAttribute="leading" constant="25" id="uij-CM-azC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="xHq-65-YKd" firstAttribute="centerY" secondItem="jWq-Zr-9QQ" secondAttribute="centerY" id="0tg-hx-j2N"/>
+                            <constraint firstItem="jWq-Zr-9QQ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="DMv-Cg-mzM"/>
+                            <constraint firstAttribute="bottom" secondItem="2Yi-rW-0P6" secondAttribute="bottom" id="FeL-kC-4JZ"/>
+                            <constraint firstItem="2Yi-rW-0P6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="25" id="QVe-Up-9aF"/>
+                            <constraint firstItem="2Yi-rW-0P6" firstAttribute="top" secondItem="jWq-Zr-9QQ" secondAttribute="bottom" constant="20" id="RQj-gR-mnq"/>
+                            <constraint firstItem="xHq-65-YKd" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="V06-fu-7XR"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="OHD-Su-GxV" secondAttribute="bottom" constant="20" id="VGM-Sg-Fqn"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="2Yi-rW-0P6" secondAttribute="trailing" constant="25" id="gOx-4P-IQc"/>
+                            <constraint firstItem="jWq-Zr-9QQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="kgk-hD-m5Z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addUserButton" destination="Hfh-x6-50r" id="803-eX-M2x"/>
+                        <outlet property="groupNameTextField" destination="tlU-pa-Bqh" id="j5A-n8-tJa"/>
+                        <outlet property="groupUserBtn1" destination="8jq-q8-I5s" id="Gdn-uy-ha8"/>
+                        <outlet property="groupUserBtn10" destination="kbb-U4-b3s" id="jnp-5F-Bre"/>
+                        <outlet property="groupUserBtn2" destination="GI7-a2-MyI" id="ZC9-bt-RdE"/>
+                        <outlet property="groupUserBtn3" destination="u4t-mh-lK5" id="Sca-gD-JNK"/>
+                        <outlet property="groupUserBtn4" destination="SrE-j1-SZu" id="kbJ-N5-V5B"/>
+                        <outlet property="groupUserBtn5" destination="T9x-mh-wXb" id="AkG-24-fL3"/>
+                        <outlet property="groupUserBtn6" destination="HnE-e5-fjy" id="MhD-3B-VeT"/>
+                        <outlet property="groupUserBtn7" destination="VUV-zk-ZNu" id="nfk-zK-Aoe"/>
+                        <outlet property="groupUserBtn8" destination="6cJ-6x-r0i" id="5gC-ch-EsU"/>
+                        <outlet property="groupUserBtn9" destination="XrU-V1-C9q" id="mmG-wc-Hnv"/>
+                        <outlet property="memoTextField" destination="S7i-gJ-Ucf" id="zOx-Kx-x9j"/>
+                        <outlet property="myView" destination="2Yi-rW-0P6" id="2f6-Bm-XcE"/>
+                        <outlet property="searchButton" destination="zKX-d6-6SW" id="Aju-bO-XBa"/>
+                        <outlet property="searchUserTextField" destination="LEA-YR-eeS" id="7rv-MA-WLi"/>
+                        <outlet property="searchUserView" destination="xv2-hi-i96" id="Wn7-xh-rLI"/>
+                        <outlet property="userIdLabel" destination="XFc-dH-ESk" id="IWw-Zz-ZGq"/>
+                        <outlet property="userNameLabel" destination="div-0Q-Ncg" id="HpW-HV-vtv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38.931297709923662" y="-34.507042253521128"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Close" width="30" height="30"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemMintColor">
+            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

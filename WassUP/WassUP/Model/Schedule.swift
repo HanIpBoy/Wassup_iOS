@@ -34,6 +34,10 @@ class Schedule {
     func updateGroupScheduleData(data: Format) {
         groupSchedules.append(data)
     }
-
-    
+    func findAndUpdateScheduleData(data: Format) {
+        if let index = Schedule.shared.schedules.firstIndex(where: { $0.originKey == data.originKey }) {
+            // 특정 식별자를 가진 아이템의 인덱스를 찾음
+            schedules[index] = data
+        }
+    }
 }

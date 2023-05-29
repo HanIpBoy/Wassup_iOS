@@ -46,6 +46,18 @@ class WriteViewController: UIViewController {
         "memo": "",
         "allDayToggle": "",
         "color" : ""
+//        "originKey" : ""
+    ]
+    
+    private var updateMap: [String: Any] = [ // 인증 후에 이 뷰컨에 저장할 hashMap
+        "name": "",
+        "startAt" : "",
+        "endAt" : "",
+        "userId" : "",
+        "memo": "",
+        "allDayToggle": "",
+        "color" : "",
+        "originKey" : ""
     ]
     
     struct ColorOption {
@@ -153,8 +165,6 @@ class WriteViewController: UIViewController {
         }
     }
     
-    
-    
     @IBAction func selectStartDate(_ sender: UIDatePicker) {
         if flag {
             endDatePicker.date = sender.date
@@ -177,59 +187,117 @@ class WriteViewController: UIViewController {
     
     
     @IBAction func saveSchedule(_ sender: UIButton) { // 일정 저장
-        scheduleMap["name"] = titleTextField.text
-        if flag {
-            scheduleMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
-            scheduleMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59"
-        } else {
-            scheduleMap["startAt"] = makeDateString(date: startDatePicker.date)
-            scheduleMap["endAt"] = makeDateString(date: endDatePicker.date)
-        }
-        scheduleMap["memo"] = memoTextField.text
-        scheduleMap["allDayToggle"] = String(flag)
-        scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
-        scheduleMap["color"] = colorToHexString(colorButton.tintColor)
+       
         let server = Server()
-        server.postDataToServer(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
+        if deleteButton.isHidden { // 생성
+            scheduleMap["name"] = titleTextField.text
+            if flag {
+                scheduleMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
+                scheduleMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59"
+            } else {
+                scheduleMap["startAt"] = makeDateString(date: startDatePicker.date)
+                scheduleMap["endAt"] = makeDateString(date: endDatePicker.date)
             }
-            if let data = data {
-                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-                   let json = jsonObject as? [String: Any],
-                   let dataArray = json["data"] as? [[String: Any]] {
-                    for dataEntry in dataArray {
-                        if let originKey = dataEntry["originKey"] as? String {
-                            let name = dataEntry["name"] as? String ?? ""
-                            let startAt = dataEntry["startAt"] as? String ?? ""
-                            let endAt = dataEntry["endAt"] as? String ?? ""
-                            let userId = dataEntry["userId"] as? String ?? ""
-                            let memo = dataEntry["memo"] as? String ?? ""
-                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            let color = dataEntry["color"] as? String ?? ""
-                            let scheduleData = Schedule.Format(
-                                originKey: originKey,
-                                name: name,
-                                startAt: startAt,
-                                endAt: endAt,
-                                userId: userId,
-                                memo: memo,
-                                allDayToggle: allDayToggle,
-                                color: color
-                            )
+            scheduleMap["memo"] = memoTextField.text
+            scheduleMap["allDayToggle"] = String(flag)
+            scheduleMap["userId"] = UserDefaults.standard.string(forKey: "userId")
+            scheduleMap["color"] = colorToHexString(colorButton.tintColor)
+            server.postDataToServer(requestURL: "schedule", requestData: scheduleMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                if let data = data {
+                    if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                       let json = jsonObject as? [String: Any],
+                       let dataArray = json["data"] as? [[String: Any]] {
+                        for dataEntry in dataArray {
+                            if let originKey = dataEntry["originKey"] as? String {
+                                let name = dataEntry["name"] as? String ?? ""
+                                let startAt = dataEntry["startAt"] as? String ?? ""
+                                let endAt = dataEntry["endAt"] as? String ?? ""
+                                let userId = dataEntry["userId"] as? String ?? ""
+                                let memo = dataEntry["memo"] as? String ?? ""
+                                let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
+                                let color = dataEntry["color"] as? String ?? ""
+                                let scheduleData = Schedule.Format(
+                                    originKey: originKey,
+                                    name: name,
+                                    startAt: startAt,
+                                    endAt: endAt,
+                                    userId: userId,
+                                    memo: memo,
+                                    allDayToggle: allDayToggle,
+                                    color: color
+                                )
 
-                            Schedule.shared.updateScheduleData(data: scheduleData)
+                                Schedule.shared.updateScheduleData(data: scheduleData)
+                            }
                         }
-                    }
-                    DispatchQueue.main.async {
-                        self.scheduleVC.viewWillAppear(true)
+                        DispatchQueue.main.async {
+                            self.scheduleVC.viewWillAppear(true)
+                            self.dismiss(animated: true)
+
+                        }
                     }
                 }
             }
         }
-        dismiss(animated: true, completion: nil)
         
+        else { // 수정
+            updateMap["name"] = titleTextField.text
+            if flag {
+                updateMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
+                updateMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59"
+            } else {
+                updateMap["startAt"] = makeDateString(date: startDatePicker.date)
+                updateMap["endAt"] = makeDateString(date: endDatePicker.date)
+            }
+            updateMap["memo"] = memoTextField.text
+            updateMap["allDayToggle"] = String(flag)
+            updateMap["userId"] = UserDefaults.standard.string(forKey: "userId")
+            updateMap["color"] = colorToHexString(colorButton.tintColor)
+            updateMap["originKey"] = self.originKey
+            server.updateData(requestURL: "schedule", requestData: updateMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                if let data = data {
+                    if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                       let json = jsonObject as? [String: Any],
+                       let dataArray = json["data"] as? [[String: Any]] {
+                        for dataEntry in dataArray {
+                            if let originKey = dataEntry["originKey"] as? String {
+                                let name = dataEntry["name"] as? String ?? ""
+                                let startAt = dataEntry["startAt"] as? String ?? ""
+                                let endAt = dataEntry["endAt"] as? String ?? ""
+                                let userId = dataEntry["userId"] as? String ?? ""
+                                let memo = dataEntry["memo"] as? String ?? ""
+                                let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
+                                let color = dataEntry["color"] as? String ?? ""
+                                let scheduleData = Schedule.Format(
+                                    originKey: originKey,
+                                    name: name,
+                                    startAt: startAt,
+                                    endAt: endAt,
+                                    userId: userId,
+                                    memo: memo,
+                                    allDayToggle: allDayToggle,
+                                    color: color
+                                )
+                                
+                                Schedule.shared.findAndUpdateScheduleData(data: scheduleData)
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.detailVC.viewWillAppear(true)
+                            self.dismiss(animated: true)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func deleteSchedule(_ sender: UIButton) { // 일정 삭제
@@ -241,7 +309,6 @@ class WriteViewController: UIViewController {
                 self.scheduleVC.viewWillAppear(true)
                 self.detailVC.viewWillAppear(true)
                 self.dismiss(animated: true)
-
             }
         }
     }

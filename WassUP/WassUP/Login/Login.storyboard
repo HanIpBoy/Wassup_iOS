@@ -290,13 +290,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="364" height="132"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpb-3C-JGo">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpb-3C-JGo">
                                                             <rect key="frame" x="20" y="55.5" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q06-Rl-PIL">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q06-Rl-PIL">
                                                             <rect key="frame" x="165.5" y="58" width="33" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -336,6 +336,14 @@
                                     <constraint firstAttribute="trailing" secondItem="zpa-7G-Ali" secondAttribute="trailing" constant="2" id="nuz-5Y-nhi"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSE-cH-2fX">
+                                <rect key="frame" x="299" y="108.5" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="groupCreate:" destination="IIv-tc-Q3O" eventType="touchUpInside" id="AKW-mZ-GLM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kEz-Rh-PJR"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -347,7 +355,9 @@
                             <constraint firstItem="fGV-B6-3ly" firstAttribute="leading" secondItem="kEz-Rh-PJR" secondAttribute="leading" constant="50" id="cQJ-2X-zeq"/>
                             <constraint firstItem="Zc9-9u-2bo" firstAttribute="top" secondItem="kEz-Rh-PJR" secondAttribute="top" constant="20" id="d1U-T8-oj3"/>
                             <constraint firstItem="kEz-Rh-PJR" firstAttribute="trailing" secondItem="zoi-Ys-wik" secondAttribute="trailing" constant="25" id="dfW-oR-18k"/>
+                            <constraint firstItem="OSE-cH-2fX" firstAttribute="centerY" secondItem="fGV-B6-3ly" secondAttribute="centerY" id="hEM-fx-sdt"/>
                             <constraint firstItem="zoi-Ys-wik" firstAttribute="leading" secondItem="kEz-Rh-PJR" secondAttribute="leading" constant="25" id="oqE-fE-dsL"/>
+                            <constraint firstItem="kEz-Rh-PJR" firstAttribute="trailing" secondItem="OSE-cH-2fX" secondAttribute="trailing" constant="40" id="uVT-H2-dTr"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="그룹" image="person.3.fill" catalog="system" id="iLm-Fz-OMM"/>

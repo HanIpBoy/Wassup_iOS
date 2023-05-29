@@ -143,4 +143,32 @@ class Server {
         }
         task.resume()
     }
+    
+    func updateData(requestURL: String, requestData: [String: Any], token: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        guard let url = URL(string: Server().baseURL + requestURL) else {
+            completion(nil, nil, nil) // 잘못된 URL이면 completion에 nil 전달
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        var header = "Bearer \(token)"
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: requestData)
+            request.httpBody = jsonData
+        } catch {
+            completion(nil, nil, error) // JSON 데이터 변환 오류 발생 시 completion에 오류 전달
+            return
+        }
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            completion(data, response, error) // 요청 결과를 completion에 전달
+        }
+        task.resume()
+    }
+    
 }

@@ -22,6 +22,7 @@ class ScheduleViewController: UIViewController {
         super.viewDidLoad()
         calendarConfigure()
         print(UserDefaults.standard.string(forKey: "token"))
+        print(UserDefaults.standard.string(forKey: "userName"))
     }
     
     

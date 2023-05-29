@@ -65,6 +65,7 @@ class SettingViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "token")
         UserDefaults.standard.removeObject(forKey: "userId")
         UserDefaults.standard.removeObject(forKey: "password")
+        UserDefaults.standard.removeObject(forKey: "userName")
         
         let vcName = self.storyboard?.instantiateViewController(withIdentifier: "Login")
         vcName?.modalPresentationStyle = .fullScreen

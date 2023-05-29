@@ -59,27 +59,21 @@ class LoginViewController: UIViewController {
                    let json = jsonObject as? [String: Any],
                    let dataArray = json["data"] as? [[String: Any]] {
                     for dataEntry in dataArray {
-                        let token = dataEntry["token"] as? String ?? ""
-                        UserDefaults.standard.set(token, forKey: "token")
-                        print("1번")
+                        if let token = dataEntry["token"] {
+                            let userName = dataEntry["userName"] as? String ?? ""
+                            UserDefaults.standard.set(token, forKey: "token")
+                            UserDefaults.standard.set(userName, forKey: "userName")
+                        }
                     }
                 }
             }
             if UserDefaults.standard.object(forKey: "token") != nil {
-                print("2번")
                 UserDefaults.standard.set(self.userEmail, forKey: "userId")
                 UserDefaults.standard.set(self.userPassword, forKey: "password")
-//                self.showToast(message: "로그인 성공")
-                
-            } else {
-                print("3번")
-//                self.showToast(message: "올바른 로그인이 아닙니다.")
             }
             
             DispatchQueue.main.async {
-                print("4")
                 if UserDefaults.standard.object(forKey: "token") != nil {// Home으로 이동하기!
-                    print("5")
                     let vcName = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
                     vcName?.modalPresentationStyle = .fullScreen
                     vcName?.modalTransitionStyle = .crossDissolve

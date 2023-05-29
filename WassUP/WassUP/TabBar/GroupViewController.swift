@@ -24,7 +24,7 @@ class GroupViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         Group.shared2.groups = []
         let server = Server()
         server.getAllData(requestURL: "group", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
@@ -73,6 +73,17 @@ class GroupViewController: UIViewController {
         myView.layer.cornerRadius = 20
         groupListView.layer.cornerRadius = 20
     }
+    
+    @IBAction func groupCreate(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "GroupCreate", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupCreateViewController") as? GroupCreateViewController else { return
+        }
+        
+        vc.groupVC = self
+        present(vc, animated: true)
+    }
+    
+    
     
     func getStartAndEndOfWeek() -> (String, String) {
         let calendar = Calendar.current

@@ -37,6 +37,8 @@
 		DE45076A29C9144D00365556 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE45076929C9144D00365556 /* SignInViewController.swift */; };
 		DE45076C29C9146700365556 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE45076B29C9146700365556 /* SignIn.storyboard */; };
 		DE68F8152A0D0130007F0C00 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE68F8142A0D0130007F0C00 /* SettingViewController.swift */; };
+		DE6ACA922A24F9660018B3DF /* GroupCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE6ACA912A24F9660018B3DF /* GroupCreate.storyboard */; };
+		DE6ACA942A24F9710018B3DF /* GroupCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6ACA932A24F9710018B3DF /* GroupCreateViewController.swift */; };
 		DEAA65432A160E0C007993E0 /* GroupSchedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEAA65422A160E0C007993E0 /* GroupSchedule.storyboard */; };
 		DEAA65452A160E1F007993E0 /* GroupScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65442A160E1F007993E0 /* GroupScheduleViewController.swift */; };
 		DEAA65472A16116B007993E0 /* GroupScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */; };
@@ -99,6 +101,8 @@
 		DE45076929C9144D00365556 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DE45076B29C9146700365556 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		DE68F8142A0D0130007F0C00 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		DE6ACA912A24F9660018B3DF /* GroupCreate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupCreate.storyboard; sourceTree = "<group>"; };
+		DE6ACA932A24F9710018B3DF /* GroupCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCreateViewController.swift; sourceTree = "<group>"; };
 		DEAA65422A160E0C007993E0 /* GroupSchedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupSchedule.storyboard; sourceTree = "<group>"; };
 		DEAA65442A160E1F007993E0 /* GroupScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupScheduleViewController.swift; sourceTree = "<group>"; };
 		DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				DEAA65422A160E0C007993E0 /* GroupSchedule.storyboard */,
 				DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */,
 				DEAA65442A160E1F007993E0 /* GroupScheduleViewController.swift */,
+				DE6ACA912A24F9660018B3DF /* GroupCreate.storyboard */,
+				DE6ACA932A24F9710018B3DF /* GroupCreateViewController.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -393,6 +399,7 @@
 				5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */,
 				DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */,
 				DE45076429C9051900365556 /* Login.storyboard in Resources */,
+				DE6ACA922A24F9660018B3DF /* GroupCreate.storyboard in Resources */,
 				DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */,
 				DE45073E29C904B700365556 /* LaunchScreen.storyboard in Resources */,
 				DE45073B29C904B700365556 /* Assets.xcassets in Resources */,
@@ -422,6 +429,7 @@
 			files = (
 				DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */,
 				DEAA65472A16116B007993E0 /* GroupScheduleCollectionViewCell.swift in Sources */,
+				DE6ACA942A24F9710018B3DF /* GroupCreateViewController.swift in Sources */,
 				DEB7D58E2A18EAA5004B10CA /* CustomCell.swift in Sources */,
 				5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */,
 				DE02FFF12A1297FC009C6EF6 /* GroupListCollectionViewCell.swift in Sources */,

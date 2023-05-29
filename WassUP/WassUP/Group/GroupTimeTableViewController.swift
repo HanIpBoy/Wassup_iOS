@@ -38,7 +38,6 @@ class GroupTimeTableViewController: UIViewController {
     var groupOriginKey: String = ""
     var groupName: String = ""
     var groupSches : [Schedule.Format] = []
-
     var bars: [Bar] = []
     var baseDate: Date = Date() // 주의 기간을 잡기 위한 기준 날짜
 //    기본 값은 오늘이되, Next에서 오왼 스와이프 시 baseDate 값을 일주일 늘려서 전달
@@ -57,12 +56,15 @@ class GroupTimeTableViewController: UIViewController {
     var endDateOfWeekKR: Date = Date()
 
     var groupUsers : [String: Any] = [:]
+    var groupIDs : [String] = []
     var groupUsersName : [String]?
     var buttons: [UIButton] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        groupIDs = groupUsers["groupUsers"] as! [String]
         myView.layer.cornerRadius = 20
         
         makeDataSourceAndDelegate(collectionView: firstCollectionView)
@@ -306,29 +308,19 @@ class GroupTimeTableViewController: UIViewController {
 
         let endHour = calendar.component(.hour, from: (endDate)!)
         let endMinute = calendar.component(.minute, from: (endDate)!)
+        var userIndex = ""
+        for i in 0..<groupIDs.count {
+            if userId == groupIDs[i] {
+                userIndex = String(i)
+            }
+        }
 
-        let bar: Bar = Bar(userId: userId, userIndex: "", startHour: String(startHour), startMinute: String(startMinute), endHour: String(endHour), endMinute: String(endMinute), weekday: String(weekday))
+        let bar: Bar = Bar(userId: userId, userIndex: userIndex, startHour: String(startHour), startMinute: String(startMinute), endHour: String(endHour), endMinute: String(endMinute), weekday: String(weekday))
 
         bars.append(bar)
-        makeUserIndex(content: bars)
     }
 
-    func makeUserIndex(content: [Bar]) {
-        var selected: [String] = []
-        for bar in content {
-            if !selected.contains(bar.userId) {
-                selected.append(bar.userId)
-            }
-        }
-        for (index, userId) in selected.enumerated() {
-            for (barIndex, bar) in content.enumerated() {
-                if bar.userId == userId {
-                    bars[barIndex].userIndex = String(index)
-                }
-            }
-        }
-    }
-
+    
     func calculate(float : Float, index: String) -> Int {
         let hour = Int(float)
         let userIndex = Int(index)!
@@ -359,19 +351,6 @@ class GroupTimeTableViewController: UIViewController {
     @IBAction func nextWeekAction(_ sender: UIButton) {
         let calendar = Calendar(identifier: .gregorian)
         baseDate = calendar.date(byAdding: .weekOfYear, value: 1, to: baseDate) ?? Date()
-        
-//        let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
-//        guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupTimeTableViewController") as? GroupTimeTableViewController else { return }
-//
-//        vc.groupName = self.groupName
-//        vc.baseDate = self.baseDate
-//        vc.groupOriginKey = self.groupOriginKey
-//        vc.groupUsers = self.groupUsers
-//
-//        vc.modalTransitionStyle = .crossDissolve
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(vc, animated: true, completion: nil)
-        
         reloadDate()
     }
 }
