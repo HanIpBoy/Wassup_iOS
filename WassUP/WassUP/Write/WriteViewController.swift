@@ -34,7 +34,7 @@ class WriteViewController: UIViewController {
     var startDateString: String = ""
     var endDateString: String = ""
     var memo: String = ""
-    var color: String = ""
+    var color: String = "E45C5C"
     
     var flag: Bool = false
     
@@ -72,7 +72,7 @@ class WriteViewController: UIViewController {
         ColorOption(text: "Green", color: "#2CC91E"),
         ColorOption(text: "Blue", color: "#474DDF"),
         ColorOption(text: "Navy", color: "#311E7B"),
-        ColorOption(text: "Purple", color: "#BO4BD3"),
+        ColorOption(text: "Purple", color: "#B04BD3"),
         ColorOption(text: "Pink", color: "#FF4BE2"),
         ColorOption(text: "Black", color: "#000000"),
         ColorOption(text: "Brown", color: "#7B4C15")
@@ -121,7 +121,7 @@ class WriteViewController: UIViewController {
         colorPickerView.backgroundColor = UIColor(hexString: "f5f5f5")
        colorPickerView.isHidden = true // 초기에 숨김 상태로 설정
         colorButtonView.layer.cornerRadius = 10
-        colorButton.tintColor = UIColor(hexString: self.color ?? "000000")
+        colorButton.tintColor = UIColor(hexString: self.color)
        // colorPickerView를 버튼이 속한 뷰에 추가
        view.addSubview(colorPickerView)
     }
@@ -179,8 +179,6 @@ class WriteViewController: UIViewController {
                 // endDatePicker의 날짜가 startDatePicker의 날짜보다 앞서는 경우
                 showToast(message: "종료 날짜는 시작 날짜보다 앞설 수 없습니다.")
                 endDatePicker.date = startDatePicker.date + 600
-            } else {
-//                print(">>> success")
             }
         }
     }
@@ -303,12 +301,43 @@ class WriteViewController: UIViewController {
     @IBAction func deleteSchedule(_ sender: UIButton) { // 일정 삭제
         let server = Server()
         let originKey = self.originKey
-        server.deleteData(requestURL: "schedule/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
-            print("enter")
-            DispatchQueue.main.async {
-                self.scheduleVC.viewWillAppear(true)
-                self.detailVC.viewWillAppear(true)
-                self.dismiss(animated: true)
+        server.deleteData(requestURL: "schedule/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            if let data = data {
+                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                   let json = jsonObject as? [String: Any],
+                   let dataArray = json["data"] as? [[String: Any]] {
+                    for dataEntry in dataArray {
+                        if let originKey = dataEntry["originKey"] as? String {
+                            let name = dataEntry["name"] as? String ?? ""
+                            let startAt = dataEntry["startAt"] as? String ?? ""
+                            let endAt = dataEntry["endAt"] as? String ?? ""
+                            let userId = dataEntry["userId"] as? String ?? ""
+                            let memo = dataEntry["memo"] as? String ?? ""
+                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
+                            let color = dataEntry["color"] as? String ?? ""
+                            let scheduleData = Schedule.Format(
+                                originKey: originKey,
+                                name: name,
+                                startAt: startAt,
+                                endAt: endAt,
+                                userId: userId,
+                                memo: memo,
+                                allDayToggle: allDayToggle,
+                                color: color
+                            )
+                            Schedule.shared.deleteScheduleData(data: scheduleData)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.detailVC.viewWillAppear(true)
+                        self.scheduleVC.viewWillAppear(true)
+                        self.dismiss(animated: true)
+                    }
+                }
             }
         }
     }
@@ -418,7 +447,6 @@ extension WriteViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let color = colors[row]
         let selectedColor = color.color.dropFirst()
-        print(selectedColor)
         // 선택한 색상을 처리하는 로직 추가
         colorButton.tintColor = UIColor(hexString: String(selectedColor))
         

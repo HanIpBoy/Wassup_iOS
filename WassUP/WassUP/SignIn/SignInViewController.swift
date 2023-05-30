@@ -89,7 +89,6 @@ class SignInViewController: UIViewController {
         } else { // 서버에 보내야 할 프로토콜
             let server = Server()
             server.emailVerify(requestURL: "auth/email-verify", requestBody: ["userId":emailTextField.text!, "emailAuthCode":numTextField.text!]) { responseString in
-                print("responseString: \(responseString)")
                 if responseString.contains("succeed") {
                     DispatchQueue.main.async {
                         self.userMap["email"] = self.emailTextField.text

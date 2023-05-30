@@ -57,7 +57,6 @@ class GroupViewController: UIViewController {
                             )
                             
                             Group.shared2.updateGroupData(data: groupData)
-                            print(">>>: \(Group.shared2.groups)")
                         }
                     }
                     DispatchQueue.main.async {
@@ -117,9 +116,7 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupListCollectionViewCell", for: indexPath) as! GroupListCollectionViewCell
-//        print("enter cell")
         let group = Group.shared2.groups[indexPath.item]
-//        print("group : \(group)")
         cell.nameLabel.text = group.groupName
         cell.descriptionLabel.text = group.description
         cell.numberLabel.text = "👥 " + String(group.numOfUsers)
@@ -140,22 +137,10 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
         vc.groupOriginKey = group.originKey
         vc.groupUsers = dict
         
-//        let (startString, endString) = getStartAndEndOfWeek()
-//        let periodString = startString + " - " + endString
-//        print("period : \(periodString)")
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
         
-        
-//        // 그룹 이름 넘겨서 그룹 이름 업데이트 하는 내용
-////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupListCollectionViewCell", for: indexPath) as! GroupListCollectionViewCell
-//        let group = Group.shared2.groups[indexPath.item]
-        
-        
-        
     }
-    
-    
     
 }

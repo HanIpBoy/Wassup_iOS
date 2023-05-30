@@ -28,7 +28,6 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("groupOriginKey : \(groupOriginKey)")
         GroupSche.shared3.groupSche = []
         let server = Server()
         server.getAllData(requestURL: "group/schedule/\(groupOriginKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
@@ -63,13 +62,11 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
                             )
                             
                             GroupSche.shared3.updateGroupScheData(data: groupScheData)
-//                            print(">>>: \(GroupSche.shared3.groupSche)")
                             
                         }
                     }
                     DispatchQueue.main.async {
                         self.groupScheduleListView.reloadData() // 데이터 업데이트 후 UICollectionView 다시 로드
-                        print("GroupSche: \(GroupSche.shared3.groupSche)")
                     }
                 }
             }

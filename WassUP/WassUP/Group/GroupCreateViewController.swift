@@ -68,7 +68,6 @@ class GroupCreateViewController: UIViewController {
             server.getAllData(requestURL: "user/search/\(searchUserTextField.text ?? "ingjwjw@naver.com")", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
                 if let response = response as? HTTPURLResponse{ // response는 URLResponse 타입이야.
                     if response.statusCode == 400 {
-//                        print("Error: \(response)")
                         DispatchQueue.main.async { [self] in
                             searchUserTextField.text = ""
                             searchUserTextField.placeholder = "유저를 찾을 수 없습니다."
@@ -137,7 +136,6 @@ class GroupCreateViewController: UIViewController {
         }
         buttons[groupUserNames.count].isHidden = true
         
-        print(groupUsers)
 
     }
     

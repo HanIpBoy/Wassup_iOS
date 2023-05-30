@@ -23,16 +23,9 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
         dateLabel.text = changeDateFormat(selectedDate: selectedDate) // FSCal에서 선택된 날짜를 변수에 저장하고 텍스트로 지정
-        print("Detail_selectedDate : \(selectedDate)")
-        
-       
-        
-        print("1 : \(filteredSchedules)")
-        print(filteredSchedules.count)
         
         listView.dataSource = self
         listView.delegate = self
-        
         
     }
 
@@ -57,7 +50,6 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { // datasource
-        print(">>>>>>>\(filteredSchedules.count)")
         return filteredSchedules.count
     }
     

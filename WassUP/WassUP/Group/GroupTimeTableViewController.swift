@@ -181,7 +181,6 @@ class GroupTimeTableViewController: UIViewController {
                         if let names = self.groupUsersName{
                             for i in 0..<(names.count) {
 
-                                print("names : \(names[i]) \n")
                                 self.buttons[i].isHidden = false
 
                                 self.buttons[i].setTitle((String(names[i].dropFirst())), for: .normal)
@@ -194,101 +193,10 @@ class GroupTimeTableViewController: UIViewController {
             }
         }
         
-        
-        
-        
-        
-        
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        Schedule.shared.groupSchedules = []
-//        groupSches = []
-//        let server = Server()
-//        server.getAllData(requestURL: "group/\(groupOriginKey)/user-schedules", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
-//            if let error = error {
-//                print("Error: \(error)")
-//                return
-//            }
-//            if let data = data {
-//                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-//                   let json = jsonObject as? [String: Any],
-//                   let dataArray = json["data"] as? [[String: Any]] {
-//                    for dataEntry in dataArray {
-//                        if let originKey = dataEntry["originKey"] as? String {
-//                            let name = dataEntry["name"] as? String ?? ""
-//                            let startAt = dataEntry["startAt"] as? String ?? ""
-//                            let endAt = dataEntry["endAt"] as? String ?? ""
-//                            let userId = dataEntry["userId"] as? String ?? ""
-//                            let memo = dataEntry["memo"] as? String ?? ""
-//
-//                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-//
-//                            let scheduleData = Schedule.Format(
-//                                originKey: originKey,
-//                                name: name,
-//                                startAt: startAt,
-//                                endAt: endAt,
-//                                userId: userId,
-//                                memo: memo,
-//                                allDayToggle: allDayToggle
-//                            )
-//                            Schedule.shared.updateGroupScheduleData(data: scheduleData)
-//                            self.groupSches.append(scheduleData)
-//                        }
-//                    }
-//                    self.reloadDate()
-//
-//                }
-//            }
-//
-//        }
-//        server.postDataToServer(requestURL: "group/search/userName", requestData: groupUsers, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
-//            if let error = error {
-//                print("Error: \(error)")
-//                return
-//            }
-//            if let data = data {
-//                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-//                   let json = jsonObject as? [String: Any],
-//                   let dataArray = json["data"] as? [[String: Any]] {
-//                    for dataEntry in dataArray {
-//                        if let groupUsers = dataEntry["groupUsers"] as? [String] {
-//                            let groupName = dataEntry["groupName"] as? String ?? ""
-//                            let description = dataEntry["description"] as? String ?? ""
-//                            let numOfUsers = dataEntry["numOfUsers"] as? Int ?? 0
-//                            let leaderId = dataEntry["leaderId"] as? String ?? ""
-//
-//
-//                            let groupData = Group.Format(
-//                                originKey: "",
-//                                groupName: groupName,
-//                                description: description,
-//                                numOfUsers: numOfUsers,
-//                                leaderId: leaderId,
-//                                groupUsers: groupUsers
-//                            )
-//                            self.groupUsersName = groupData.groupUsers
-//                        }
-//                    }
-//                    DispatchQueue.main.async {
-//                        if let names = self.groupUsersName{
-//                            for i in 0..<(names.count) {
-//
-//                                print("names : \(names[i]) \n")
-//                                self.buttons[i].isHidden = false
-//
-//                                self.buttons[i].setTitle((String(names[i].dropFirst())), for: .normal)
-//                                self.buttons[i].layer.cornerRadius = 15
-//                            }
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
     }
     
     func makeBar(startAt: String, endAt: String, userId: String) {
@@ -306,8 +214,14 @@ class GroupTimeTableViewController: UIViewController {
         let startHour = calendar.component(.hour, from: (startDate)!)
         let startMinute = calendar.component(.minute, from: (startDate)!)
 
-        let endHour = calendar.component(.hour, from: (endDate)!)
+        var endHour = calendar.component(.hour, from: (endDate)!)
         let endMinute = calendar.component(.minute, from: (endDate)!)
+        
+        if endMinute == 0 {
+            endHour -= 1
+        }
+        
+        
         var userIndex = ""
         for i in 0..<groupIDs.count {
             if userId == groupIDs[i] {
@@ -333,7 +247,6 @@ class GroupTimeTableViewController: UIViewController {
     }
     
     @objc func groupNameTapped(_ sender: UITapGestureRecognizer) {
-        print("touched")
         let storyboard = UIStoryboard(name: "GroupSchedule", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupScheduleViewController") as? GroupScheduleViewController else { return }
         vc.groupName = groupName
@@ -383,7 +296,6 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex..<endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("1 : \(indexPath.item)")
 
                                 }
                             }
@@ -402,7 +314,6 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex...endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("2 : \(indexPath.item)")
                                 }
                             }
                         }
@@ -419,7 +330,6 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex...endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("3 : \(indexPath.item)")
                                 }
                             }
                         }
@@ -437,7 +347,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex...endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("4 : \(indexPath.item) : \(startIndex) : \(endIndex)")
+
                                 }
                             }
                         }
@@ -455,7 +365,6 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex...endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("5 : \(indexPath.item)")
                                 }
                             }
                         }
@@ -473,7 +382,6 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex...endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("6 : \(indexPath.item)")
                                 }
                             }
                         }
@@ -491,7 +399,6 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             for i in startIndex...endIndex {
                                 if ((i % 10) == Int(element.userIndex)!) && (i/10 == indexPath.item/10) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
-                                    print("7 : \(indexPath.item)")
                                 }
                             }
                         }
@@ -553,7 +460,6 @@ extension GroupTimeTableViewController {
         }
         
         DispatchQueue.main.async {
-            print("bars : \(self.bars)")
             
             self.firstCollectionView.reloadData()
             self.secondCollectionView.reloadData()

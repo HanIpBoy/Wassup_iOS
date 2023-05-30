@@ -21,16 +21,12 @@ class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarConfigure()
-        print(UserDefaults.standard.string(forKey: "token"))
-        print(UserDefaults.standard.string(forKey: "userName"))
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Schedule.shared.schedules = []
         filtered = []
-        print(">>>>>> \(filtered)")
         let server = Server()
         server.getAllData(requestURL: "schedule/user-schedules", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
@@ -116,6 +112,8 @@ class ScheduleViewController: UIViewController {
         present(notificationVC, animated: true)
                 
     }
+    
+    
     
 }
 

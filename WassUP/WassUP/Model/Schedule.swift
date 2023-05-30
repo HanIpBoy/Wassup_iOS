@@ -40,4 +40,10 @@ class Schedule {
             schedules[index] = data
         }
     }
+    func deleteScheduleData(data: Format) {
+        if let index = Schedule.shared.schedules.firstIndex(where: { $0.originKey == data.originKey }) {
+            // 특정 식별자를 가진 아이템의 인덱스를 찾음
+            schedules.remove(at: index)
+        }
+    }
 }

@@ -62,9 +62,6 @@ class NotificationViewController: UIViewController {
                             )
                             
                             Notification.sharedNoti.updateNotificationData(data: notificationData)
-                            print("notification data : \(notificationData)")
-                            print("notification shard : \(Notification.sharedNoti.notifications)")
-                            
                         }
                     }
                     DispatchQueue.main.async {
@@ -94,7 +91,6 @@ class NotificationViewController: UIViewController {
         let token = UserDefaults.standard.string(forKey: "token")!
         server.postDataToServer(requestURL: "group/invitation/accept", requestData: responseNotiData, token: token) { _, _, _ in
             server.deleteData(requestURL: "user/notification/\(originKey)", token: token) { _, _, _ in
-                print("token : \(token)")
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
                 }
@@ -112,7 +108,6 @@ class NotificationViewController: UIViewController {
         
         let server = Server()
         server.deleteData(requestURL: "user/notification/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
-            print("enter")
             DispatchQueue.main.async {
                 self.dismiss(animated: true)
             }
