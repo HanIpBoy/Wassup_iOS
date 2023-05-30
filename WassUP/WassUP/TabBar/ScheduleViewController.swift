@@ -16,7 +16,9 @@ class ScheduleViewController: UIViewController {
     @IBOutlet weak var notiButton: UIButton!
     var userId: String = UserDefaults.standard.string(forKey: "userId") ?? ""
     var token: String = UserDefaults.standard.string(forKey: "token")!
+    
     var filtered : [Schedule.Format] = []
+    var groupFiltered: [GroupSche.Format] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,47 +28,95 @@ class ScheduleViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Schedule.shared.schedules = []
+        GroupSche.shared3.groupSche = []
         filtered = []
+        groupFiltered = []
         let server = Server()
-        server.getAllData(requestURL: "schedule/user-schedules", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.getAllData(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { [self] (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
             }
             
             if let data = data {
-                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-                   let json = jsonObject as? [String: Any],
-                   let dataArray = json["data"] as? [[String: Any]] {
-                    for dataEntry in dataArray {
-                        if let originKey = dataEntry["originKey"] as? String {
-                            let name = dataEntry["name"] as? String ?? ""
-                            let startAt = dataEntry["startAt"] as? String ?? ""
-                            let endAt = dataEntry["endAt"] as? String ?? ""
-                            let userId = dataEntry["userId"] as? String ?? ""
-                            let memo = dataEntry["memo"] as? String ?? ""
-                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            let color = dataEntry["color"] as? String ?? ""
-                            let scheduleData = Schedule.Format(
-                                originKey: originKey,
-                                name: name,
-                                startAt: startAt,
-                                endAt: endAt,
-                                userId: userId,
-                                memo: memo,
-                                allDayToggle: allDayToggle,
-                                color: color
-                            )
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    
+                    if let dataArray = json?["data"] as? [[String: Any]] {
+                        for dataEntry in dataArray {
+                            if let userSchedules = dataEntry["userSchedules"] as? [[String: Any]] {
+                                for scheduleEntry in userSchedules {
+                                    parseUserScheduleEntry(scheduleEntry)
+                                }
+                            }
                             
-                            Schedule.shared.updateScheduleData(data: scheduleData)
-                            self.filtered.append(scheduleData)
+                            if let groupSchedules = dataEntry["groupSchedules"] as? [[String: Any]] {
+                                for scheduleEntry in groupSchedules {
+                                    parseGroupScheduleEntry(scheduleEntry)
+                                }
+                            }
                         }
                     }
+                    
                     DispatchQueue.main.async {
                         self.calendarReloadData()
                     }
+                } catch {
+                    print("JSON serialization error: \(error)")
                 }
             }
+        }
+    }
+    
+    func parseUserScheduleEntry(_ entry: [String: Any]) {
+        if let originKey = entry["originKey"] as? String,
+           let name = entry["name"] as? String,
+           let startAt = entry["startAt"] as? String,
+           let endAt = entry["endAt"] as? String,
+           let userId = entry["userId"] as? String,
+           let memo = entry["memo"] as? String,
+           let allDayToggle = entry["allDayToggle"] as? String,
+           let color = entry["color"] as? String {
+            
+            let scheduleData = Schedule.Format(
+                originKey: originKey,
+                name: name,
+                startAt: startAt,
+                endAt: endAt,
+                userId: userId,
+                memo: memo,
+                allDayToggle: allDayToggle,
+                color: color
+            )
+            
+            Schedule.shared.updateScheduleData(data: scheduleData)
+            self.filtered.append(scheduleData)
+        }
+    }
+    
+    func parseGroupScheduleEntry(_ entry: [String: Any]) {
+        if let originKey = entry["originKey"] as? String,
+           let groupOriginKey = entry["groupOriginKey"] as? String,
+           let name = entry["name"] as? String,
+           let startAt = entry["startAt"] as? String,
+           let endAt = entry["endAt"] as? String,
+           let memo = entry["memo"] as? String,
+           let allDayToggle = entry["allDayToggle"] as? String,
+           let color = entry["color"] as? String {
+            
+            let groupScheduleData = GroupSche.Format(
+                originKey: originKey,
+                groupOriginKey: groupOriginKey,
+                name: name,
+                startAt: startAt,
+                endAt: endAt,
+                memo: memo,
+                allDayToggle: allDayToggle,
+                color: color
+            )
+            
+            GroupSche.shared3.updateGroupScheData(data: groupScheduleData)
+            self.groupFiltered.append(groupScheduleData)
         }
     }
     
@@ -98,8 +148,6 @@ class ScheduleViewController: UIViewController {
         
         // functional
         calendarView.locale = Locale(identifier: "ko_KR")
-        
-        
     }
     
     func calendarReloadData() {
@@ -112,8 +160,6 @@ class ScheduleViewController: UIViewController {
         present(notificationVC, animated: true)
                 
     }
-    
-    
     
 }
 
@@ -138,8 +184,10 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         let filtered2 = filtered.filter { schedule in
             return schedule.startAt.contains(dateString)
         }
-        return filtered2.count
-        
+        let filtered3 = groupFiltered.filter { schedule in
+            return schedule.startAt.contains(dateString)
+        }
+        return filtered2.count + filtered3.count
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, weekdayTextColorFor weekday: Int) -> UIColor? {
@@ -152,7 +200,3 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         }
     }
 }
-
-
-
-

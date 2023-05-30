@@ -423,9 +423,9 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        scrollView.contentOffset = CGPoint.zero
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset = CGPoint.zero
+    }
 }
 
 extension GroupTimeTableViewController {

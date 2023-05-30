@@ -9,8 +9,6 @@ import Foundation
 
 class Schedule {
     static let shared = Schedule()
-//    var keys: [String] = []
-//    var schedules: [String: Format] = [:]
     var schedules: [Format] = []
     var groupSchedules: [Format] = []
 

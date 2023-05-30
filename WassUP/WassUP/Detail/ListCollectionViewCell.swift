@@ -17,6 +17,8 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var minusLabel: UILabel!
     @IBOutlet weak var colorMarker: UIView!
+    
+    var cellGroupOriginKey: String = ""
     var cellOriginKey: String = ""
     override func awakeFromNib() {
         super.awakeFromNib()

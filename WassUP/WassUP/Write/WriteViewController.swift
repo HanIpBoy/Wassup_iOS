@@ -30,6 +30,7 @@ class WriteViewController: UIViewController {
     var colorPickerView: UIPickerView!
 
     var originKey: String = ""
+    var groupOriginKey: String = ""
     var name: String = ""
     var startDateString: String = ""
     var endDateString: String = ""
@@ -81,8 +82,6 @@ class WriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("flag \(flag)")
         initView()
     }
 
@@ -111,19 +110,30 @@ class WriteViewController: UIViewController {
         memoTextField.text = memo
         
         colorButton.addTarget(self, action: #selector(showColorPicker), for: .touchUpInside)
-       // colorPickerView 초기화
+        // colorPickerView 초기화
         colorPickerView = UIPickerView()
-       colorPickerView.delegate = self
-       colorPickerView.dataSource = self
+        colorPickerView.delegate = self
+        colorPickerView.dataSource = self
         colorPickerView.frame = CGRect(x: 25, y: 530, width: memoTextField.bounds.width, height: 200) // 원하는 위치와 크기로 조정
-       colorPickerView.layer.cornerRadius = 10
-       // colorPickerView 스타일 설정
+        colorPickerView.layer.cornerRadius = 10
+        // colorPickerView 스타일 설정
         colorPickerView.backgroundColor = UIColor(hexString: "f5f5f5")
-       colorPickerView.isHidden = true // 초기에 숨김 상태로 설정
+        colorPickerView.isHidden = true // 초기에 숨김 상태로 설정
         colorButtonView.layer.cornerRadius = 10
         colorButton.tintColor = UIColor(hexString: self.color)
-       // colorPickerView를 버튼이 속한 뷰에 추가
-       view.addSubview(colorPickerView)
+        // colorPickerView를 버튼이 속한 뷰에 추가
+        view.addSubview(colorPickerView)
+        
+        if groupOriginKey != "" {
+            saveButton.isHidden = true
+            deleteButton.isHidden = true
+            titleTextField.isEnabled = false
+            memoTextField.isEnabled = false
+            colorButton.isEnabled = false
+            startDatePicker.isEnabled = false
+            endDatePicker.isEnabled = false
+            allDayToggle.isEnabled = false
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
