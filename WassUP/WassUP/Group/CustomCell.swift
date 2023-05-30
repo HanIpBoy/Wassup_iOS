@@ -13,6 +13,8 @@ class CustomCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+//        layer.borderWidth = 0.5
+//        layer.borderColor = UIColor.lightGray.cgColor
     }
     override init(frame: CGRect) {
         super.init(frame: frame)

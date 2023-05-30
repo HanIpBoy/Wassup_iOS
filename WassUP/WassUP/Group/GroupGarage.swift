@@ -58,23 +58,24 @@ public func makePeriodLabel(startDate: Date, endDate: Date) -> String {
 
 public func colorVendingMachine(index : String) -> UIColor {
     switch index {
-    case "0" : return .red
-    case "1" : return .orange
-    case "2" : return .yellow
-    case "3" : return .green
-    case "4" : return .cyan
-    case "5" : return .blue
-    case "6" : return .purple
-    case "7" : return .systemPink
-    case "8" : return .black
-    case "9" : return .brown
-    default: return .white
+    case "0" : return UIColor(hexString: "E45C5C")
+    case "1" : return UIColor(hexString: "F37C39")
+    case "2" : return UIColor(hexString: "F2DD1B")
+    case "3" : return UIColor(hexString: "2CC91E")
+    case "4" : return UIColor(hexString: "474DDF")
+    case "5" : return UIColor(hexString: "311E7B")
+    case "6" : return UIColor(hexString: "B04BD3")
+    case "7" : return UIColor(hexString: "FF4BE2")
+    case "8" : return UIColor(hexString: "000000")
+    case "9" : return UIColor(hexString: "7B4C15")
+    case "10" : return UIColor(hexString: "73FCD6") // 그룹 일정을 타임테이블에 표시할 때, 사용할 색상 인덱스는 10
+    default : return UIColor(hexString: "ffffff")
     }
 }
 
 public func makeBorderForCollectionView(collectionView : UICollectionView) {
-    collectionView.layer.borderColor = UIColor.lightGray.cgColor
-    collectionView.layer.borderWidth = 0.5
+    collectionView.layer.borderColor = UIColor.black.cgColor
+    collectionView.layer.borderWidth = 0.7
 }
 
 public func isDate(_ date: Date, between startDate: Date, and endDate: Date) -> Bool {

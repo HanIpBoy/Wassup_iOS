@@ -216,22 +216,24 @@ class GroupTimeTableViewController: UIViewController {
 
         var endHour = calendar.component(.hour, from: (endDate)!)
         let endMinute = calendar.component(.minute, from: (endDate)!)
+        var userIndex = ""
         
         if endMinute == 0 {
             endHour -= 1
         }
         
         
-        var userIndex = ""
+        
         for i in 0..<groupIDs.count {
             if userId == groupIDs[i] {
-                userIndex = String(i)
+                userIndex = String(i+1)
             }
         }
 
         let bar: Bar = Bar(userId: userId, userIndex: userIndex, startHour: String(startHour), startMinute: String(startMinute), endHour: String(endHour), endMinute: String(endMinute), weekday: String(weekday))
 
         bars.append(bar)
+        print("bar : \(bar)")
     }
 
     
@@ -239,7 +241,7 @@ class GroupTimeTableViewController: UIViewController {
         let hour = Int(float)
         let userIndex = Int(index)!
 
-        return (hour*10)+userIndex
+        return (hour*12)+userIndex
     }
     
     @IBAction func dismissTimeTable(_ sender: UIButton) {
@@ -276,20 +278,20 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 240
+        return 312
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
         if !bars.isEmpty {
-            cell.backgroundColor = colorVendingMachine(index: "10")
+            cell.backgroundColor = UIColor.clear
             for element in bars {
                 if element.weekday == "1" {
                     if collectionView == firstCollectionView {
 
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -307,7 +309,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                     if collectionView == secondCollectionView {
 
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -323,7 +325,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                 else if element.weekday == "3" {
                     if collectionView == thirdCollectionView {
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -340,7 +342,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                     if collectionView == fourthCollectionView {
 
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -358,7 +360,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                     if collectionView == fifthCollectionView {
 
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -375,7 +377,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                     if collectionView == sixthCollectionView {
 
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -392,7 +394,7 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                     if collectionView == seventhCollectionView {
 
                         // 사람찾기
-                        if(Int(element.userIndex) == (indexPath.item % 10)) {
+                        if(Int(element.userIndex) == (indexPath.item % 13)) {
                             // 시간 parse
                             var startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             var endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
@@ -415,15 +417,15 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width / 10.0
-        let cellHeight = collectionView.bounds.height / 24.1
+        let cellWidth = collectionView.bounds.width / 13
+        let cellHeight = collectionView.bounds.height / 24
 
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.contentOffset = CGPoint.zero
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        scrollView.contentOffset = CGPoint.zero
+//    }
 }
 
 extension GroupTimeTableViewController {
