@@ -13,7 +13,13 @@ class GroupScheduleCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var startDateLabel: UILabel!
     
+    @IBOutlet weak var markerView: UIView!
     @IBOutlet weak var endDateLabel: UILabel!
     var groupName: String = ""
     var groupOriginKey: String = ""
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        markerView.layer.cornerRadius = 5
+    }
 }

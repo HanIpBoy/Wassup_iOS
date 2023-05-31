@@ -135,8 +135,9 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
         var dict: [String : Any] = ["groupUsers" : group.groupUsers]
         vc.groupName = group.groupName
         vc.groupOriginKey = group.originKey
+        vc.groupDescription = group.description
         vc.groupUsers = dict
-        
+        vc.leaderId = group.leaderId
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)

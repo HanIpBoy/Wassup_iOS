@@ -76,6 +76,7 @@ class NotificationViewController: UIViewController {
     }
     private func initView() {
         outerView.layer.cornerRadius = 20
+        addTapGesture()
     }
     
   
@@ -118,7 +119,7 @@ class NotificationViewController: UIViewController {
     
 }
 
-extension NotificationViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension NotificationViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let notifications = Notification.sharedNoti.notifications
         return notifications.count
@@ -135,8 +136,9 @@ extension NotificationViewController: UICollectionViewDataSource, UICollectionVi
             cell.yesButton.isHidden = true
             cell.noButton.isHidden = true
         }
-        cell.messageLabel.preferredMaxLayoutWidth = collectionView.bounds.width
+        cell.messageLabel.numberOfLines = 0
         cell.messageLabel.text = notifications.message
+        print("message : \(notifications.message)")
         cell.messageLabel.numberOfLines = 0
         
         cell.notificationVC = self
@@ -147,15 +149,27 @@ extension NotificationViewController: UICollectionViewDataSource, UICollectionVi
         cell.noButton.tag = indexPath.item // 버튼에 해당 셀의 인덱스를 태그로 설정
         cell.noButton.addTarget(self, action: #selector(noButtonTapped(_:)), for: .touchUpInside)
         
-        cell.layoutIfNeeded()
-        
         return cell
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // layout
-        return CGSize(width: notificationCollectionView.bounds.width, height: 150)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width - 20
+        let height: CGFloat = 100
+        return CGSize(width: width, height: height)
+    }
+}
+
+extension NotificationViewController {
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissViewController(_:)))
+        view.addGestureRecognizer(tapGesture)
     }
     
+    @objc private func dismissViewController(_ sender: UITapGestureRecognizer) {
+        let touchLocation = sender.location(in: view)
+        if !outerView.frame.contains(touchLocation) {
+            dismiss(animated: true, completion: nil)
+        }
+    }
 }
-    

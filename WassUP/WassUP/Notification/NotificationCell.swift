@@ -13,22 +13,16 @@ class NotificationCell: UICollectionViewCell {
     @IBOutlet weak var noButton: UIButton!
     @IBOutlet weak var yesButton: UIButton!
     
-    
     var notificationVC :NotificationViewController?
-    override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupUI()
-        }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupUI()
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.lightGray.cgColor
+        layer.cornerRadius = 10
+        messageLabel.numberOfLines = 0
     }
     
-    private func setupUI() {
-        // 셀의 뷰 구성 설정
-        layer.cornerRadius = 10 // 원하는 모서리 반경 값으로 설정
-        layer.borderWidth = 1 // 원하는 테두리 두께 값으로 설정
-        layer.borderColor = UIColor.black.cgColor // 원하는 테두리 색상으로 설정
-    }
+    
 }

@@ -14,9 +14,18 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
     @IBOutlet weak var groupScheduleListView: UICollectionView!
     
     @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet weak var groupDescriptionLabel: UILabel!
+    @IBOutlet weak var deleteGroupButton: UIButton!
+    @IBOutlet weak var createGroupScheduleButton: UIButton!
     
+    var integrated: [Integrated] = []
+
     var groupName: String = ""
+    var groupDescription: String = ""
     var groupOriginKey: String = ""
+    var leaderId: String = ""
+    
+    let deleteConfirmAlert = UIAlertController(title: "그룹 삭제", message: "", preferredStyle: .alert)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +89,78 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
         
         groupScheduleListView.layer.cornerRadius = 20
         groupNameLabel.text = groupName
+        groupDescriptionLabel.text = groupDescription
+        
+        if leaderId != UserDefaults.standard.string(forKey: "userId") {
+            deleteGroupButton.isHidden = true
+            createGroupScheduleButton.isHidden = true
+        }
+        else {
+            deleteGroupButton.isHidden = false
+            createGroupScheduleButton.isHidden = false
+        }
     }
-
+    
+    @IBAction func createGroupScheduleButtonTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "WriteGroupSchedule", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "WriteGroupSchedule") as! WriteGroupScheduleViewController
+        vc.groupOriginKey = groupOriginKey
+        vc.listVC = self
+        vc.groupName = groupName
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteGroupButtonTapped(_ sender: Any) {
+        self.deleteConfirmAlert.message = "\(self.groupName) 그룹을 삭제하시겠습니까?"
+        self.present(self.deleteConfirmAlert, animated: true, completion: nil)
+        deleteConfirmAlert.addAction(UIAlertAction(title: "삭제", style: .default) { action in
+            let server = Server()
+            let groupOriginKey = self.groupOriginKey
+            server.deleteData(requestURL: "group/\(groupOriginKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                if let data = data {
+                    if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                       let json = jsonObject as? [String: Any],
+                       let dataArray = json["data"] as? [[String: Any]] {
+                        for dataEntry in dataArray {
+                            if let originKey = dataEntry["originKey"] as? String {
+                                let groupName = dataEntry["groupName"] as? String ?? ""
+                                let description = dataEntry["description"] as? String ?? ""
+                                let numOfUsers = dataEntry["numOfUsers"] as? Int ?? 0
+                                let leaderId = dataEntry["leaderId"] as? String ?? ""
+                                let groupUsers = dataEntry["groupUsers"] as? [String] ?? []
+                                let groupData = Group.Format(
+                                    originKey: originKey,
+                                    groupName: groupName,
+                                    description: description,
+                                    numOfUsers: numOfUsers,
+                                    leaderId: leaderId,
+                                    groupUsers: groupUsers
+                                    
+                                )
+                                Group.shared2.deleteGroupData(data: groupData)
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+                            let vcName = storyboard.instantiateViewController(withIdentifier: "TabBar")as? TabBarViewController
+                            
+                            vcName!.selectTab(at: 2)
+                            vcName?.modalPresentationStyle = .fullScreen
+                            self.present(vcName!, animated: false, completion: nil)
+                        }
+                    }
+                }
+            }
+        })
+        deleteConfirmAlert.addAction(UIAlertAction(title: "취소", style: .default) { action in
+            self.dismiss(animated: true)
+        })
+    }
+    
 }
 
 extension GroupScheduleViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
@@ -101,6 +180,29 @@ extension GroupScheduleViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // layout
         return CGSize(width: groupScheduleListView.bounds.width, height: 70)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("enter >>!")
+//        let cell = groupScheduleListView.dequeueReusableCell(withReuseIdentifier: "GroupScheduleCollectionViewCell", for: indexPath) as! GroupScheduleCollectionViewCell
+        let schedule = integrated[indexPath.item]
+        let storyBoard = UIStoryboard(name: "WriteGroupSchedule", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "WriteGroupSchedule") as! WriteGroupScheduleViewController
+        
+        vc.name = schedule.name
+        if schedule.allDayToggle == "true" {
+            vc.flag = true
+        } else {
+            vc.flag = false
+        }
+        vc.startDateString = schedule.startAt
+        vc.endDateString = schedule.endAt
+        vc.memo = schedule.memo
+        vc.color = String(schedule.color.dropFirst())
+        vc.originKey = schedule.originKey
+        vc.groupOriginKey = schedule.groupOriginKey
+        
+        present(vc, animated: true)
     }
     
     

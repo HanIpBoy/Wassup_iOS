@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5B1BDA712A20959F004BD2A5 /* GroupTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDA702A20959F004BD2A5 /* GroupTimeTable.storyboard */; };
+		5B30F18E2A265F5D00A86FCB /* IntegratedSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B30F18D2A265F5D00A86FCB /* IntegratedSchedule.swift */; };
+		5B30F1902A268EBE00A86FCB /* WriteGroupSchedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B30F18F2A268EBE00A86FCB /* WriteGroupSchedule.storyboard */; };
+		5B30F1922A2690D100A86FCB /* WriteGroupScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B30F1912A2690D100A86FCB /* WriteGroupScheduleViewController.swift */; };
 		5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA22A1EB90C00A0B054 /* Notification.swift */; };
 		5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */; };
 		5BC5ECA92A1EBE0100A0B054 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */; };
@@ -68,6 +71,9 @@
 
 /* Begin PBXFileReference section */
 		5B1BDA702A20959F004BD2A5 /* GroupTimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupTimeTable.storyboard; sourceTree = "<group>"; };
+		5B30F18D2A265F5D00A86FCB /* IntegratedSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegratedSchedule.swift; sourceTree = "<group>"; };
+		5B30F18F2A268EBE00A86FCB /* WriteGroupSchedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WriteGroupSchedule.storyboard; sourceTree = "<group>"; };
+		5B30F1912A2690D100A86FCB /* WriteGroupScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteGroupScheduleViewController.swift; sourceTree = "<group>"; };
 		5BC5ECA22A1EB90C00A0B054 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 				DE02FFF22A129E74009C6EF6 /* Group.swift */,
 				DEAA65482A1618E0007993E0 /* GroupSche.swift */,
 				5BC5ECA22A1EB90C00A0B054 /* Notification.swift */,
+				5B30F18D2A265F5D00A86FCB /* IntegratedSchedule.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +201,8 @@
 			children = (
 				DE2850D129D1E108000CDE9C /* WriteViewController.swift */,
 				DE2850D429D1E696000CDE9C /* Write.storyboard */,
+				5B30F18F2A268EBE00A86FCB /* WriteGroupSchedule.storyboard */,
+				5B30F1912A2690D100A86FCB /* WriteGroupScheduleViewController.swift */,
 			);
 			path = Write;
 			sourceTree = "<group>";
@@ -393,6 +402,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B30F1902A268EBE00A86FCB /* WriteGroupSchedule.storyboard in Resources */,
 				DE45076C29C9146700365556 /* SignIn.storyboard in Resources */,
 				5B1BDA712A20959F004BD2A5 /* GroupTimeTable.storyboard in Resources */,
 				DEAA65432A160E0C007993E0 /* GroupSchedule.storyboard in Resources */,
@@ -452,6 +462,8 @@
 				DEAA65452A160E1F007993E0 /* GroupScheduleViewController.swift in Sources */,
 				DE2850D029D1DD48000CDE9C /* TabBarViewController.swift in Sources */,
 				5BC5ECAC2A1EBF7C00A0B054 /* NotificationCell.swift in Sources */,
+				5B30F1922A2690D100A86FCB /* WriteGroupScheduleViewController.swift in Sources */,
+				5B30F18E2A265F5D00A86FCB /* IntegratedSchedule.swift in Sources */,
 				DE45073429C904B600365556 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

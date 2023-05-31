@@ -35,7 +35,12 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate {
         
     }
     
+    func selectTab(at index: Int) {
+        guard let viewControllers = self.viewControllers, index >= 0 && index < viewControllers.count else {
+            return
+        }
+        self.selectedIndex = index
+    }
+    
 
 }
-
-
