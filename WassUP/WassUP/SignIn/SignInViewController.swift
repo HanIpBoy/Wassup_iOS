@@ -43,7 +43,7 @@ class SignInViewController: UIViewController {
     }
     
     func myViewStyle() { // view UI 구성
-        myView.layer.cornerRadius = 10
+        myView.layer.cornerRadius = 20
         
         emailAuthButton.layer.borderWidth = 0.5
         emailAuthButton.layer.cornerRadius = 10

@@ -122,7 +122,7 @@
                                         </cells>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUF-hO-6Cn">
-                                        <rect key="frame" x="285" y="13" width="48" height="38"/>
+                                        <rect key="frame" x="295" y="13" width="48" height="38"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="createSchedule"/>
@@ -137,7 +137,7 @@
                                     <constraint firstItem="K6h-FS-rwl" firstAttribute="leading" secondItem="Yho-cj-nl8" secondAttribute="leading" constant="5" id="MQw-ru-kjy"/>
                                     <constraint firstItem="XUF-hO-6Cn" firstAttribute="centerY" secondItem="hSw-o2-E2g" secondAttribute="centerY" id="OzO-Be-EPp"/>
                                     <constraint firstItem="K6h-FS-rwl" firstAttribute="top" secondItem="hSw-o2-E2g" secondAttribute="bottom" constant="20" id="etv-Pl-sty"/>
-                                    <constraint firstAttribute="trailing" secondItem="XUF-hO-6Cn" secondAttribute="trailing" constant="20" id="t4D-6g-KBe"/>
+                                    <constraint firstAttribute="trailing" secondItem="XUF-hO-6Cn" secondAttribute="trailing" constant="10" id="t4D-6g-KBe"/>
                                     <constraint firstItem="hSw-o2-E2g" firstAttribute="top" secondItem="Yho-cj-nl8" secondAttribute="top" constant="20" id="xIr-ZQ-H2O"/>
                                     <constraint firstAttribute="trailing" secondItem="K6h-FS-rwl" secondAttribute="trailing" constant="5" id="z6z-3I-zTe"/>
                                 </constraints>

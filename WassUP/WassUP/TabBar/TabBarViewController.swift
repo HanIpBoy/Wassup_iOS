@@ -28,6 +28,7 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate {
         let storyboard = UIStoryboard(name: "Write", bundle: nil)
         guard let writeVC = storyboard.instantiateViewController(withIdentifier: "Write") as? WriteViewController else { return true }
         writeVC.scheduleVC = self.viewControllers?.first as! ScheduleViewController
+        writeVC.selectDate = writeVC.scheduleVC.selectDate
         self.present(writeVC, animated: true, completion: nil)
 
         // 해당 인덱스인 1번에서는 정상 작동하지 않도록 한다.

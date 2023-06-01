@@ -93,7 +93,7 @@ class WriteGroupScheduleViewController: UIViewController {
         saveButton.layer.cornerRadius = 10
         deleteButton.layer.cornerRadius = 10
         
-        endDatePicker.date = startDatePicker.date + 600
+        endDatePicker.date = startDatePicker.date + 3600
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
@@ -132,7 +132,7 @@ class WriteGroupScheduleViewController: UIViewController {
         colorPickerView = UIPickerView()
         colorPickerView.delegate = self
         colorPickerView.dataSource = self
-        colorPickerView.frame = CGRect(x: 25, y: 530, width: memoTextField.bounds.width, height: 200) // 원하는 위치와 크기로 조정
+        colorPickerView.frame = CGRect(x: 25, y: 590, width: memoTextField.bounds.width, height: 200) // 원하는 위치와 크기로 조정
         colorPickerView.layer.cornerRadius = 10
         // colorPickerView 스타일 설정
         colorPickerView.backgroundColor = UIColor(hexString: "f5f5f5")
@@ -187,6 +187,8 @@ class WriteGroupScheduleViewController: UIViewController {
     @IBAction func selectStartDate(_ sender: UIDatePicker) {
         if flag {
             endDatePicker.date = sender.date
+        } else {
+            endDatePicker.date = sender.date + 3600
         }
     }
     

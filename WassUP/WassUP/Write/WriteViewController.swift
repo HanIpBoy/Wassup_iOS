@@ -27,6 +27,7 @@ class WriteViewController: UIViewController {
     
     var scheduleVC = ScheduleViewController()
     var colorPickerView: UIPickerView!
+    var selectDate = Date()
 
     var originKey: String = ""
     var groupOriginKey: String = ""
@@ -90,7 +91,8 @@ class WriteViewController: UIViewController {
         saveButton.layer.cornerRadius = 10
         deleteButton.layer.cornerRadius = 10
         
-        endDatePicker.date = startDatePicker.date + 600
+        startDatePicker.date = selectDate
+        endDatePicker.date = startDatePicker.date + 3600
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
@@ -189,6 +191,8 @@ class WriteViewController: UIViewController {
     @IBAction func selectStartDate(_ sender: UIDatePicker) {
         if flag {
             endDatePicker.date = sender.date
+        } else {
+            endDatePicker.date = sender.date + 3600
         }
     }
     

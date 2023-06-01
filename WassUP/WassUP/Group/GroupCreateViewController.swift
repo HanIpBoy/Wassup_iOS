@@ -305,14 +305,14 @@ class GroupCreateViewController: UIViewController {
 
 extension GroupCreateViewController {
     private func initView() {
-        myView.layer.cornerRadius = 10
+        myView.layer.cornerRadius = 20
         
         searchButton.layer.borderWidth = 0.5
         searchButton.layer.cornerRadius = 10
         searchButton.layer.borderColor = CGColor(red: 0, green: 64/255, blue: 1, alpha: 1)
         
         searchUserView.isHidden = true
-        searchUserView.layer.cornerRadius = 10
+        searchUserView.layer.cornerRadius = 20
         searchUserView.layer.borderColor = UIColor.lightGray.cgColor
         searchUserView.layer.borderWidth = 0.5
         searchUserView.backgroundColor = UIColor.white
