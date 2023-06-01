@@ -28,6 +28,7 @@ class WriteGroupScheduleViewController: UIViewController {
     
     var scheduleVC = ScheduleViewController()
     var listVC = GroupScheduleViewController()
+    var groupTimeTableVC :GroupTimeTableViewController!
     var colorPickerView: UIPickerView!
 
     var originKey: String = ""
@@ -259,6 +260,7 @@ class WriteGroupScheduleViewController: UIViewController {
                         }
                         DispatchQueue.main.async {
                             self.listVC.viewWillAppear(true)
+                            self.groupTimeTableVC.viewWillAppear(true)
                             self.dismiss(animated: true)
                         }
                     }
@@ -321,6 +323,8 @@ class WriteGroupScheduleViewController: UIViewController {
                         }
                         DispatchQueue.main.async {
                             self.listVC.viewWillAppear(true)
+                            self.groupTimeTableVC.viewWillAppear(true)
+
                             self.dismiss(animated: true)
                         }
                     }
@@ -367,6 +371,8 @@ class WriteGroupScheduleViewController: UIViewController {
                     }
                     DispatchQueue.main.async {
                         self.listVC.viewWillAppear(true)
+                        self.groupTimeTableVC.viewWillAppear(true)
+
                         self.dismiss(animated: true)
                     }
                 }

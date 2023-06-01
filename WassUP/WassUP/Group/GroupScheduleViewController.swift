@@ -119,6 +119,8 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
         vc.groupOriginKey = groupOriginKey
         vc.listVC = self
         vc.groupName = groupName
+        vc.groupTimeTableVC = groupTimeTableVC
+
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -133,6 +135,7 @@ class GroupScheduleViewController: UIViewController { // 그룹 일정을 확인
         vc.groupVC = groupVC
         vc.groupTimeTableVC = groupTimeTableVC
         vc.groupScheduleVC = self
+
 
         
         present(vc, animated: true, completion: nil)    
@@ -233,6 +236,7 @@ extension GroupScheduleViewController: UICollectionViewDataSource, UICollectionV
         vc.groupOriginKey = schedule.groupOriginKey
         vc.groupName = groupName
         vc.listVC = self
+        vc.groupTimeTableVC = groupTimeTableVC
         present(vc, animated: true)
     }
 }
