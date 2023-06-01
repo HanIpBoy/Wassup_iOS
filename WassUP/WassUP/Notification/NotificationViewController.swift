@@ -79,6 +79,12 @@ class NotificationViewController: UIViewController {
     }
     private func initView() {
         outerView.layer.cornerRadius = 20
+        
+        if Notification.sharedNoti.notifications.count == 0 {
+            deleteAllButton.isHidden = true
+        } else {
+            deleteAllButton.isHidden = false
+        }
         addTapGesture()
     }
     
