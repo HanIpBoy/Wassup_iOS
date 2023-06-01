@@ -210,7 +210,11 @@ class WriteGroupScheduleViewController: UIViewController {
         let server = Server()
         if deleteButton.isHidden { // 생성
             scheduleMap["groupOriginKey"] = groupOriginKey
-            scheduleMap["name"] = titleTextField.text
+            if titleTextField.text == "" {
+                scheduleMap["name"] = "제목없음"
+            } else {
+                scheduleMap["name"] = titleTextField.text
+            }
             if flag {
                 scheduleMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
                 scheduleMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59"
@@ -264,7 +268,12 @@ class WriteGroupScheduleViewController: UIViewController {
         
         else { // 수정
             updateMap["groupOriginKey"] = groupOriginKey
-            updateMap["name"] = titleTextField.text
+            if titleTextField.text == "" {
+                updateMap["name"] = "제목없음"
+            } else {
+                updateMap["name"] = titleTextField.text
+            }
+            
             if flag {
                 updateMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
                 updateMap["endAt"] = makeAllDay(date: endDatePicker.date) + "T23:59"
