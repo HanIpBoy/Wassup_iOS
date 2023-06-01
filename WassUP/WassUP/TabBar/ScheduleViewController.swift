@@ -11,26 +11,44 @@ import FSCalendar
 class ScheduleViewController: UIViewController {
 
     
+    @IBOutlet weak var backStackView: UIStackView!
+    
     @IBOutlet weak var calendarView: FSCalendar!
+    @IBOutlet weak var calendarViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var detailView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var listView: UICollectionView!
     
     @IBOutlet weak var notiButton: UIButton!
+    
     var userId: String = UserDefaults.standard.string(forKey: "userId") ?? ""
-    var token: String = UserDefaults.standard.string(forKey: "token")!
+    var token: String = UserDefaults.standard.string(forKey: "token") ?? ""
+    var selectedDate = ""
+    var selectDate = Date()
     
     var filtered : [Schedule.Format] = []
     var groupFiltered: [GroupSche.Format] = []
+    var integrated: [Integrated] = []
+    var filteredIntegrated: [Integrated] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         calendarConfigure()
+        initView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         Schedule.shared.schedules = []
         GroupSche.shared3.groupSche = []
         filtered = []
         groupFiltered = []
+        integrated = []
+        
         let server = Server()
         server.getAllData(requestURL: "schedule", token: UserDefaults.standard.string(forKey: "token")!) { [self] (data, response, error) in
             if let error = error {
@@ -58,14 +76,206 @@ class ScheduleViewController: UIViewController {
                         }
                     }
                     
-                    DispatchQueue.main.async {
-                        self.calendarReloadData()
+                    DispatchQueue.main.async { [self] in
+                        calendarReloadData()
+                        
+                        for i in 0..<filtered.count {
+                            let integratedInstance = Integrated(originKey: filtered[i].originKey, groupOriginKey: "", name: filtered[i].name, userId: filtered[i].userId, startAt: filtered[i].startAt, endAt: filtered[i].endAt, memo: filtered[i].memo, allDayToggle: filtered[i].allDayToggle, color: filtered[i].color)
+                            integrated.append(integratedInstance)
+                        }
+
+                        for i in 0..<groupFiltered.count {
+                            let integratedInstance = Integrated(originKey: groupFiltered[i].originKey, groupOriginKey: groupFiltered[i].groupOriginKey, name: groupFiltered[i].name, userId: "", startAt: groupFiltered[i].startAt, endAt: groupFiltered[i].endAt, memo: groupFiltered[i].memo, allDayToggle: groupFiltered[i].allDayToggle, color: groupFiltered[i].color)
+                            integrated.append(integratedInstance)
+                        }
+
+                               
+                        updateListView()
                     }
                 } catch {
                     print("JSON serialization error: \(error)")
                 }
             }
         }
+        
+    }
+    
+    @IBAction func notiButtonTapped(_ sender: UIButton)  {
+        let storyboard = UIStoryboard(name: "Notification", bundle: nil)
+        let notificationVC = (storyboard.instantiateViewController(withIdentifier: "Notification") as? NotificationViewController)!
+        present(notificationVC, animated: true)
+                
+    }
+    
+    
+    @IBAction func changeCalendarMode(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            calendarView.setScope(.month, animated: true)
+        } else {
+            calendarView.setScope(.week, animated: true)
+        }
+    }
+    
+}
+
+extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        selectDate = date
+        dateLabel.text = dateToString(dateFormatString: "M월 d일 E", date: date)
+        updateListView()
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        let filtered2 = filtered.filter { schedule in
+            return schedule.startAt.contains(dateString)
+        }
+        let filtered3 = groupFiltered.filter { schedule in
+            return schedule.startAt.contains(dateString)
+        }
+        return filtered2.count + filtered3.count
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, weekdayTextColorFor weekday: Int) -> UIColor? {
+        if weekday == 1 {
+            return .systemRed
+        } else if weekday == 7 {
+            return .systemBlue
+        } else {
+            return .label
+        }
+    }
+    // Calendar 주간, 월간 원활한 크기 변화를 위해
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool){
+        calendarViewHeight.constant = bounds.height
+        self.view.layoutIfNeeded()
+    }
+}
+
+extension ScheduleViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filteredIntegrated.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = listView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as! ListCell
+        
+        let schedule = filteredIntegrated[indexPath.item]
+        
+        cell.titleLabel.text = schedule.name
+        if schedule.allDayToggle == "true" {
+            cell.startHourLabel.text = "all Day"
+            cell.endHourLabel.text = ""
+            cell.minusLabel.text = ""
+        } else {
+            cell.startHourLabel.text = String(schedule.startAt.split(separator: "T")[1])
+            cell.endHourLabel.text = String(schedule.endAt.split(separator: "T")[1])
+        }
+        
+        cell.cellOriginKey = schedule.originKey
+        cell.cellGroupOriginKey = schedule.groupOriginKey
+        
+        cell.backgroundColor = UIColor.white
+        if cell.cellGroupOriginKey != "" {
+            cell.marker.backgroundColor = UIColor(hexString: "ffffff")
+            cell.backgroundColor = UIColor(hexString: "ebf0ff")
+            cell.layer.cornerRadius = 10
+        }
+        else {
+            cell.marker.backgroundColor = UIColor(hexString: String(schedule.color.dropFirst()))
+        }
+
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 70)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let cell = listView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as! ListCell
+        let schedule = filteredIntegrated[indexPath.item]
+        
+        let storyBoard = UIStoryboard(name: "Write", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "Write") as! WriteViewController
+
+        vc.name = schedule.name
+        if schedule.allDayToggle == "true" {
+            vc.flag = true
+        } else {
+            vc.flag = false
+        }
+        vc.startDateString = schedule.startAt
+        vc.endDateString = schedule.endAt
+        vc.memo = schedule.memo
+        vc.color = String(schedule.color.dropFirst())
+        vc.originKey = schedule.originKey
+        vc.scheduleVC = self
+        vc.groupOriginKey = schedule.groupOriginKey
+        
+        present(vc, animated: true)
+    }
+}
+
+extension ScheduleViewController {
+    func initView() {
+        calendarView.delegate = self
+        calendarView.dataSource = self
+        calendarView.setScope(.month, animated: true)
+        backStackView.layer.cornerRadius = 20
+        detailView.layer.cornerRadius = 20
+        dateLabel.text = dateToString(dateFormatString: "M월 d일 E", date: selectDate)
+        listView.dataSource = self
+        listView.delegate = self
+    }
+    
+    func dateToString(dateFormatString: String, date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormatString
+        return dateFormatter.string(from: date)
+    }
+    
+    func calendarConfigure() {
+        calendarView.delegate = self
+        calendarView.dataSource = self
+        
+        // Style
+        calendarView.layer.cornerRadius = 20
+        calendarView.headerHeight = 50
+        calendarView.weekdayHeight = 20
+        calendarView.appearance.headerMinimumDissolvedAlpha = 0.0 // header의 이번 달만 표시
+        calendarView.appearance.headerDateFormat = "YYYY년 M월"
+        calendarView.appearance.headerTitleColor = .label
+        
+        // Style - event
+        calendarView.appearance.eventDefaultColor = .systemBlue
+        calendarView.appearance.eventSelectionColor = .systemMint
+        
+        // Style - 오늘 및 선택 원형 색깔
+        calendarView.appearance.todayColor = .gray
+        calendarView.appearance.selectionColor = UIColor(hexString: "0040ff")
+        
+        // Style - 글자 색
+        calendarView.appearance.titleDefaultColor = .label
+        calendarView.appearance.titleTodayColor = .label
+        calendarView.appearance.titleSelectionColor = .white
+        calendarView.appearance.weekdayTextColor = .label
+        
+        // functional
+        calendarView.locale = Locale(identifier: "ko_KR")
+    }
+    
+    func calendarReloadData() {
+        calendarView.reloadData()
     }
     
     func parseUserScheduleEntry(_ entry: [String: Any]) {
@@ -120,83 +330,24 @@ class ScheduleViewController: UIViewController {
         }
     }
     
-    func calendarConfigure() {
-        calendarView.delegate = self
-        calendarView.dataSource = self
-        
-        // Style
-        calendarView.layer.cornerRadius = 20
-        calendarView.headerHeight = 50
-        calendarView.weekdayHeight = 20
-        calendarView.appearance.headerMinimumDissolvedAlpha = 0.0 // header의 이번 달만 표시
-        calendarView.appearance.headerDateFormat = "YYYY년 M월"
-        calendarView.appearance.headerTitleColor = .label
-        
-        // Style - event
-        calendarView.appearance.eventDefaultColor = .systemBlue
-        calendarView.appearance.eventSelectionColor = .systemMint
-        
-        // Style - 오늘 및 선택 원형 색깔
-        calendarView.appearance.todayColor = .gray
-        calendarView.appearance.selectionColor = UIColor(hexString: "0040ff")
-        
-        // Style - 글자 색
-        calendarView.appearance.titleDefaultColor = .label
-        calendarView.appearance.titleTodayColor = .label
-        calendarView.appearance.titleSelectionColor = .white
-        calendarView.appearance.weekdayTextColor = .label
-        
-        // functional
-        calendarView.locale = Locale(identifier: "ko_KR")
-    }
-    
-    func calendarReloadData() {
-        calendarView.reloadData()
-    }
-    
-    @IBAction func notiButtonTapped(_ sender: UIButton)  {
-        let storyboard = UIStoryboard(name: "Notification", bundle: nil)
-        let notificationVC = (storyboard.instantiateViewController(withIdentifier: "Notification") as? NotificationViewController)!
-        present(notificationVC, animated: true)
-                
+    func updateListView() {
+        filteredIntegrated = []
+        filteredIntegrated = integrated.filter { schedule in
+            return schedule.startAt.contains(dateToString(dateFormatString: "yyyy-MM-dd", date: selectDate))
+        }
+        listView.reloadData()
     }
     
 }
 
-extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        vc.selectDate = date
-        vc.selectedDate = dateFormatter.string(from: date)
-        vc.scheduleVC = self
-        
-        present(vc, animated: true, completion: nil)
-    }
-    
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.string(from: date)
-        let filtered2 = filtered.filter { schedule in
-            return schedule.startAt.contains(dateString)
-        }
-        let filtered3 = groupFiltered.filter { schedule in
-            return schedule.startAt.contains(dateString)
-        }
-        return filtered2.count + filtered3.count
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, weekdayTextColorFor weekday: Int) -> UIColor? {
-        if weekday == 1 {
-            return .systemRed
-        } else if weekday == 7 {
-            return .systemBlue
-        } else {
-            return .label
-        }
-    }
+struct Integrated {
+    var originKey: String
+    var groupOriginKey : String
+    var name: String
+    var userId: String
+    var startAt: String
+    var endAt: String
+    var memo: String
+    var allDayToggle: String
+    var color : String
 }

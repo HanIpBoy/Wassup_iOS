@@ -19,6 +19,9 @@ class GroupTimeTableViewController: UIViewController {
     @IBOutlet weak var secondCollectionView: UICollectionView!
     @IBOutlet weak var firstCollectionView: UICollectionView!
 
+    @IBOutlet weak var loadingView: UIView!
+    
+    
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var periodLabel: UILabel!
 
@@ -34,6 +37,7 @@ class GroupTimeTableViewController: UIViewController {
     @IBOutlet weak var groupUserBtn9: UIButton!
     @IBOutlet weak var groupUserBtn10: UIButton!
 
+    var groupVC: GroupViewController!
 
     var groupOriginKey: String = ""
     var groupName: String = ""
@@ -55,19 +59,44 @@ class GroupTimeTableViewController: UIViewController {
 
     var integrated: [IntegratedSchedule.Format]!
     
+    let loadingViewController = LoadingViewController()
+       
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("&&& 2")
+
+        if let loadingView = loadingViewController.view {
+            addChild(loadingViewController)
+            loadingView.frame = self.loadingView.bounds
+            self.loadingView.addSubview(loadingView)
+            loadingViewController.didMove(toParent: self)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1){ [self] in
+            // LoadingViewController의 뷰를 loadingView에 추가
+            
+            // loadingView가 3초동안 천천히 흐려지다가 완전히 안보이게끔 해줘
+            UIView.animate(withDuration: 0.5, animations: {
+                self.loadingView.alpha = 0.0
+            }, completion: { _ in
+                // 애니메이션이 완료된 후, loadingView를 제거합니다.
+                self.loadingViewController.willMove(toParent: nil)
+                self.loadingViewController.view.removeFromSuperview()
+                self.loadingViewController.removeFromParent()
+            })
+            makeDataSourceAndDelegate(collectionView: firstCollectionView)
+            makeDataSourceAndDelegate(collectionView: secondCollectionView)
+            makeDataSourceAndDelegate(collectionView: thirdCollectionView)
+            makeDataSourceAndDelegate(collectionView: fourthCollectionView)
+            makeDataSourceAndDelegate(collectionView: fifthCollectionView)
+            makeDataSourceAndDelegate(collectionView: sixthCollectionView)
+            makeDataSourceAndDelegate(collectionView: seventhCollectionView)
+        }
         
         groupIDs = groupUsers["groupUsers"] as! [String]
         myView.layer.cornerRadius = 20
         
-        makeDataSourceAndDelegate(collectionView: firstCollectionView)
-        makeDataSourceAndDelegate(collectionView: secondCollectionView)
-        makeDataSourceAndDelegate(collectionView: thirdCollectionView)
-        makeDataSourceAndDelegate(collectionView: fourthCollectionView)
-        makeDataSourceAndDelegate(collectionView: fifthCollectionView)
-        makeDataSourceAndDelegate(collectionView: sixthCollectionView)
-        makeDataSourceAndDelegate(collectionView: seventhCollectionView)
+        
         
         makeBorderForCollectionView(collectionView: firstCollectionView)
         makeBorderForCollectionView(collectionView: secondCollectionView)
@@ -102,8 +131,13 @@ class GroupTimeTableViewController: UIViewController {
         groupNameLabel.addGestureRecognizer(labelTouch)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+     
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("&&& 1")
         let server = Server()
         integrated = []
         
@@ -209,6 +243,8 @@ class GroupTimeTableViewController: UIViewController {
             
             dispatchGroup.wait() // 모든 비동기 작업 완료 대기
         }
+        
+        
     }
 
     
@@ -286,7 +322,9 @@ class GroupTimeTableViewController: UIViewController {
         var userIndex = ""
         
         if endMinute == 0 {
-            endHour -= 1
+            if endHour != 0 {
+                endHour -= 1
+            }
         }
         
         for i in 0..<groupIDs.count {
@@ -325,7 +363,8 @@ class GroupTimeTableViewController: UIViewController {
         vc.groupOriginKey = groupOriginKey
         vc.groupDescription = groupDescription
         vc.leaderId = leaderId
-        
+        vc.groupVC = groupVC
+        vc.groupTimeTableVC = self
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -368,6 +407,8 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
+                            
+
                             for i in startIndex..<endIndex {
                                 if ((i % 13) == Int(element.userIndex)!) && (i/13 == indexPath.item/13) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
@@ -454,6 +495,9 @@ extension GroupTimeTableViewController: UICollectionViewDelegate, UICollectionVi
                             // 시간 parse
                             let startIndex = calculate(float: Float(element.startHour)!, index: element.userIndex)
                             let endIndex = calculate(float: Float(element.endHour)!, index: element.userIndex)
+                            print("element : \(element)")
+                            print("start/endHour : \(element.startHour) , \(element.endHour)")
+                            print("start/endIndex : \(startIndex) , \(endIndex)")
                             for i in startIndex...endIndex {
                                 if ((i % 13) == Int(element.userIndex)!) && (i/13 == indexPath.item/13) {
                                     cell.backgroundColor = colorVendingMachine(index: element.userIndex)
@@ -508,6 +552,7 @@ extension GroupTimeTableViewController {
     }
     
     private func reloadDate() {
+       
         bars = []
         DispatchQueue.main.async {
             
@@ -533,7 +578,7 @@ extension GroupTimeTableViewController {
                 
             }
         }
-        
+
         DispatchQueue.main.async {
             
             self.firstCollectionView.reloadData()
@@ -548,4 +593,20 @@ extension GroupTimeTableViewController {
             
         }
     }
+    func measureExecutionTime() {
+        let startTime = DispatchTime.now()
+        
+        // 측정하고자 하는 코드 작성
+        // ...
+        
+        let endTime = DispatchTime.now()
+        let nanoTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
+        let executionTime = Double(nanoTime) / 1_000_000_000 // 초 단위로 변환
+        
+        print("Execution time: \(executionTime) seconds")
+    }
+
+    
 }
+
+

@@ -29,7 +29,7 @@
                                     <action selector="closeWrite:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Lgm-3a-4AW"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DKb-3j-9oa">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DKb-3j-9oa">
                                 <rect key="frame" x="25" y="159" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -123,7 +123,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </stackView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="메모" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q3a-ka-4lp">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="메모" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q3a-ka-4lp">
                                 <rect key="frame" x="25" y="458" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -161,7 +161,7 @@
                                 <rect key="frame" x="25" y="528" width="343" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRG-M3-Qmz">
-                                        <rect key="frame" x="10" y="12.666666666666629" width="25" height="25"/>
+                                        <rect key="frame" x="21" y="12.666666666666629" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="4aa-yd-8Va"/>
                                             <constraint firstAttribute="width" constant="25" id="5po-Wi-lZe"/>
@@ -173,7 +173,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="sRG-M3-Qmz" firstAttribute="leading" secondItem="pbW-GQ-CzA" secondAttribute="leading" constant="10" id="D7V-Nn-3P3"/>
+                                    <constraint firstItem="sRG-M3-Qmz" firstAttribute="leading" secondItem="pbW-GQ-CzA" secondAttribute="leading" constant="21" id="D7V-Nn-3P3"/>
                                     <constraint firstItem="sRG-M3-Qmz" firstAttribute="centerY" secondItem="pbW-GQ-CzA" secondAttribute="centerY" id="TZ0-Rx-Rn4"/>
                                     <constraint firstAttribute="height" constant="50" id="cGO-t2-Xbq"/>
                                 </constraints>

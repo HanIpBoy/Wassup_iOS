@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "free-icon-font-bell-3917270_24pt_1x.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "free-icon-font-bell-3917270_24pt_2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "free-icon-font-bell-3917270_24pt_3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

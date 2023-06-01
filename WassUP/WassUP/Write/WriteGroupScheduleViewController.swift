@@ -27,7 +27,6 @@ class WriteGroupScheduleViewController: UIViewController {
     @IBOutlet weak var memoTextField: UITextField!
     
     var scheduleVC = ScheduleViewController()
-    var detailVC = DetailViewController()
     var listVC = GroupScheduleViewController()
     var colorPickerView: UIPickerView!
 
@@ -98,9 +97,22 @@ class WriteGroupScheduleViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
+        let leftMargin: CGFloat = 19
+        
         titleTextField.text = name
+        titleTextField.layer.cornerRadius = 10
+        
+        titleTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: titleTextField.frame.size.height))
+        titleTextField.leftViewMode = .always
+        
         memoTextField.text = memo
-        groupNameTextField.text = groupName
+        memoTextField.layer.cornerRadius = 10
+        
+        memoTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: memoTextField.frame.size.height))
+        memoTextField.leftViewMode = .always
+        
+        groupNameTextField.placeholder = groupName
+        groupNameTextField.layer.cornerRadius = 10
         
         if flag {
             allDayToggle.isOn = true
@@ -236,7 +248,7 @@ class WriteGroupScheduleViewController: UIViewController {
                                     color: color
                                 )
 
-                                
+                                GroupSche.shared3.groupSche.append(scheduleData)
                             }
                         }
                         DispatchQueue.main.async {
@@ -249,7 +261,7 @@ class WriteGroupScheduleViewController: UIViewController {
         }
         
         else { // 수정
-            scheduleMap["groupOriginKey"] = groupOriginKey
+            updateMap["groupOriginKey"] = groupOriginKey
             updateMap["name"] = titleTextField.text
             if flag {
                 updateMap["startAt"] = makeAllDay(date: startDatePicker.date) + "T00:00"
@@ -274,6 +286,7 @@ class WriteGroupScheduleViewController: UIViewController {
                        let dataArray = json["data"] as? [[String: Any]] {
                         for dataEntry in dataArray {
                             if let originKey = dataEntry["originKey"] as? String {
+                                let groupOriginKey = dataEntry["groupOriginKey"] as? String ?? ""
                                 let name = dataEntry["name"] as? String ?? ""
                                 let startAt = dataEntry["startAt"] as? String ?? ""
                                 let endAt = dataEntry["endAt"] as? String ?? ""
@@ -281,22 +294,22 @@ class WriteGroupScheduleViewController: UIViewController {
                                 let memo = dataEntry["memo"] as? String ?? ""
                                 let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
                                 let color = dataEntry["color"] as? String ?? ""
-                                let scheduleData = Schedule.Format(
+                                let scheduleData = GroupSche.Format(
                                     originKey: originKey,
+                                    groupOriginKey: groupOriginKey,
                                     name: name,
                                     startAt: startAt,
                                     endAt: endAt,
-                                    userId: userId,
                                     memo: memo,
                                     allDayToggle: allDayToggle,
                                     color: color
                                 )
                                 
-                                Schedule.shared.findAndUpdateScheduleData(data: scheduleData)
+                                GroupSche.shared3.findAndUpdateScheduleData(data: scheduleData)
                             }
                         }
                         DispatchQueue.main.async {
-                            self.detailVC.viewWillAppear(true)
+                            self.listVC.viewWillAppear(true)
                             self.dismiss(animated: true)
                         }
                     }
@@ -308,7 +321,7 @@ class WriteGroupScheduleViewController: UIViewController {
     @IBAction func deleteSchedule(_ sender: UIButton) { // 일정 삭제
         let server = Server()
         let originKey = self.originKey
-        server.deleteData(requestURL: "schedule/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+        server.deleteData(requestURL: "group/schedule/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
@@ -319,6 +332,7 @@ class WriteGroupScheduleViewController: UIViewController {
                    let dataArray = json["data"] as? [[String: Any]] {
                     for dataEntry in dataArray {
                         if let originKey = dataEntry["originKey"] as? String {
+                            let groupOriginKey = dataEntry["groupOriginKey"] as? String ?? ""
                             let name = dataEntry["name"] as? String ?? ""
                             let startAt = dataEntry["startAt"] as? String ?? ""
                             let endAt = dataEntry["endAt"] as? String ?? ""
@@ -326,22 +340,22 @@ class WriteGroupScheduleViewController: UIViewController {
                             let memo = dataEntry["memo"] as? String ?? ""
                             let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
                             let color = dataEntry["color"] as? String ?? ""
-                            let scheduleData = Schedule.Format(
+                            let scheduleData = GroupSche.Format(
                                 originKey: originKey,
+                                groupOriginKey: groupOriginKey,
                                 name: name,
                                 startAt: startAt,
                                 endAt: endAt,
-                                userId: userId,
                                 memo: memo,
                                 allDayToggle: allDayToggle,
                                 color: color
                             )
-                            Schedule.shared.deleteScheduleData(data: scheduleData)
+                            
+                            GroupSche.shared3.deleteScheduleData(data: scheduleData)
                         }
                     }
                     DispatchQueue.main.async {
-                        self.detailVC.viewWillAppear(true)
-                        self.scheduleVC.viewWillAppear(true)
+                        self.listVC.viewWillAppear(true)
                         self.dismiss(animated: true)
                     }
                 }

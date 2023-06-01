@@ -54,7 +54,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GroupScheduleCollectionViewCell" id="oIW-Fc-dgS" customClass="GroupScheduleCollectionViewCell" customModule="WassUP" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="GroupScheduleCollectionViewCell" id="oIW-Fc-dgS" customClass="GroupScheduleCollectionViewCell" customModule="WassUP" customModuleProvider="target">
                                                 <rect key="frame" x="25" y="0.0" width="293" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="XtM-b0-d2m">
@@ -122,10 +122,10 @@
                                         </cells>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUF-hO-6Cn">
-                                        <rect key="frame" x="284" y="15.000000000000004" width="49" height="34.333333333333343"/>
+                                        <rect key="frame" x="285" y="13" width="48" height="38"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="plus.app" catalog="system"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="createSchedule"/>
                                         <connections>
                                             <action selector="createGroupScheduleButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ORD-ze-fFK"/>
                                         </connections>
@@ -143,12 +143,20 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R6-k1-Vdv">
-                                <rect key="frame" x="315" y="79" width="48" height="34.333333333333343"/>
+                                <rect key="frame" x="315" y="79" width="48" height="38"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash"/>
                                 <connections>
                                     <action selector="deleteGroupButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="rjg-jo-xri"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ww-hD-9Ck">
+                                <rect key="frame" x="267" y="79" width="48" height="38"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="modify"/>
+                                <connections>
+                                    <action selector="updateGroupButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="fr6-zf-4vu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -163,6 +171,8 @@
                             <constraint firstItem="TF2-RQ-CUD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="kk5-Jk-AU9"/>
                             <constraint firstItem="1R6-k1-Vdv" firstAttribute="top" secondItem="TF2-RQ-CUD" secondAttribute="top" constant="-5" id="o4Q-YM-vhA"/>
                             <constraint firstItem="hSw-o2-E2g" firstAttribute="leading" secondItem="TF2-RQ-CUD" secondAttribute="leading" constant="10" id="qbk-3M-6CW"/>
+                            <constraint firstItem="7Ww-hD-9Ck" firstAttribute="top" secondItem="1R6-k1-Vdv" secondAttribute="top" id="qeh-ed-Ua5"/>
+                            <constraint firstItem="1R6-k1-Vdv" firstAttribute="leading" secondItem="7Ww-hD-9Ck" secondAttribute="trailing" id="tut-Jr-gjE"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1R6-k1-Vdv" secondAttribute="trailing" constant="30" id="zkN-S3-VmH"/>
                         </constraints>
                     </view>
@@ -173,6 +183,7 @@
                         <outlet property="groupNameLabel" destination="hJJ-Ts-5gB" id="OcJ-5J-8RK"/>
                         <outlet property="groupScheduleListView" destination="K6h-FS-rwl" id="e2O-u1-ags"/>
                         <outlet property="myView" destination="Yho-cj-nl8" id="Lg0-d9-r0G"/>
+                        <outlet property="updateGroupButton" destination="7Ww-hD-9Ck" id="I3f-iy-1II"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -181,8 +192,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus.app" catalog="system" width="128" height="114"/>
-        <image name="trash" catalog="system" width="117" height="128"/>
+        <image name="createSchedule" width="24" height="24"/>
+        <image name="modify" width="24" height="24"/>
+        <image name="trash" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

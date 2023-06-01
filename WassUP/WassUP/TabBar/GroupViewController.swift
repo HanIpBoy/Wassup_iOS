@@ -53,9 +53,7 @@ class GroupViewController: UIViewController {
                                 numOfUsers: numOfUsers,
                                 leaderId: leaderId,
                                 groupUsers: groupUsers
-                                
                             )
-                            
                             Group.shared2.updateGroupData(data: groupData)
                         }
                     }
@@ -77,7 +75,7 @@ class GroupViewController: UIViewController {
         let storyboard = UIStoryboard(name: "GroupCreate", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupCreateViewController") as? GroupCreateViewController else { return
         }
-        
+        vc.groupUsersEnable = true
         vc.groupVC = self
         present(vc, animated: true)
     }
@@ -119,7 +117,7 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
         let group = Group.shared2.groups[indexPath.item]
         cell.nameLabel.text = group.groupName
         cell.descriptionLabel.text = group.description
-        cell.numberLabel.text = "👥 " + String(group.numOfUsers)
+        cell.numberLabel.text = String(group.numOfUsers)
         
         return cell
     }
@@ -129,6 +127,7 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
         let storyboard = UIStoryboard(name: "GroupTimeTable", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "GroupTimeTableViewController") as? GroupTimeTableViewController else { return }
         let group = Group.shared2.groups[indexPath.item]
@@ -138,9 +137,11 @@ extension GroupViewController : UICollectionViewDelegate, UICollectionViewDataSo
         vc.groupDescription = group.description
         vc.groupUsers = dict
         vc.leaderId = group.leaderId
+        vc.groupVC = self
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+        
         
     }
     

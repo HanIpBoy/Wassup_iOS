@@ -77,10 +77,28 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController {
     private func initView() {
+        let leftMargin: CGFloat = 19
+
         myView.layer.cornerRadius = 20
         
         logoutButton.tintColor = UIColor.red
         
         emailTextField.text = UserDefaults.standard.string(forKey: "userId")
+        
+        nameTextField.layer.cornerRadius = 10
+        
+        nameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: nameTextField.frame.size.height))
+        nameTextField.leftViewMode = .always
+        
+        birthTextField.layer.cornerRadius = 10
+        
+        birthTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: birthTextField.frame.size.height))
+        birthTextField.leftViewMode = .always
+        
+        emailTextField.layer.cornerRadius = 10
+        
+        emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: emailTextField.frame.size.height))
+        emailTextField.leftViewMode = .always
+        
     }
 }

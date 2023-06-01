@@ -18,73 +18,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjW-0k-XZP">
+                                <rect key="frame" x="25.000000000000004" y="109" width="43.333333333333343" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rb-II-7MP">
-                                <rect key="frame" x="25" y="159" width="343" height="559"/>
+                                <rect key="frame" x="25" y="159" width="343" height="629"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjW-0k-XZP">
-                                        <rect key="frame" x="19.999999999999996" y="20" width="34.666666666666657" height="24"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="szi-sL-mSS">
-                                        <rect key="frame" x="5" y="64" width="333" height="490"/>
+                                        <rect key="frame" x="0.0" y="20" width="343" height="609"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uIY-1d-dUO">
-                                            <size key="itemSize" width="316" height="128"/>
+                                            <size key="itemSize" width="316" height="110"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NotificationCell" id="stg-5Q-RR2" customClass="NotificationCell" customModule="WassUP" customModuleProvider="target">
-                                                <rect key="frame" x="8.6666666666666661" y="0.0" width="316" height="128"/>
+                                                <rect key="frame" x="13.666666666666666" y="0.0" width="316" height="110"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aGE-tW-pK2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="316" height="128"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="316" height="110"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdD-9S-eZ1">
-                                                            <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                                            <rect key="frame" x="15" y="15" width="15" height="15"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="20" id="I63-e6-zmM"/>
-                                                                <constraint firstAttribute="width" constant="20" id="R09-lp-rL7"/>
+                                                                <constraint firstAttribute="height" constant="15" id="I63-e6-zmM"/>
+                                                                <constraint firstAttribute="width" constant="15" id="R09-lp-rL7"/>
                                                             </constraints>
                                                             <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain" image="xmark.circle" catalog="system"/>
+                                                            <buttonConfiguration key="configuration" style="plain" image="notiDelete"/>
                                                             <connections>
                                                                 <action selector="noButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ziv-4G-400"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av2-yK-TEZ">
-                                                            <rect key="frame" x="40" y="9.9999999999999982" width="260" height="20.333333333333329"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정한이와 영재 그룹에서 생성한 그룹일정 1 일정을 삭제하였습니다. 진짜로 아니라니까?? 진짜" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av2-yK-TEZ">
+                                                            <rect key="frame" x="40" y="38.333333333333343" width="260" height="33.666666666666657"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="260" id="DUZ-mF-Mf3"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c0C-of-tOO">
-                                                            <rect key="frame" x="174.66666666666663" y="84.666666666666671" width="131.33333333333337" height="33.333333333333329"/>
+                                                            <rect key="frame" x="185.33333333333334" y="74" width="120.66666666666666" height="31"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rm4-Rq-iQG">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="65.666666666666671" height="33.333333333333336"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="60.333333333333336" height="31"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="예">
-                                                                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
                                                                         <action selector="yesButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="46K-Uu-ASQ"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIK-gn-7yP">
-                                                                    <rect key="frame" x="65.666666666666686" y="0.0" width="65.666666666666686" height="33.333333333333336"/>
+                                                                    <rect key="frame" x="60.333333333333314" y="0.0" width="60.333333333333343" height="31"/>
                                                                     <color key="tintColor" systemColor="systemRedColor"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="아니오">
-                                                                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
                                                                         <action selector="noButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MQV-p4-wUt"/>
@@ -92,20 +92,30 @@
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="그룹 일정 생성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-6a-2P9">
+                                                            <rect key="frame" x="40" y="14" width="80" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="4fN-6a-2P9" firstAttribute="centerY" secondItem="xdD-9S-eZ1" secondAttribute="centerY" id="LKc-QD-fwJ"/>
                                                         <constraint firstItem="Av2-yK-TEZ" firstAttribute="leading" secondItem="xdD-9S-eZ1" secondAttribute="trailing" constant="10" id="W9D-c2-Ygk"/>
-                                                        <constraint firstItem="xdD-9S-eZ1" firstAttribute="top" secondItem="aGE-tW-pK2" secondAttribute="top" constant="10" id="csE-YG-cYX"/>
-                                                        <constraint firstAttribute="bottom" secondItem="c0C-of-tOO" secondAttribute="bottom" constant="10" id="eQN-C7-5Wh"/>
+                                                        <constraint firstItem="xdD-9S-eZ1" firstAttribute="top" secondItem="aGE-tW-pK2" secondAttribute="top" constant="15" id="csE-YG-cYX"/>
+                                                        <constraint firstAttribute="bottom" secondItem="c0C-of-tOO" secondAttribute="bottom" constant="5" id="eQN-C7-5Wh"/>
                                                         <constraint firstAttribute="trailing" secondItem="c0C-of-tOO" secondAttribute="trailing" constant="10" id="fSd-a0-RQT"/>
-                                                        <constraint firstItem="Av2-yK-TEZ" firstAttribute="top" secondItem="xdD-9S-eZ1" secondAttribute="top" id="fUN-Pk-j1P"/>
-                                                        <constraint firstItem="xdD-9S-eZ1" firstAttribute="leading" secondItem="aGE-tW-pK2" secondAttribute="leading" constant="10" id="nYe-Vg-Qlv"/>
+                                                        <constraint firstItem="Av2-yK-TEZ" firstAttribute="centerY" secondItem="aGE-tW-pK2" secondAttribute="centerY" id="hu8-eT-Qjc"/>
+                                                        <constraint firstItem="xdD-9S-eZ1" firstAttribute="leading" secondItem="aGE-tW-pK2" secondAttribute="leading" constant="15" id="nYe-Vg-Qlv"/>
+                                                        <constraint firstItem="4fN-6a-2P9" firstAttribute="leading" secondItem="Av2-yK-TEZ" secondAttribute="leading" id="u0M-V1-Uvb"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
-                                                <size key="customSize" width="316" height="128"/>
+                                                <size key="customSize" width="316" height="110"/>
                                                 <connections>
+                                                    <outlet property="deleteButton" destination="xdD-9S-eZ1" id="tlh-k2-2i2"/>
                                                     <outlet property="messageLabel" destination="Av2-yK-TEZ" id="TsU-d9-Qh7"/>
                                                     <outlet property="noButton" destination="RIK-gn-7yP" id="nUS-d5-KAw"/>
+                                                    <outlet property="titleLabel" destination="4fN-6a-2P9" id="CSi-BE-EaJ"/>
                                                     <outlet property="yesButton" destination="Rm4-Rq-iQG" id="HbA-8o-90w"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -114,25 +124,39 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="szi-sL-mSS" firstAttribute="leading" secondItem="9Rb-II-7MP" secondAttribute="leading" constant="5" id="1w1-gM-fbR"/>
-                                    <constraint firstItem="szi-sL-mSS" firstAttribute="top" secondItem="KjW-0k-XZP" secondAttribute="bottom" constant="20" id="aNe-jT-h5r"/>
-                                    <constraint firstItem="KjW-0k-XZP" firstAttribute="leading" secondItem="9Rb-II-7MP" secondAttribute="leading" constant="20" id="cm3-Mc-VUK"/>
-                                    <constraint firstAttribute="trailing" secondItem="szi-sL-mSS" secondAttribute="trailing" constant="5" id="eCc-mS-q4B"/>
-                                    <constraint firstAttribute="bottom" secondItem="szi-sL-mSS" secondAttribute="bottom" constant="5" id="i5V-9p-ju3"/>
-                                    <constraint firstItem="KjW-0k-XZP" firstAttribute="top" secondItem="9Rb-II-7MP" secondAttribute="top" constant="20" id="tFe-4N-dOj"/>
+                                    <constraint firstAttribute="trailing" secondItem="szi-sL-mSS" secondAttribute="trailing" id="WpR-Ge-oUX"/>
+                                    <constraint firstAttribute="bottom" secondItem="szi-sL-mSS" secondAttribute="bottom" id="cvH-Zj-XKK"/>
+                                    <constraint firstItem="szi-sL-mSS" firstAttribute="top" secondItem="9Rb-II-7MP" secondAttribute="top" constant="20" id="eqK-3J-pza"/>
+                                    <constraint firstItem="szi-sL-mSS" firstAttribute="leading" secondItem="9Rb-II-7MP" secondAttribute="leading" id="odL-Jd-jcX"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWC-fy-aQl">
+                                <rect key="frame" x="288.33333333333331" y="108" width="79.666666666666686" height="32"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="전체 삭제">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="15"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="deleteAllButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="BBB-My-ZID"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="9Rb-II-7MP" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="100" id="84N-6U-iMd"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="9Rb-II-7MP" secondAttribute="bottom" constant="100" id="KoR-os-Y9p"/>
-                            <constraint firstItem="9Rb-II-7MP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="25" id="LYU-xg-qiY"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="9Rb-II-7MP" secondAttribute="trailing" constant="25" id="OJR-wp-FGa"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="9Rb-II-7MP" secondAttribute="trailing" constant="25" id="2T5-O0-VlF"/>
+                            <constraint firstItem="KjW-0k-XZP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="25" id="6Oe-iQ-nKu"/>
+                            <constraint firstItem="9Rb-II-7MP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="25" id="7Vx-Gk-yDV"/>
+                            <constraint firstItem="9Rb-II-7MP" firstAttribute="top" secondItem="KjW-0k-XZP" secondAttribute="bottom" constant="20" id="8hY-J9-bPZ"/>
+                            <constraint firstItem="wWC-fy-aQl" firstAttribute="trailing" secondItem="9Rb-II-7MP" secondAttribute="trailing" id="PAR-GH-wcf"/>
+                            <constraint firstItem="wWC-fy-aQl" firstAttribute="centerY" secondItem="KjW-0k-XZP" secondAttribute="centerY" id="ZSN-VM-CDw"/>
+                            <constraint firstItem="KjW-0k-XZP" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="noF-PU-3Lb"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="9Rb-II-7MP" secondAttribute="bottom" constant="30" id="rFp-jh-iNW"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deleteAllButton" destination="wWC-fy-aQl" id="wzb-NU-Xy0"/>
                         <outlet property="notificationCollectionView" destination="szi-sL-mSS" id="iY0-Eg-KaT"/>
                         <outlet property="outerView" destination="9Rb-II-7MP" id="7B3-dg-KQB"/>
                     </connections>
@@ -143,7 +167,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="xmark.circle" catalog="system" width="128" height="123"/>
+        <image name="notiDelete" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

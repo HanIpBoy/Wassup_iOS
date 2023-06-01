@@ -26,7 +26,6 @@ class WriteViewController: UIViewController {
     @IBOutlet weak var memoTextField: UITextField!
     
     var scheduleVC = ScheduleViewController()
-    var detailVC = DetailViewController()
     var colorPickerView: UIPickerView!
 
     var originKey: String = ""
@@ -107,7 +106,19 @@ class WriteViewController: UIViewController {
             startDatePicker.date = makeStringDate(dateString: startDateString)
             endDatePicker.date = makeStringDate(dateString: endDateString)
         }
+        let leftMargin: CGFloat = 19
+        
+        titleTextField.text = name
+        titleTextField.layer.cornerRadius = 10
+        
+        titleTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: titleTextField.frame.size.height))
+        titleTextField.leftViewMode = .always
+        
         memoTextField.text = memo
+        memoTextField.layer.cornerRadius = 10
+        
+        memoTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftMargin, height: memoTextField.frame.size.height))
+        memoTextField.leftViewMode = .always
         
         colorButton.addTarget(self, action: #selector(showColorPicker), for: .touchUpInside)
         // colorPickerView 초기화
@@ -299,7 +310,7 @@ class WriteViewController: UIViewController {
                             }
                         }
                         DispatchQueue.main.async {
-                            self.detailVC.viewWillAppear(true)
+                            self.scheduleVC.viewWillAppear(true)
                             self.dismiss(animated: true)
                         }
                     }
@@ -343,7 +354,6 @@ class WriteViewController: UIViewController {
                         }
                     }
                     DispatchQueue.main.async {
-                        self.detailVC.viewWillAppear(true)
                         self.scheduleVC.viewWillAppear(true)
                         self.dismiss(animated: true)
                     }

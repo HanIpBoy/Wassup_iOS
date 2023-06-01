@@ -33,6 +33,10 @@ class LoginViewController: UIViewController {
     func myViewStyle() {
         myView.layer.cornerRadius = 20
         
+        let leftMargin: CGFloat = 19
+        
+        
+        
         loginButton.layer.cornerRadius = 10
         loginButton.backgroundColor = UIColor(hexString: "0040ff")
         loginButton.tintColor = UIColor(hexString: "0040ff")

@@ -13,9 +13,11 @@ class NotificationViewController: UIViewController {
     @IBOutlet weak var outerView: UIView!
     @IBOutlet weak var notificationCollectionView: UICollectionView!
     
+    @IBOutlet weak var deleteAllButton: UIButton!
     var originKey: String!
     var groupOriginKey: String!
     
+
     //    private var notificationArr: [Notification]!
     private var responseNotiData :[String: String] = [
         "originKey" : "",
@@ -62,6 +64,7 @@ class NotificationViewController: UIViewController {
                             )
                             
                             Notification.sharedNoti.updateNotificationData(data: notificationData)
+                            
                         }
                     }
                     DispatchQueue.main.async {
@@ -80,6 +83,28 @@ class NotificationViewController: UIViewController {
     }
     
   
+    @IBAction func deleteAllButtonTapped(_ sender: Any) {
+        let deleteConfirmAlert = UIAlertController(title: "알림 전체 삭제", message: "알림을 모두 삭제 하시겠습니까?", preferredStyle: .alert)
+        
+        self.present(deleteConfirmAlert, animated: true, completion: nil)
+        deleteConfirmAlert.addAction(UIAlertAction(title: "삭제", style: .destructive) { action in
+            let server = Server()
+            let token = UserDefaults.standard.string(forKey: "token")!
+            server.deleteData(requestURL: "user/notification", token: token) { _, _, _ in
+                DispatchQueue.main.async {
+                    Notification.sharedNoti.notifications.removeAll()
+                    self.dismiss(animated: true)
+
+                    self.viewWillAppear(false)
+                }
+            }
+        })
+        
+        deleteConfirmAlert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
+//            self.dismiss(animated: true)
+
+        })
+    }
     @IBAction func yesButtonTapped(_ sender: UIButton) {
         let index = sender.tag
         
@@ -101,11 +126,15 @@ class NotificationViewController: UIViewController {
 
     
     @IBAction func noButtonTapped(_ sender: UIButton) {
-        let index = sender.tag
-        
+        let cellCount = Notification.sharedNoti.notifications.count
+
+        let index = cellCount - sender.tag - 1
+        print("index >>> \(index)")
+        print("sender tag >>> \(sender.tag)")
+        print("count >>> \(cellCount)")
+        print("response >> \(responseNotiData.count)")
         responseNotiData["originKey"] = Notification.sharedNoti.notifications[index].originKey
         let originKey = responseNotiData["originKey"] ?? ""
-        let cellCount = Notification.sharedNoti.notifications.count
         
         let server = Server()
         server.deleteData(requestURL: "user/notification/\(originKey)", token: UserDefaults.standard.string(forKey: "token")!) { _, _, _ in
@@ -113,10 +142,7 @@ class NotificationViewController: UIViewController {
                 self.dismiss(animated: true)
             }
         }
-        
     }
-    
-    
 }
 
 extension NotificationViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -127,7 +153,12 @@ extension NotificationViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
-        let notifications = Notification.sharedNoti.notifications[indexPath.item]
+//        let notifications = Notification.sharedNoti.notifications[indexPath.item]
+        var notification = Notification.sharedNoti.notifications
+        notification.reverse()
+        let reversedNotifications = Array(notification)
+        let notifications = reversedNotifications[indexPath.item]
+        
         if notifications.title == "그룹 초대" {
             cell.yesButton.isHidden = false
             cell.noButton.isHidden = false
@@ -138,8 +169,9 @@ extension NotificationViewController: UICollectionViewDataSource, UICollectionVi
         }
         cell.messageLabel.numberOfLines = 0
         cell.messageLabel.text = notifications.message
-        print("message : \(notifications.message)")
         cell.messageLabel.numberOfLines = 0
+        
+        cell.titleLabel.text = notifications.title
         
         cell.notificationVC = self
         
@@ -149,13 +181,16 @@ extension NotificationViewController: UICollectionViewDataSource, UICollectionVi
         cell.noButton.tag = indexPath.item // 버튼에 해당 셀의 인덱스를 태그로 설정
         cell.noButton.addTarget(self, action: #selector(noButtonTapped(_:)), for: .touchUpInside)
         
+        cell.deleteButton.tag = indexPath.item
+        cell.deleteButton.addTarget(self, action: #selector(noButtonTapped(_:)), for: .touchUpInside)
+        
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 20
-        let height: CGFloat = 100
+        let height: CGFloat = 110
         return CGSize(width: width, height: height)
     }
 }

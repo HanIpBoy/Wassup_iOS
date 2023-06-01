@@ -27,4 +27,17 @@ class GroupSche {
     func updateGroupScheData(data: Format) {
         groupSche.append(data)
     }
+    
+    func findAndUpdateScheduleData(data: Format) {
+        if let index = GroupSche.shared3.groupSche.firstIndex(where: { $0.originKey == data.originKey }) {
+            // 특정 식별자를 가진 아이템의 인덱스를 찾음
+            groupSche[index] = data
+        }
+    }
+    func deleteScheduleData(data: Format) {
+        if let index = GroupSche.shared3.groupSche.firstIndex(where: { $0.originKey == data.originKey }) {
+            // 특정 식별자를 가진 아이템의 인덱스를 찾음
+            groupSche.remove(at: index)
+        }
+    }
 }

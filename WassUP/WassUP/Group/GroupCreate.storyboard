@@ -52,13 +52,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메모" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Tv-27-K4l">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="설명" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Tv-27-K4l">
                                         <rect key="frame" x="25" y="130.33333333333331" width="29.666666666666671" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="메모" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-gJ-Ucf">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="설명" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-gJ-Ucf">
                                         <rect key="frame" x="20" y="160.66666666666669" width="303" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="c5C-ez-67O"/>
@@ -414,11 +414,15 @@
                         <outlet property="groupUserBtn7" destination="VUV-zk-ZNu" id="nfk-zK-Aoe"/>
                         <outlet property="groupUserBtn8" destination="6cJ-6x-r0i" id="5gC-ch-EsU"/>
                         <outlet property="groupUserBtn9" destination="XrU-V1-C9q" id="mmG-wc-Hnv"/>
+                        <outlet property="groupUsersView" destination="1M3-Dz-hnc" id="1rY-wi-E7X"/>
                         <outlet property="memoTextField" destination="S7i-gJ-Ucf" id="zOx-Kx-x9j"/>
                         <outlet property="myView" destination="2Yi-rW-0P6" id="2f6-Bm-XcE"/>
                         <outlet property="searchButton" destination="zKX-d6-6SW" id="Aju-bO-XBa"/>
+                        <outlet property="searchUserLabel" destination="Ra1-C9-x7w" id="BvF-JY-qtM"/>
+                        <outlet property="searchUserStackView" destination="udq-Fg-UAk" id="WSU-qk-vV6"/>
                         <outlet property="searchUserTextField" destination="LEA-YR-eeS" id="7rv-MA-WLi"/>
                         <outlet property="searchUserView" destination="xv2-hi-i96" id="Wn7-xh-rLI"/>
+                        <outlet property="titleLabel" destination="xHq-65-YKd" id="9mf-nw-hS6"/>
                         <outlet property="userIdLabel" destination="XFc-dH-ESk" id="IWw-Zz-ZGq"/>
                         <outlet property="userNameLabel" destination="div-0Q-Ncg" id="HpW-HV-vtv"/>
                     </connections>

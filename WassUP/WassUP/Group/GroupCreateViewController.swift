@@ -16,10 +16,16 @@ class GroupCreateViewController: UIViewController {
     @IBOutlet weak var searchButton: UIButton!
     
     @IBOutlet weak var searchUserView: UIView!
+    
+    @IBOutlet weak var searchUserLabel: UILabel!
+    @IBOutlet weak var searchUserStackView: UIStackView!
+    @IBOutlet weak var groupUsersView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
     
     @IBOutlet weak var addUserButton: UIButton!
+    
+    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var groupUserBtn1: UIButton!
     @IBOutlet weak var groupUserBtn2: UIButton!
@@ -44,6 +50,17 @@ class GroupCreateViewController: UIViewController {
         "groupUsers" : []
     ]
     
+    var updateMap : [String : Any] = [
+        "originKey": "",
+        "groupName" : "",
+        "description" : "",
+        "leaderId" : ""
+    ]
+    
+    var groupName: String!
+    var groupDescription: String!
+    var groupOriginKey: String!
+    var groupUsersEnable: Bool!
     
     var groupUsers : [String] = []
     var groupUserNames : [String] = []
@@ -51,14 +68,36 @@ class GroupCreateViewController: UIViewController {
     var buttonIndex = 1
     var buttons: [UIButton] = []
     
-    
-    
-    var groupVC = GroupViewController()
+    var groupVC: GroupViewController!
+    var groupScheduleVC: GroupScheduleViewController!
+    var groupTimeTableVC: GroupTimeTableViewController!
+
+    let createConfirmAlert = UIAlertController(title: "그룹 생성", message: "", preferredStyle: .alert)
+    let updateConfirmAlert = UIAlertController(title: "그룹 정보 수정", message: "", preferredStyle: .alert)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         
+        groupNameTextField.text = groupName ?? ""
+        memoTextField.text = groupDescription ?? ""
+        
+        if !groupUsersEnable {
+            searchUserStackView.isHidden = true
+            searchButton.isHidden = true
+            searchUserLabel.isHidden = true
+            searchUserTextField.isHidden = true
+            titleLabel.text = "그룹 정보 수정"
+            
+        }
+        else {
+            searchUserStackView.isHidden = false
+            searchButton.isHidden = false
+            searchUserLabel.isHidden = false
+            searchUserTextField.isHidden = false
+            titleLabel.text = "그룹 생성"
+
+        }
         
     }
     
@@ -144,47 +183,115 @@ class GroupCreateViewController: UIViewController {
         groupMap["description"] = memoTextField.text ?? ""
         groupMap["groupUsers"] = groupUsers
         
+        updateMap["groupName"] = groupNameTextField.text ?? ""
+        updateMap["description"] = memoTextField.text ?? ""
+        updateMap["originKey"] = groupOriginKey ?? ""
+        updateMap["leaderId"] = UserDefaults.standard.string(forKey: "userId") ?? ""
+        
         let server = Server()
-        server.postDataToServer(requestURL: "group/create", requestData: groupMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-            if let data = data {
-                if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-                   let json = jsonObject as? [String: Any],
-                   let dataArray = json["data"] as? [[String: Any]] {
-                    for dataEntry in dataArray {
-                        if let originKey = dataEntry["originKey"] as? String {
-                            let name = dataEntry["name"] as? String ?? ""
-                            let startAt = dataEntry["startAt"] as? String ?? ""
-                            let endAt = dataEntry["endAt"] as? String ?? ""
-                            let userId = dataEntry["userId"] as? String ?? ""
-                            let memo = dataEntry["memo"] as? String ?? ""
-                            let allDayToggle = dataEntry["allDayToggle"] as? String ?? ""
-                            let color = dataEntry["color"] as? String ?? ""
-                            let scheduleData = Schedule.Format(
-                                originKey: originKey,
-                                name: name,
-                                startAt: startAt,
-                                endAt: endAt,
-                                userId: userId,
-                                memo: memo,
-                                allDayToggle: allDayToggle,
-                                color: color
-                            )
-
-                            
+        if groupUsersEnable { // true면 생성
+            self.createConfirmAlert.message = "\(groupNameTextField.text!) 그룹을 생성하시겠습니까?"
+            self.present(self.createConfirmAlert, animated: true, completion: nil)
+            
+            createConfirmAlert.addAction(UIAlertAction(title: "생성", style: .destructive) { [self] action in
+                server.postDataToServer(requestURL: "group/create", requestData: groupMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+                    if let error = error {
+                        print("Error: \(error)")
+                        return
+                    }
+                    if let data = data {
+                        if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                           let json = jsonObject as? [String: Any],
+                           let dataArray = json["data"] as? [[String: Any]] {
+                            for dataEntry in dataArray {
+                                if let originKey = dataEntry["originKey"] as? String {
+                                    let groupName = dataEntry["groupName"] as? String ?? ""
+                                    let description = dataEntry["description"] as? String ?? ""
+                                    let numOfUsers = dataEntry["numOfUsers"] as? Int ?? 0
+                                    let groupUsers = dataEntry["groupUsers"] as? [String] ?? []
+                                    let leaderId = dataEntry["leaderId"] as? String ?? ""
+                                    
+                                    let groupData = Group.Format(
+                                        originKey: originKey,
+                                        groupName: groupName,
+                                        description: description,
+                                        numOfUsers: numOfUsers,
+                                        leaderId: leaderId,
+                                        groupUsers: groupUsers
+                                    )
+                                    DispatchQueue.main.async {
+                                        Group.shared2.updateGroupData(data: groupData)
+                                        self.groupVC.viewWillAppear(true)
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                }
+                            }
                         }
                     }
-                    DispatchQueue.main.async {
-                        self.groupVC.viewWillAppear(true)
-                    }
-                    
                 }
-            }
+            })
+            
+            createConfirmAlert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
+                self.dismiss(animated: true)
+            })
+            
         }
-        dismiss(animated: true, completion: nil)
+        
+        else { // false면 수정
+            self.updateConfirmAlert.message = " \(self.groupName!) 그룹 정보를 수정하시겠습니까?"
+            self.present(self.updateConfirmAlert, animated: true, completion: nil)
+            
+            updateConfirmAlert.addAction(UIAlertAction(title: "수정", style: .destructive) { [self] action in
+                server.updateData(requestURL: "group", requestData: updateMap, token: UserDefaults.standard.string(forKey: "token")!) { (data, response, error) in
+                    if let error = error {
+                        print("Error: \(error)")
+                        return
+                    }
+                    if let data = data {
+                        if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                           let json = jsonObject as? [String: Any],
+                           let dataArray = json["data"] as? [[String: Any]] {
+                            for dataEntry in dataArray {
+                                if let originKey = dataEntry["originKey"] as? String {
+                                    let groupName = dataEntry["groupName"] as? String ?? ""
+                                    let description = dataEntry["description"] as? String ?? ""
+                                    let numOfUsers = dataEntry["numOfUsers"] as? Int ?? 0
+                                    let groupUsers = dataEntry["groupUsers"] as? [String] ?? []
+                                    let leaderId = dataEntry["leaderId"] as? String ?? ""
+                                    
+                                    let groupData = Group.Format(
+                                        originKey: originKey,
+                                        groupName: groupName,
+                                        description: description,
+                                        numOfUsers: numOfUsers,
+                                        leaderId: leaderId,
+                                        groupUsers: groupUsers
+                                    )
+                                    Group.shared2.findAndUpdateGroupData(data: groupData)
+
+                                    DispatchQueue.main.async {
+                                        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+                                        let vcName = storyboard.instantiateViewController(withIdentifier: "TabBar")as? TabBarViewController
+                                        
+                                        vcName!.selectTab(at: 2)
+                                        vcName?.modalPresentationStyle = .fullScreen
+                                        vcName?.modalTransitionStyle = .crossDissolve
+                                        self.present(vcName!, animated: true, completion: nil)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            updateConfirmAlert.addAction(UIAlertAction(title: "취소", style: .cancel) { [self] action in
+                self.dismiss(animated: true, completion: nil)
+
+            })
+            
+        }
+        
+        
     }
     
     

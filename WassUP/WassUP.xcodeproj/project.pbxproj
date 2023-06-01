@@ -11,6 +11,8 @@
 		5B30F18E2A265F5D00A86FCB /* IntegratedSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B30F18D2A265F5D00A86FCB /* IntegratedSchedule.swift */; };
 		5B30F1902A268EBE00A86FCB /* WriteGroupSchedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B30F18F2A268EBE00A86FCB /* WriteGroupSchedule.storyboard */; };
 		5B30F1922A2690D100A86FCB /* WriteGroupScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B30F1912A2690D100A86FCB /* WriteGroupScheduleViewController.swift */; };
+		5B57BECB2A2765930076CD1C /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B57BECA2A2765930076CD1C /* LoadingViewController.swift */; };
+		5B7861352A28B66C0024B017 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7861342A28B66C0024B017 /* ListCell.swift */; };
 		5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA22A1EB90C00A0B054 /* Notification.swift */; };
 		5BC5ECA52A1EB9DE00A0B054 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */; };
 		5BC5ECA92A1EBE0100A0B054 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */; };
@@ -18,7 +20,6 @@
 		DE02078D2A1E24270057A000 /* GroupGarage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02078C2A1E24270057A000 /* GroupGarage.swift */; };
 		DE0207952A1E69C00057A000 /* GroupTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */; };
 		DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFE72A121AD7009C6EF6 /* Schedule.swift */; };
-		DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */; };
 		DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFED2A129652009C6EF6 /* GroupViewController.swift */; };
 		DE02FFF12A1297FC009C6EF6 /* GroupListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */; };
 		DE02FFF32A129E74009C6EF6 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02FFF22A129E74009C6EF6 /* Group.swift */; };
@@ -48,8 +49,6 @@
 		DEAA65492A1618E0007993E0 /* GroupSche.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA65482A1618E0007993E0 /* GroupSche.swift */; };
 		DEB7D58E2A18EAA5004B10CA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */; };
 		DECF8D3D2A03C3CB00A07C4E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = DECF8D3C2A03C3CB00A07C4E /* FSCalendar */; };
-		DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */; };
-		DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECF8D412A03CAC500A07C4E /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +73,8 @@
 		5B30F18D2A265F5D00A86FCB /* IntegratedSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegratedSchedule.swift; sourceTree = "<group>"; };
 		5B30F18F2A268EBE00A86FCB /* WriteGroupSchedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WriteGroupSchedule.storyboard; sourceTree = "<group>"; };
 		5B30F1912A2690D100A86FCB /* WriteGroupScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteGroupScheduleViewController.swift; sourceTree = "<group>"; };
+		5B57BECA2A2765930076CD1C /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		5B7861342A28B66C0024B017 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		5BC5ECA22A1EB90C00A0B054 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		5BC5ECA42A1EB9DE00A0B054 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		5BC5ECA82A1EBE0100A0B054 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		DE02078C2A1E24270057A000 /* GroupGarage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupGarage.swift; sourceTree = "<group>"; };
 		DE0207942A1E69C00057A000 /* GroupTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTimeTableViewController.swift; sourceTree = "<group>"; };
 		DE02FFE72A121AD7009C6EF6 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
-		DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE02FFED2A129652009C6EF6 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		DE02FFF02A1297FC009C6EF6 /* GroupListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE02FFF22A129E74009C6EF6 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -114,8 +114,6 @@
 		DEAA65462A16116B007993E0 /* GroupScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
 		DEAA65482A1618E0007993E0 /* GroupSche.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSche.swift; sourceTree = "<group>"; };
 		DEB7D58D2A18EAA5004B10CA /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
-		DECF8D412A03CAC500A07C4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +142,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B57BEC92A27653F0076CD1C /* UICustomizations */ = {
+			isa = PBXGroup;
+			children = (
+				5B57BECA2A2765930076CD1C /* LoadingViewController.swift */,
+			);
+			path = UICustomizations;
+			sourceTree = "<group>";
+		};
 		5BC5ECAA2A1EBE2F00A0B054 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +198,7 @@
 				DE2850CF29D1DD48000CDE9C /* TabBarViewController.swift */,
 				DE02FFED2A129652009C6EF6 /* GroupViewController.swift */,
 				DE2850CB29D1D886000CDE9C /* ScheduleViewController.swift */,
+				5B7861342A28B66C0024B017 /* ListCell.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -230,9 +237,9 @@
 		DE45073029C904B600365556 /* WassUP */ = {
 			isa = PBXGroup;
 			children = (
+				5B57BEC92A27653F0076CD1C /* UICustomizations */,
 				DE1163792A0A5CEC00C29FF1 /* Model */,
 				DE02FFEF2A1297E8009C6EF6 /* Group */,
-				DECF8D3E2A03CAAA00A07C4E /* Detail */,
 				DE45076529C9064800365556 /* Login */,
 				DE2850D329D1E687000CDE9C /* Write */,
 				DE2850CA29D1D874000CDE9C /* TabBar */,
@@ -280,16 +287,6 @@
 				DE45076B29C9146700365556 /* SignIn.storyboard */,
 			);
 			path = SignIn;
-			sourceTree = "<group>";
-		};
-		DECF8D3E2A03CAAA00A07C4E /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				DECF8D3F2A03CAB400A07C4E /* Detail.storyboard */,
-				DECF8D412A03CAC500A07C4E /* DetailViewController.swift */,
-				DE02FFEB2A123D0F009C6EF6 /* ListCollectionViewCell.swift */,
-			);
-			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,7 +407,6 @@
 				DE2850D529D1E696000CDE9C /* Write.storyboard in Resources */,
 				DE45076429C9051900365556 /* Login.storyboard in Resources */,
 				DE6ACA922A24F9660018B3DF /* GroupCreate.storyboard in Resources */,
-				DECF8D402A03CAB400A07C4E /* Detail.storyboard in Resources */,
 				DE45073E29C904B700365556 /* LaunchScreen.storyboard in Resources */,
 				DE45073B29C904B700365556 /* Assets.xcassets in Resources */,
 			);
@@ -440,12 +436,13 @@
 				DE1163762A0A1D2200C29FF1 /* Server.swift in Sources */,
 				DEAA65472A16116B007993E0 /* GroupScheduleCollectionViewCell.swift in Sources */,
 				DE6ACA942A24F9710018B3DF /* GroupCreateViewController.swift in Sources */,
+				5B7861352A28B66C0024B017 /* ListCell.swift in Sources */,
+				5B57BECB2A2765930076CD1C /* LoadingViewController.swift in Sources */,
 				DEB7D58E2A18EAA5004B10CA /* CustomCell.swift in Sources */,
 				5BC5ECA32A1EB90C00A0B054 /* Notification.swift in Sources */,
 				DE02FFF12A1297FC009C6EF6 /* GroupListCollectionViewCell.swift in Sources */,
 				DE68F8152A0D0130007F0C00 /* SettingViewController.swift in Sources */,
 				DE02FFF32A129E74009C6EF6 /* Group.swift in Sources */,
-				DECF8D422A03CAC500A07C4E /* DetailViewController.swift in Sources */,
 				DE2850CC29D1D886000CDE9C /* ScheduleViewController.swift in Sources */,
 				DE0207952A1E69C00057A000 /* GroupTimeTableViewController.swift in Sources */,
 				5BC5ECA92A1EBE0100A0B054 /* NotificationViewController.swift in Sources */,
@@ -454,7 +451,6 @@
 				DE02FFEE2A129652009C6EF6 /* GroupViewController.swift in Sources */,
 				DEAA65492A1618E0007993E0 /* GroupSche.swift in Sources */,
 				DE02FFE82A121AD7009C6EF6 /* Schedule.swift in Sources */,
-				DE02FFEC2A123D0F009C6EF6 /* ListCollectionViewCell.swift in Sources */,
 				DE45076729C9073600365556 /* LoginViewController.swift in Sources */,
 				DE1163742A09DE4800C29FF1 /* User.swift in Sources */,
 				DE02078D2A1E24270057A000 /* GroupGarage.swift in Sources */,
