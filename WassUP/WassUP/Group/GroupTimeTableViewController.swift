@@ -568,7 +568,9 @@ extension GroupTimeTableViewController {
             self.startDateOfWeekKR = calendar.date(byAdding: .second, value: timeZone?.secondsFromGMT(for: self.startDateOfWeek) ?? 0, to: self.startDateOfWeek)!
             self.endDateOfWeekKR = calendar.date(byAdding: .second, value: timeZone?.secondsFromGMT(for: self.endDateOfWeek) ?? 0, to: self.endDateOfWeek)!
             
-            for element in self.integrated {
+            let final = self.seperateDate(data: self.integrated)
+            
+            for element in final {
                 let elementDate = dateFormatter.date(from:element.startAt) // bar로 만들 데이터의 시작 날짜
                 let elementDateKR = calendar.date(byAdding: .second, value: timeZone?.secondsFromGMT(for: elementDate!) ?? 0, to: elementDate!)
                 
@@ -605,6 +607,69 @@ extension GroupTimeTableViewController {
         
         print("Execution time: \(executionTime) seconds")
     }
+    
+    func seperateDate(data: [IntegratedSchedule.Format]) -> [IntegratedSchedule.Format] {
+        var seperated2 : [IntegratedSchedule.Format] = []
+        for schedule in data {
+            
+            let startDay = String(schedule.startAt.split(separator: "T")[0])
+            let endDay = String(schedule.endAt.split(separator: "T")[0])
+            print("start and endDay \(startDay)")
+            
+            let startDayToDate = stringToDate(dateFormatString: "yyyy-MM-dd", dateString: startDay)
+            let endDayToDate = stringToDate(dateFormatString: "yyyy-MM-dd", dateString: endDay)
+            
+            let comparisonResult = startDayToDate.compare(endDayToDate)
+            
+            if comparisonResult == .orderedAscending { // 일정이 2일 이상
+                print("date1은 date2보다 이전입니다.")
+                
+                let dateDifference = calculateDateDifference(startAtDate: startDayToDate, endAtDate: endDayToDate)
+                
+                // 일정 시작 날
+                var start = schedule
+                var end = schedule
+                
+                start.endAt = startDay + "T23:59"
+                seperated2.append(start)
+                
+                end.startAt = endDay + "T00:00"
+                seperated2.append(end)
+                
+                // 중간에 껴있는 일정 수만큼 loop
+                for i in 1..<Int(dateDifference.day!) {
+                    var schedule = IntegratedSchedule.Format(originKey: schedule.originKey, groupOriginKey: schedule.groupOriginKey, name: schedule.name, userId: schedule.userId, startAt: calculateNextDay(startAtDate: startDayToDate, value: i)!+"T00:00", endAt: calculateNextDay(startAtDate: startDayToDate, value: i)!+"T23:59", memo: schedule.memo, allDayToggle: "true", color: schedule.color)
+                    seperated2.append(schedule)
+                }
+                
+            } else if comparisonResult == .orderedSame { // 당일 일정
+                seperated2.append(schedule)
+            }
+        }
+        return seperated2
+        
+    }
+    func stringToDate(dateFormatString: String, dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormatString
+        return dateFormatter.date(from: dateString)!
+    }
+    func calculateDateDifference(startAtDate: Date, endAtDate: Date) -> DateComponents {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: startAtDate, to: endAtDate)
+        return components
+    }
+    func calculateNextDay(startAtDate: Date, value: Int) -> String? {
+        let calendar = Calendar.current
+        let nextDay = calendar.date(byAdding: .day, value: value, to: startAtDate)
+        return dateToString(dateFormatString: "yyyy-MM-dd", date: nextDay!)
+    }
+    func dateToString(dateFormatString: String, date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormatString
+        return dateFormatter.string(from: date)
+    }
+
 
     
 }

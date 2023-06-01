@@ -23,7 +23,6 @@ class IntegratedSchedule {
         var memo: String
         var allDayToggle: String
         var color : String
-        
     }
     
     func updateIntegrated(data: Format) {

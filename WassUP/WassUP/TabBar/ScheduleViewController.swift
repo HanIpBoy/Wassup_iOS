@@ -30,6 +30,7 @@ class ScheduleViewController: UIViewController {
     var filtered : [Schedule.Format] = []
     var groupFiltered: [GroupSche.Format] = []
     var integrated: [Integrated] = []
+    var seperated: [Integrated] = []
     var filteredIntegrated: [Integrated] = []
     
     override func viewDidLoad() {
@@ -77,7 +78,7 @@ class ScheduleViewController: UIViewController {
                     }
                     
                     DispatchQueue.main.async { [self] in
-                        calendarReloadData()
+                        
                         
                         for i in 0..<filtered.count {
                             let integratedInstance = Integrated(originKey: filtered[i].originKey, groupOriginKey: "", name: filtered[i].name, userId: filtered[i].userId, startAt: filtered[i].startAt, endAt: filtered[i].endAt, memo: filtered[i].memo, allDayToggle: filtered[i].allDayToggle, color: filtered[i].color)
@@ -88,9 +89,11 @@ class ScheduleViewController: UIViewController {
                             let integratedInstance = Integrated(originKey: groupFiltered[i].originKey, groupOriginKey: groupFiltered[i].groupOriginKey, name: groupFiltered[i].name, userId: "", startAt: groupFiltered[i].startAt, endAt: groupFiltered[i].endAt, memo: groupFiltered[i].memo, allDayToggle: groupFiltered[i].allDayToggle, color: groupFiltered[i].color)
                             integrated.append(integratedInstance)
                         }
-
-                               
+                        
+                        seperated = seperateDate(data: integrated)
                         updateListView()
+                        calendarReloadData()
+
                     }
                 } catch {
                     print("JSON serialization error: \(error)")
@@ -123,6 +126,7 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         
         selectDate = date
         dateLabel.text = dateToString(dateFormatString: "M월 d일 E", date: date)
+        seperated = seperateDate(data: integrated)
         updateListView()
     }
     
@@ -130,13 +134,12 @@ extension ScheduleViewController : FSCalendarDelegate, FSCalendarDataSource {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
-        let filtered2 = filtered.filter { schedule in
+
+        var filteredIntegrated2 = seperated.filter { schedule in
             return schedule.startAt.contains(dateString)
         }
-        let filtered3 = groupFiltered.filter { schedule in
-            return schedule.startAt.contains(dateString)
-        }
-        return filtered2.count + filtered3.count
+        
+        return filteredIntegrated2.count
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, weekdayTextColorFor weekday: Int) -> UIColor? {
@@ -179,6 +182,8 @@ extension ScheduleViewController: UICollectionViewDelegate, UICollectionViewDele
         } else {
             cell.startHourLabel.text = String(schedule.startAt.split(separator: "T")[1])
             cell.endHourLabel.text = String(schedule.endAt.split(separator: "T")[1])
+            cell.minusLabel.text = "-"
+
         }
         
         cell.cellOriginKey = schedule.originKey
@@ -331,12 +336,70 @@ extension ScheduleViewController {
     }
     
     func updateListView() {
-        filteredIntegrated = []
-        filteredIntegrated = integrated.filter { schedule in
+     
+        filteredIntegrated = seperated.filter { schedule in
             return schedule.startAt.contains(dateToString(dateFormatString: "yyyy-MM-dd", date: selectDate))
         }
         listView.reloadData()
     }
+    
+    func seperateDate(data: [Integrated]) -> [Integrated] {
+        var seperated2 : [Integrated] = []
+        for schedule in data {
+            
+            let startDay = String(schedule.startAt.split(separator: "T")[0])
+            let endDay = String(schedule.endAt.split(separator: "T")[0])
+            print("start and endDay \(startDay)")
+            
+            let startDayToDate = stringToDate(dateFormatString: "yyyy-MM-dd", dateString: startDay)
+            let endDayToDate = stringToDate(dateFormatString: "yyyy-MM-dd", dateString: endDay)
+            
+            let comparisonResult = startDayToDate.compare(endDayToDate)
+            
+            if comparisonResult == .orderedAscending { // 일정이 2일 이상
+                print("date1은 date2보다 이전입니다.")
+                
+                let dateDifference = calculateDateDifference(startAtDate: startDayToDate, endAtDate: endDayToDate)
+                
+                // 일정 시작 날
+                var start = schedule
+                var end = schedule
+                
+                start.endAt = startDay + "T23:59"
+                seperated2.append(start)
+                
+                end.startAt = endDay + "T00:00"
+                seperated2.append(end)
+                
+                // 중간에 껴있는 일정 수만큼 loop
+                for i in 1..<Int(dateDifference.day!) {
+                    var schedule = Integrated(originKey: schedule.originKey, groupOriginKey: schedule.groupOriginKey, name: schedule.name, userId: schedule.userId, startAt: calculateNextDay(startAtDate: startDayToDate, value: i)!, endAt: calculateNextDay(startAtDate: startDayToDate, value: i)!, memo: schedule.memo, allDayToggle: "true", color: schedule.color)
+                    seperated2.append(schedule)
+                }
+                
+            } else if comparisonResult == .orderedSame { // 당일 일정
+                seperated2.append(schedule)
+            }
+        }
+        return seperated2
+        
+    }
+    func stringToDate(dateFormatString: String, dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormatString
+        return dateFormatter.date(from: dateString)!
+    }
+    func calculateDateDifference(startAtDate: Date, endAtDate: Date) -> DateComponents {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: startAtDate, to: endAtDate)
+        return components
+    }
+    func calculateNextDay(startAtDate: Date, value: Int) -> String? {
+        let calendar = Calendar.current
+        let nextDay = calendar.date(byAdding: .day, value: value, to: startAtDate)
+        return dateToString(dateFormatString: "yyyy-MM-dd", date: nextDay!)
+    }
+
     
 }
 
