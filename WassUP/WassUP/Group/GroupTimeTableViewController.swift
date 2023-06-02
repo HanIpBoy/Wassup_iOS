@@ -74,16 +74,6 @@ class GroupTimeTableViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.1){ [self] in
             // LoadingViewController의 뷰를 loadingView에 추가
-            
-            // loadingView가 3초동안 천천히 흐려지다가 완전히 안보이게끔 해줘
-            UIView.animate(withDuration: 0.5, animations: {
-                self.loadingView.alpha = 0.0
-            }, completion: { _ in
-                // 애니메이션이 완료된 후, loadingView를 제거합니다.
-                self.loadingViewController.willMove(toParent: nil)
-                self.loadingViewController.view.removeFromSuperview()
-                self.loadingViewController.removeFromParent()
-            })
             makeDataSourceAndDelegate(collectionView: firstCollectionView)
             makeDataSourceAndDelegate(collectionView: secondCollectionView)
             makeDataSourceAndDelegate(collectionView: thirdCollectionView)
@@ -91,6 +81,16 @@ class GroupTimeTableViewController: UIViewController {
             makeDataSourceAndDelegate(collectionView: fifthCollectionView)
             makeDataSourceAndDelegate(collectionView: sixthCollectionView)
             makeDataSourceAndDelegate(collectionView: seventhCollectionView)
+            // loadingView가 3초동안 천천히 흐려지다가 완전히 안보이게끔 해줘
+            UIView.animate(withDuration: 3.0, animations: {
+                self.loadingView.alpha = 0.0
+            }, completion: { _ in
+                // 애니메이션이 완료된 후, loadingView를 제거합니다.
+                self.loadingViewController.willMove(toParent: nil)
+                self.loadingViewController.view.removeFromSuperview()
+                self.loadingViewController.removeFromParent()
+            })
+
         }
         
         groupIDs = groupUsers["groupUsers"] as! [String]
