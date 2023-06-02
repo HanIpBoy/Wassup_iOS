@@ -339,4 +339,13 @@ extension GroupCreateViewController {
         groupUsers.append(UserDefaults.standard.string(forKey: "userId")!)
         groupUserNames.append(UserDefaults.standard.string(forKey: "userName")!)
     }
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
